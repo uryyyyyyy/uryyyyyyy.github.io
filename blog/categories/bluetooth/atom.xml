@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: BlueTooth | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/bluetooth/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Thinkpad(bluetooth)のペアリング]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/25/thinkpad-bluetooth/"/>
+    <updated>2014-05-25T10:55:20+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/25/thinkpad-bluetooth</id>
+    <content type="html"><![CDATA[<p>ThinkPad Keybord(BlueTooth)のペアリングが手こずったのでメモ</p>
+
+<!--more-->
+
+<p>ThinkPad KeybordをNotePCで使えるようにしたかったのですが、
+Ubuntu14.04のBlueTooth接続を通してもなぜか失敗します。</p>
+
+<p>（厳密にいうと、PinIDを入力してくださいと言われるんですが、入力してもfailになる。）</p>
+
+<h3 id="blueman">BlueMan</h3>
+
+<p>ひどく困ったので色々とググってみると、同じような事例の人を発見。</p>
+
+<p>解決方法はというと、DefaultでないBlueTooth設定ソフト（BlueMan）というのを入れればいいとのこと。</p>
+
+<p>早速</p>
+
+<p>```
+$ sudo apt-get install blueman</p>
+
+<p>$ blueman-manager
+```</p>
+
+<p>で、特にPinを入力しなくてもペアリング設定ができました。</p>
+]]></content>
+  </entry>
+  
+</feed>

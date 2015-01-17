@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Function | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/function/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MacbookでUbuntuのfn設定を直す]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/22/macbook-ubuntu-func-key/"/>
+    <updated>2014-06-22T03:31:50+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/22/macbook-ubuntu-func-key</id>
+    <content type="html"><![CDATA[<p>MacBookAirにもUbuntuを入れているのですが、Fnキーの設定がひっくり返っているので修正。</p>
+
+<!--more-->
+
+<p>簡単に言うと、
+Ｆ７の操作（編集中の文字をカタカナにする）などを押そうと思ったら、そのままでなくFn+F7を押さないといけなくなってしまっている状態なので、標準のキーに戻します。</p>
+
+<p><code>
+sudo vim /etc/rc.local
+</code></p>
+
+<p>で開いたfileの<code>exit 0</code>の前に</p>
+
+<p><code>
+echo 2 &gt; /sys/module/hid_apple/parameters/fnmode
+</code></p>
+
+<p>を入れるとfnキーの設定が改善される。</p>
+]]></content>
+  </entry>
+  
+</feed>

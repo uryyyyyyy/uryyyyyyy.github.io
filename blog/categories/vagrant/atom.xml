@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vagrant | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/vagrant/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[docker on vagrant]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/28/docker-on-vagrant/"/>
+    <updated>2014-06-28T12:38:28+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/28/docker-on-vagrant</id>
+    <content type="html"><![CDATA[<p>Vagrant上でDockerを動かしてみたので、そのメモ。</p>
+
+<p><a href="https://gist.github.com/yasushiyy/9923d68e4811d458fbe0">参考URL</a>
+<a href="http://deeeet.com/writing/2014/05/08/vagrant-docker-provider/">参考URL</a></p>
+
+<!--more-->
+
+<h3 id="docker-on-coreos-on-vagrant">Docker on CoreOS on Vagrant</h3>
+
+<h4 id="environment">Environment</h4>
+
+<p>HostOS : Ubuntu14.04
+Vagrant : 1.6.3
+CoreOS : </p>
+
+<h4 id="setup">Setup</h4>
+
+<p><code>
+git clone https://github.com/coreos/coreos-vagrant.git
+cd coreos-vagrant
+vagrant up
+</code></p>
+
+<p>これでCoreOSに繋げた。既にDockerは入ってるので自由に使える。</p>
+
+<h4 id="troubles">Troubles</h4>
+
+<p><code>
+It appears your machine doesn't support NFS
+</code></p>
+
+<p>nfs-karnel-serverなるものを入れたら動いた。</p>
+
+<p><code>
+Insecure world writable dir　------
+</code></p>
+
+<p>前から言われていたやつ。virtualboxで設定してるフォルダが誰でも書き換え可能だったので出ていた。権限を775にしたら問題なし。</p>
+
+<h3 id="docker-on-vagrant">Docker on Vagrant</h3>
+
+<p>Vagrant1.6から、CoreOSを間に挟まなくても、HostOSからそのままdockerを立ちあげれるようになったらしいです。</p>
+
+<h4 id="environment-1">Environment</h4>
+
+<ul>
+  <li>HostOS : Ubuntu14.04</li>
+  <li>Vagrant : 1.6.3</li>
+  <li>Docker : 0.9.1</li>
+</ul>
+
+<h4 id="dockerfile">Dockerfileを作る</h4>
+
+<p>```
+FROM ubuntu:12.04</p>
+
+<p>RUN apt-get update
+RUN apt-get install -y apache2</p>
+
+<p>ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2</p>
+
+<p>RUN echo ‘Hello, vagrant docker provider’ &gt; /var/www/index.html</p>
+
+<p>EXPOSE 80
+ENTRYPOINT [“/usr/sbin/apache2”]
+CMD [“-D”, “FOREGROUND”]
+```</p>
+
+<h4 id="vagrantfile">Vagrantfileを作る</h4>
+
+<p><code>
+Vagrant.configure("2") do |config|
+    config.vm.provider "docker" do |d|
+        d.build_dir = "."
+    end
+    config.vm.network :forwarded_port, guest: 80, host: 8080
+end
+</code></p>
+
+<h4 id="section">起動する</h4>
+
+<p><code>
+sudo vagrant up --provider=docker
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

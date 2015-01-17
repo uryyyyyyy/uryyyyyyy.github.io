@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DevOps | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/devops/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[チーム開発実践入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/08/team-devops/"/>
+    <updated>2014-06-08T11:33:34+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/08/team-devops</id>
+    <content type="html"><![CDATA[<p>チーム開発の問題点と、それを解決するツールやノウハウをひとまとめにしたものです。</p>
+
+<p>「なんでこういう手法になっているのか？」というのが体系的に学べると思います。</p>
+
+<!--more-->
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774164283/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51ZhxAcsdkL.jpg" width="322" height="500" alt="チーム開発実践入門 ~共同作業を円滑に行うツール・メソッド (WEB+DB PRESS plus)" title="チーム開発実践入門 ~共同作業を円滑に行うツール・メソッド (WEB+DB PRESS plus)" /></a></p>
+
+<h3 id="section">バージョン管理</h3>
+
+<h3 id="section-1">チケット管理</h3>
+
+<h3 id="cicd">CI・CD</h3>
+
+<h3 id="test">Test</h3>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Java | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Javaで桁数を数値を持ってくる]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/15/number-of-digits/"/>
+    <updated>2014-06-15T18:13:04+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/15/number-of-digits</id>
+    <content type="html"><![CDATA[<p>Javaで、数値の桁数をとってくるのに非常に難儀したお話。</p>
+
+<!--more-->
+
+<p>やりたいこととしては、各桁の数字と、それが何の位なのかってのが欲しかったのです。</p>
+
+<p>で、やってみると、数値を一桁ずつ取れないし、charに直しても、Integer.valueOf(charA)とかってやると文字コードの数字がとれて使えないしで困りました。</p>
+
+<p>結果的にこんなカンジに。。。</p>
+
+<p><code>
+private List&lt;Number&gt; createNumber(int input) {
+		List&lt;Number&gt; list = new ArrayList&lt;&gt;();
+		int inputLength = String.valueOf(input).length();
+		for(int i=0; i &lt; inputLength; i++){
+			list.add(new Number(pow(i), Integer.valueOf(String.valueOf(input).substring(inputLength-1 - i, inputLength - i))));
+		}
+		return list;
+	}
+</code></p>
+
+<p>適当ですがオブジェクトはこんなカンジ。</p>
+
+<p>```
+public class Number {
+	private final int figure;
+	private final int number;</p>
+
+<pre><code>public Number(int figure, int number) {
+	super();
+	assert(figure%10 == 0);//1,10,100,1000とか入る
+	this.figure = figure;
+	
+	assert(number/10 == 0);//0〜9が入る
+	this.number = number;
+} ```
+</code></pre>
+
+<p>もっとうまい方法あるのかな？</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[validatorの扱い]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/02/validator-usage/"/>
+    <updated>2014-06-02T22:39:55+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/02/validator-usage</id>
+    <content type="html"><![CDATA[<p>今日はValidatorをどこのパッケージに入れておくべきか、ということを話していました。</p>
+
+<!--more-->
+
+<h3 id="section">前提条件</h3>
+
+<ul>
+  <li>変更はパッケージ内で完結するべき。</li>
+  <li>なるべく他のクラスを知らないことが望ましい。</li>
+  <li>クラスは一つの責務だけ持つべし。</li>
+  <li>Validatorには種類がある</li>
+</ul>
+
+<p>以上の条件を元に、なるべく良い設計を考えます。</p>
+
+<h3 id="validator">Validatorの種類について</h3>
+
+<h4 id="section-1">１ データ型からありえないもの</h4>
+
+<p>データとして明らかにおかしいもの（Priceなのに文字列・マイナス値など。）を予め除去しておくもの。</p>
+
+<p>主にDTOの生成時に検証する。</p>
+
+<p>不正なデータが入力されうるのは、ユーザーからのアクセス、外部APIなど。</p>
+
+<h4 id="section-2">２ その処理の中ではありえないもの。</h4>
+
+<p>その処理の中で存在してはいけないデータの構造（ID値が重複している・アダルトコーナーに18歳未満がいる、など。）</p>
+
+<p>主にServiceの中で検証する。</p>
+
+<p>基本的にはServiceと対になると思われる。</p>
+
+<h3 id="section-3">構成案</h3>
+
+<p>１はDTOと同じパッケージ</p>
+
+<p>２はServiceと同じパッケージ</p>
+
+<p>とかに入れておくといいのではと思います。</p>
+
+<p>DTOにValidationを知られたくない気もしますが、これは仕方ないかと。</p>
+]]></content>
+  </entry>
+  
+</feed>

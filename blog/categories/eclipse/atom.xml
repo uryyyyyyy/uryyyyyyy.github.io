@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Eclipse | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/eclipse/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[eclipseの個人的設定]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/24/eclipse-shortcut/"/>
+    <updated>2014-05-24T23:55:51+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/24/eclipse-shortcut</id>
+    <content type="html"><![CDATA[<p>自宅のPC（Desktop、NotePC）の両方にUbuntu14.04をブチ込んだので、
+実行環境が同じだろうということで、EclipseをDropBoxに入れて共有してます。</p>
+
+<p>（かなりアクロバットなのは認めます。同時に開くとなんか競合しそうですし。）</p>
+
+<!--more-->
+
+<p>で、せっかくなので、個人的設定を記録しておきます。
+後日追記するかもしれません。</p>
+
+<h3 id="keybind">KeyBind</h3>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Key</li>
+  <li>search types you want to change</li>
+</ol>
+
+<h4 id="content-assist---ctrl--space"><code>Content Assist</code> -&gt; Ctrl + Space</h4>
+
+<p>Ubuntuだと補完コマンド<code>Content Assist</code>のデフォルトのKeyBindが変なので、
+とりあえずいつものに設定。</p>
+
+<h4 id="nextprevious-tab---ctrl--tab--shift">Next/Previous Tab -&gt; Ctrl + Tab [+ Shift]</h4>
+
+<p>Chromeのタブ移動に慣れているのでこれは外せません。</p>
+
+<h4 id="quick-fix---ctrl--shift--space">Quick Fix -&gt; Ctrl + Shift + Space</h4>
+
+<p>標準ではCtrl +1ですが、押しにくいのでこれを追加します（※まだ実運用してないので、もしかしたらトラブるかも）</p>
+
+<h3 id="content-assist">Content Assist</h3>
+
+<p>Javaでは<code>Ctrl + Space</code>でContent Assistが使えますが、常に表示されてたら嬉しいなって。</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;Java-&gt;Editor-&gt; Content Assist</li>
+  <li>select Auto Activation Trigger</li>
+  <li>put <code>.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_</code></li>
+  <li>select Auto Activation Delay</li>
+  <li>put 80 (less than 200)</li>
+</ol>
+
+<h3 id="color-theme">Color Theme</h3>
+
+<p>白地は目がチカチカするので、地味めな色になるようにします。</p>
+
+<ol>
+  <li>http://eclipse-color-theme.github.com/update/ をインストール</li>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Appearance-&gt;Color Theme</li>
+  <li>select <code>Obsidian</code> (choose you like)</li>
+</ol>
+
+<h3 id="editor">Editor設定</h3>
+
+<h4 id="space">4Spaceがタブになるようにする。</h4>
+
+<p>周りがタブ派なのでそれに倣って。</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt; Java -&gt; Code Style -&gt; Formatter</li>
+  <li>Indentation</li>
+  <li><code>Tab Only</code> and <code>Tab Size</code>-&gt;4</li>
+</ol>
+
+<h4 id="font">Font調整</h4>
+
+<p>小さいと見づらいので適当に調整</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Appearance-&gt;Colors and Fonts </li>
+  <li>Edit</li>
+  <li><code>Font</code>-&gt; takaoPGothic <code>Size</code>-&gt;14~18</li>
+</ol>
+
+<h3 id="plugin">Plugin</h3>
+
+<p>あんまり依存したくないので控えめに。</p>
+
+<h4 id="quick-junit">Quick JUnit</h4>
+
+<p>必須かと。テストがかなりやりやすくなる。</p>
+
+<h4 id="findbugs">FindBugs</h4>
+
+<p>気が向いたら回す。</p>
+
+<h4 id="scalaide">ScalaIDE</h4>
+
+<p>個人用のEclipseには入れてみた。</p>
+
+<p>まだ全然遊んでないけど</p>
+
+<h3 id="section">その他</h3>
+
+<h4 id="section-1">検索したファイルを新しいタブで開いてほしい</h4>
+
+<ol>
+  <li>Window-&gt;Preference-&gt;General-&gt;Search</li>
+  <li>off <code>Reuse editors to show matches</code></li>
+</ol>
+]]></content>
+  </entry>
+  
+</feed>

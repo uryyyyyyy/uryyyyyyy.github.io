@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: NOSQL | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/nosql/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[NOSQLの基礎知識]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/"/>
+    <updated>2014-09-15T22:44:52+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql</id>
+    <content type="html"><![CDATA[<p>職場で使うかは未定ですが知識は入れておかないとと思って。</p>
+
+<p>※スケールアウトについて書きますが、NOSQLと書いてあるとおり、データストレージに関する話です。
+APサーバー側は触れません。</p>
+
+<!--more-->
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4897978874/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41yDPT8jPyL.jpg" width="358" height="500" alt="NOSQLの基礎知識 (ビッグデータを活かすデータベース技術)" title="NOSQLの基礎知識 (ビッグデータを活かすデータベース技術)" /></a></p>
+
+<p>http://qcontokyo.com/tokyo-2009/pdf/GeneralSession-Day2-Maruyama.pdf</p>
+
+<h2 id="rdb">既存の手法（RDB）の問題点</h2>
+
+<p>多数のアクセス（書き込み）を効率的に捌けない。</p>
+
+<p>なんとかさばこうとすると、かなり高いマシンを用意する必要がある。
+（スケールアップ）</p>
+
+<h2 id="section">解決策</h2>
+
+<p>複数の汎用機で代替させる。
+（スケールアウト）</p>
+
+<p>ハードに頼るのではなく、ソフトで対応する。</p>
+
+<h2 id="section-1">その際に生じる問題</h2>
+
+<h3 id="section-2">マシンの台数が増えると、マシン・ネットワークエラーの確率が無視できなくなる。</h3>
+
+<p>解決策</p>
+
+<p>→NOSQLと分散技術</p>
+
+<h3 id="section-3">複数台でデータの整合性を保つのが難しくなる。</h3>
+
+<p>解決策</p>
+
+<p>→NOSQLとCAP定理</p>
+
+<h3 id="nosql">NOSQLとは？</h3>
+
+<p>厳密には、RDB以外。</p>
+
+<p>ざっくりというと、複数台前提の用途特化型DB</p>
+
+<p>シンプルで十分な場合。</p>
+
+<h3 id="cap">CAP定理とは？</h3>
+
+<p>C・・・Consistency</p>
+
+<p>A・・・Availability</p>
+
+<p>P・・・Partition-tolerance</p>
+
+<p>CA・・・全てのデータはいつでも矛盾がなくアクセスできる。ただしスケールアウトしない。（RDBなど）</p>
+
+<p>AP・・・エラーが起きても常にアクセスできるが、データの整合性は保証しない（Dynamoなど）</p>
+
+<p>CP・・・マスターで複数台を管理し、大量に捌ける。マスターから外されたらアクセスできない。（Google Tableなど）</p>
+
+<h2 id="acidbase">acidとbase</h2>
+
+<p>RDBがacidと思えば良いかな。</p>
+
+<p>ACID・・・Atomic Consistency Isolation Durability</p>
+
+<p>クラウドでは、可用性も分散も必須。
+すると整合性を弱めるしかない。</p>
+
+<p>BASE・・・Basically Available Soft-state Eventual Consistency</p>
+
+<p>そもそも、物理的に距離が離れていたら結果整合性に頼らざるを得なくなる。
+（東京で書き込みを行う際にアメリカまでLockの命令を飛ばして帰ってきてから更新して、それが終わったらまたアメリカへ完了を通知して、、、なんてやってられない。）</p>
+
+<p>※BASEの実現方法として、書き込みをQueueに積んでおく。読み込むデータを非同期レプリケーションして古いものを許容する。の二種類があると思う。
+前者はPrimary Keyを持つものなどに注意が必要。（TimeStamp VectorClockなどで処理する方法がある。）</p>
+
+<h3 id="dbms">用途別のDBMS選び方の例</h3>
+
+<h4 id="section-4">整合性重視の場合</h4>
+
+<p>例：商品の購入処理・オンラインゲームの敵の体力など。</p>
+
+<p>有用：トランザクション・CAS特性を持ったもの 単体で動くもの。</p>
+
+<p>DBMS例：RDB Hibari</p>
+
+<h4 id="section-5">拡張性重視の場合</h4>
+
+<p>例：突発的なアクセス増・毎日数TBのデータ蓄積</p>
+
+<p>有用：コンシステンスハッシング マルチデータセンター対応 シャーディング</p>
+
+<p>DBMS例：Cassandra Riak Dynamo</p>
+
+<h4 id="section-6">柔軟性重視の場合</h4>
+
+<p>例：ユーザーが自由に配置していくようなもの？</p>
+
+<p>有用：ドキュメント指向</p>
+
+<p>DBMS例：MongoDB CouchDB</p>
+
+<p>（後日追記する。）</p>
+]]></content>
+  </entry>
+  
+</feed>

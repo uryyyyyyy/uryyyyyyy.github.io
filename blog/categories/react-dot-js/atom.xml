@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: React.js | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/react-dot-js/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[why react]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/01/10/why-react/"/>
+    <updated>2015-01-10T11:52:49+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/01/10/why-react</id>
+    <content type="html"><![CDATA[<p>Reactの何がいいのかについて、Qiitaに投稿しました。</p>
+
+<p><a href="http://qiita.com/uryyyyyyy/items/83d75cf79a9202f36cb5">React.jsはMVCのVじゃない。フレームワークだ。</a></p>
+]]></content>
+  </entry>
+  
+</feed>

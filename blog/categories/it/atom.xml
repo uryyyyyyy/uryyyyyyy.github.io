@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: IT | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/it/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[グーグル ネット覇者の真実]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2013/01/05/truth-of-the-net-winners/"/>
+    <updated>2013-01-05T23:58:31+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2013/01/05/truth-of-the-net-winners</id>
+    <content type="html"><![CDATA[<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4484111160/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51xDAp%2BA4AL.jpg" width="356" height="500" alt="グーグル ネット覇者の真実 追われる立場から追う立場へ" title="グーグル ネット覇者の真実 追われる立場から追う立場へ" /></a></p>
+
+<p>読みました！
+kindleで安かったので帰省ついでに読んでみましたが、
+思ったより面白かったです。</p>
+
+<p>筆者がグーグル贔屓なことも当然考えるべきですが、
+グーグルの「Don’t be evil」の考え方が非常に分かりました。</p>
+
+<p>今回は大きく、</p>
+
+<ul>
+  <li>モンテッソーリ教育</li>
+  <li>採用と職場環境</li>
+  <li>データ至上主義</li>
+</ul>
+
+<p>の軸で書きます。</p>
+
+<h3 id="section">モンテッソーリ教育</h3>
+
+<p>モンテッソーリ教育とは、
+「自分で納得いくまで考えろ、権威や常識を疑え、」
+ということを推奨している考え方なのですが、
+これができる人って一握りなんだなぁ、と思いました。
+それは文中の、「人は実は管理されたがっている」
+という発言からもみて取れます。
+（創業者の二人は、そのような考えは信じられないようでしたが。）</p>
+
+<p>なぜかというと、みな、自分の判断に自信が持てないから。
+自分で考えて、他人から否定されるなんて屈辱より、
+自分より頭のいい人の考えに従った方が合理的だからですね。
+これを覆せるのは、一握りの天才たちくらいです。</p>
+
+<p>同時に、邪悪になるな、というフレーズもよく聞きますが、
+これも資本主義で勝ってこれる人材だからこれが言えるわけで、
+普通は自分が生きるのでいっぱいいっぱいです。
+自分のことはなんとかなるからこそ、周りに目を向けれるようになるのかな。</p>
+
+<h3 id="section-1">採用と職場環境</h3>
+
+<p>次に採用の面ですが、
+「Googleは博士や研究者ばかり採用するのはなぜなのか？」
+という疑問があります。</p>
+
+<p>理由はおそらく、彼らは儲けようと考えていないから。
+ユーザーファーストで、収益は次で考えるからここまで
+伸びたと、いうのは簡単ですがもう少し論理的に。</p>
+
+<p>職場の環境は、やりたくないことはやらない風土らしいです。
+クリエイティブな仕事に関しては、
+資本主義を無視することが効率的という実験結果もあります。</p>
+
+<p>ダニエルピンク（TED）
+<a href="http://www.ted.com/talks/lang/ja/dan_pink_on_motivation.html" target="_blank" title="http://www.ted.com/talks/lang/ja/dan_pink_on_motivation.html">http://www.ted.com/talks/lang/ja/dan_pink_on_motivation.html</a></p>
+
+<p>要は、売り上げとかノルマなど、
+考えたくないことを極力排除できるからこそ
+クリエイティブなことができるわけです。</p>
+
+<h3 id="section-2">データ至上主義</h3>
+
+<p>次に、データ至上主義ですが、
+データ至上主義は、
+人間の主観、偏った見方　
+が入る余地がないことを示唆しています。
+全て自動化されて、拡張性のあるのがグーグルの強みですが、
+これは経験とかを凌駕します。
+上司の意見を聞く必要がないし、
+答えのない会議をする必要もありません。</p>
+
+<p>A/Bテストがビジネスルールを変えていく（あるいは、ぼくらの人生すらも？）
+<a href="http://wired.jp/2012/12/29/abtest_vol5-2/" target="_blank" title="http://wired.jp/2012/12/29/abtest_vol5-2/">http://wired.jp/2012/12/29/abtest_vol5-2/</a></p>
+
+<p>（本人達も、「なんでかわからないけど、こうしたほうがユーザーの反応が良くなるんだ」と言ってます。）</p>
+
+<p>ただ、人間の行動に決まった偏りがあるんだとしたら、
+それはどうかすれば体型的にまとめられると思うので、
+「理由は考えるな」なんて言わずに、
+ぜひグーグルには、心理学とか人間工学的なこともやって欲しいなぁと思います。</p>
+
+<h3 id="section-3">オマケ</h3>
+
+<p>トップページは、作成するのがめんどくさかったから。
+後に「禅スタイル」とかが流行ってたけど、
+彼らからしたら、いかに表示を高速化できるかが重要らしい。
+クロームとかもそんな感じだもんね</p>
+
+<p>個人情報について。
+クラウドの不安？、タンス預金より信用金庫の方が安心でしょ？
+個人で管理するよりグーグルに任せた方が安心では？</p>
+]]></content>
+  </entry>
+  
+</feed>

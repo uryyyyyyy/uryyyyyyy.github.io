@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: redmine | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/redmine/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[redmine&Agile]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/15/redmine-memo/"/>
+    <updated>2014-06-15T11:48:34+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/15/redmine-memo</id>
+    <content type="html"><![CDATA[<!--more-->
+
+<p>redmine &amp; カンバン</p>
+
+<p>アジャイルの単語の定義と、での認識</p>
+
+<p>アジャイル開発・・・短い周期で動く製品を組み上げていくスタイル。顧客の優先度順に機能を作れて、認識に齟齬があればすぐに修正できる。</p>
+
+<p>ウォーターフォール・・・現行の開発。期間と顧客の要求を定義して、それを守るように進める。
+IT土方の時代なら上手く機能しそうだけど。。。</p>
+
+<p>ストーリー・・・顧客の価値ベースで意味のある単位。顧客からの要望・不具合報告・新機能の追加要件などなどが当てはまる。粒度は作業量で揃えたいが、あくまで顧客のメリットベース。</p>
+
+<p>見積もり・・・工数で書くと人によって異なるので、ポイントなど相対的な指標で書き込む。数字が大きいと厳密性がなくなるので、粒度は荒くても十分</p>
+
+<p>PDCAを多く回す。
+そのためには</p>
+
+<ul>
+  <li>定量的なデータを見積もり検証する</li>
+  <li>サイクルを多く回す</li>
+</ul>
+
+<p>コンサルやマネージャーに進捗を確認してもらうには、
+あるいは、開発者のモチベーションを上げるには。</p>
+
+<ul>
+  <li>バーンダウン</li>
+  <li>カンバン</li>
+  <li>朝会議</li>
+</ul>
+
+<p>redmineのPlugin ALMiniumでコードの管理やスプリントもできる。</p>
+
+<ul>
+  <li>普段はgitlab</li>
+  <li>Redmineでのプラグインはサポートしないが便利くらいにしたい。</li>
+</ul>
+
+<p>http://qiita.com/cock1doodledoo/items/39e6cea44a377207eaff</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iPhone | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/iphone/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[nexus５からiphone５に戻した理由]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/01/10/nexus-to-iphone/"/>
+    <updated>2015-01-10T15:35:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/01/10/nexus-to-iphone</id>
+    <content type="html"><![CDATA[<p>二年経つのでiPhone5からNexus5に変えたんだけど、やっぱり使いづらくて1ヶ月で元に戻しました。</p>
+
+<!--more-->
+
+<h3 id="section">経緯</h3>
+
+<p>iPhone5二年契約が切れたタイミングで、格安Sim＋Nexus５にしようと画策。</p>
+
+<p>Nexus5を購入しメイン機へと移行。</p>
+
+<p>ついでに、外でPCを使うことが増える予定なので、ネット使い放題のWimaxにしたいなと思ってキャンペーン中に契約してしまう。</p>
+
+<p>Nexus5をメインにして1ヶ月ほど使うも、色々と使いづらかった。</p>
+
+<p>Wimaxにしちゃったので、2年使い古したiPhone5でも問題なくなったので、結局iPhone5に戻った。</p>
+
+<h3 id="section-1">使いにくいところ</h3>
+
+<h4 id="section-2">イヤホンと連携できない</h4>
+
+<p>iPhoneの場合は純正のイヤホンでボリュームやOn/Offを操作できるのですが、Nexusだとそういった操作に難があるようです。</p>
+
+<p>一応別のイヤホンだったりアプリを使ってうまく行くケースもあるらしいのですが、僕が試した範囲では全部ダメでした。</p>
+
+<h4 id="section-3">ポケットに引っかかる</h4>
+
+<p>素材・大きさのせいか、ポケットにすっと入らない場合が多いのです。</p>
+
+<p>また、イヤホンジャックが上向きに付いてるので、イヤホン装着時にはなおさらめんどくさかったです。</p>
+
+<h4 id="section-4">アプリが不安定</h4>
+
+<p>使用頻度の高い一部のアプリが、Nexusだと固まったり通信エラーが頻発したりしていました。</p>
+
+<p>代わりにどこか機能が良くなってたり、無料で良い物があったり、、、は特になかったです。</p>
+
+<h4 id="section-5">電池の消費が激しい</h4>
+
+<p>結構深刻な問題。
+各種レビューサイトでも指摘されてますが、常に残量を気にしないといけないので非常にストレスフルでした。</p>
+
+<h4 id="section-6">バッジの通知ができない（デフォルトでは）</h4>
+
+<p>iPhoneでよくある、メールやLineの未読通知のバッジが、Androidだとありません。</p>
+
+<p>カスタマイズして一部使えるようになりましたが、それも不安定/サポートしてないのが多い、のでダメでした。</p>
+
+<h4 id="section-7">自分でフォルダを操作しないといけない</h4>
+
+<p>良い点になるかもしれないのですが、これも結構めんどくさい。</p>
+
+<p>各種アプリによって走査のされかたも均一でないっぽくてフォルダ構成やメンテナンスに苦労する割に、あまりメリットを得られませんでした。</p>
+
+<h3 id="section-8">その他考慮したこと。</h3>
+
+<h4 id="apple">アプリもまだappleが優勢</h4>
+
+<p>数もそうですが、試した範囲では質が結構違った。</p>
+
+<p>iPhoneだと環境が統一されているからか、質のいいアプリはiPhoneからしかでてなかったりする。</p>
+
+<p>Androidは、どっかの会社が製品のおまけでとりあえず作りました、みたいな残念なアプリはいっぱいある印象。</p>
+
+<h4 id="section-9">処理性能は気にならない</h4>
+
+<p>iPhone5はもう二年前のだし、スペックをみてもNexus5の方が上なのですが、
+そもそもボトルネックがネットワークなので性能はもう十分なんですよね。</p>
+
+<p>（性能が問題になるとしたら、OSのアップデートくらいでしょう。）</p>
+
+<h4 id="section-10">画面サイズもどっちでもいい</h4>
+
+<p>Nexus５くらいのサイズがいいなと思ってたんですが、慣れのせいかタイピングがけっこうミスる。</p>
+
+<p>あと画面がデカイといっても微妙な差なのでほとんど変わらなかった。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: node.js | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/node-dot-js/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[angular with nodejs]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/02/angular-with-nodejs/"/>
+    <updated>2014-06-02T09:01:05+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/02/angular-with-nodejs</id>
+    <content type="html"><![CDATA[<p>あとで書く</p>
+
+<!--more-->
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Karma入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/02/karma-primer/"/>
+    <updated>2014-06-02T08:59:50+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/02/karma-primer</id>
+    <content type="html"><![CDATA[<p>ちょっと不十分ですが、一旦上げておきます。</p>
+
+<!--more-->
+
+<h3 id="karma">Karmaとは？</h3>
+
+<p>node.jsベースのJavaScriptテストランナー。</p>
+
+<p>実際にテストを実行するのは別フレームワーク（Jasmin, QUnitなど）で、それらを簡単に、ブラウザを用いてテストできるようにしたもの。（たぶん）</p>
+
+<h3 id="section">何が嬉しいの？</h3>
+
+<p>JSのテストの実行が楽になる。</p>
+
+<p>Karma直接の機能ではないですが、画面でSeleniumなどでやるのではなく、JSの関数一つ一つをテストすることが可能。</p>
+
+<p><code>karma start</code>と打てば該当のフォルダのテストを該当のブラウザで行ってくれるし、
+例えば、GruntでテストをTaskに組み込むことも可能です。</p>
+
+<p>オプションでカバレッジも取れる。</p>
+
+<p>これらの機能をまとめて管理してくれるので、とっても楽に設定できます。</p>
+
+<h3 id="section-1">使ってみる</h3>
+
+<ul>
+  <li>Ubuntu : 14.04</li>
+  <li>Karma : </li>
+  <li>Grunt : 0.4</li>
+  <li>node.js : 0.10.28</li>
+</ul>
+
+<p><code>
+npm install karma -g
+</code></p>
+
+<p>Pathが通ってないこともあるので、~/.nvm/v0.10.28/node-module/karma/bin/karma</p>
+
+<p>などを通す。</p>
+
+<p>対象プロジェクトで</p>
+
+<p><code>
+npm init
+npm install grunt-karma --save-dev
+karma init
+# 色々聞かれるがとりあえずDefaultで。
+</code></p>
+
+<p>これで準備が整った。</p>
+
+<p>あとはSpecフォルダにテストを書いて、（なんかSpecが一般的らしい。「仕様」ということ？）</p>
+
+<p><code>
+karma start
+</code></p>
+
+<p>で実行できる。</p>
+
+<h3 id="section-2">追記</h3>
+<p>AngularJSで使いたいと思っていますが、
+Scopeの設定や、Ajax通信のテスト（$httpBackend）を学び直したいです。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grunt使ってみた。]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/01/grunt-primer/"/>
+    <updated>2014-06-01T19:31:15+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/01/grunt-primer</id>
+    <content type="html"><![CDATA[<p>Gruntを今の仕事でも導入しようかと思って勉強中です。</p>
+
+<p>やってみたら案外覚えることは少ないです。</p>
+
+<!--more-->
+
+<h3 id="grunt">Gruntとは？</h3>
+
+<p>クライアントサイドのタスクランナーツール。</p>
+
+<p>といってもよくわからないので、要は
+<strong>クライアントサイドの作業を楽に自動化するツール</strong>くらいの認識でいいと思います。</p>
+
+<p>（JavaのMavenに近いかなと思ってます。）</p>
+
+<h3 id="grunt-1">Gruntでできること</h3>
+
+<p>できることの一例として、</p>
+
+<ol>
+  <li>AltJSやCSS系をコンパイルする。</li>
+  <li>checkStyleのようなもので構文をチェックする。</li>
+  <li>Minifyする。</li>
+  <li>テストする、あるいはローカルで動作させる（node.jsを使うなどして）。</li>
+</ol>
+
+<p>などの順番で実行させるようにすると便利です。（Debugするならminifyとかはしたくないかも。）</p>
+
+<p>Gruntは、モジュールを組み込むことでこれらの処理を色々してくれます。</p>
+
+<p>さらに、対象ファイルが変更されるとTaskが走るように監視することもできます。</p>
+
+<h3 id="section">どう嬉しいの？</h3>
+
+<p>今は大半のアプリケーションがWebで動作します。</p>
+
+<p>その際にJavaScriptやCSSなどを触らなければなりませんが、
+一定以上の規模で、ファイルの分割や速度の調整、作業効率を考えるとちょっと辛いものがあります。</p>
+
+<p>そこで、AltJSやファイルの結合・Minifyの仕組みが出てきたのですが、毎回手動で適用するのがめんどくさい。クールじゃない。もっと本質的なことに時間を使いたい。</p>
+
+<p>ということで生まれたツールなわけです。</p>
+
+<p>今の業務にすぐに使えないとしても、Webが今後も栄えていくとしたら知っておいて損はないツールだと思います。</p>
+
+<h3 id="section-1">導入手順</h3>
+
+<p>流れとしては非常に簡単で、</p>
+
+<ol>
+  <li>
+    <p>nodeJS入れる</p>
+  </li>
+  <li>
+    <p>npm(Node Packaged Modules)でgruntのcli(Command Line Interface)をインストールする。</p>
+  </li>
+  <li>
+    <p>プロジェクト毎にモジュールを組み込む。</p>
+  </li>
+  <li>
+    <p>Gruntで実行させたいtaskを登録する。</p>
+  </li>
+  <li>
+    <p>コマンドライン叩くか、あるいはファイルの変更があったらTaskが走り実行される。</p>
+  </li>
+</ol>
+
+<p>順番に見ていきます。</p>
+
+<h4 id="nodejs">node.js入れる</h4>
+
+<p>過去記事を参照してください。</p>
+
+<h4 id="grunt-cli">grunt-cliを入れる。</h4>
+
+<p>これがgruntをコマンドラインから呼び出すモジュールです。
+どこでも使えると思うので、グローバルに設定しておきます。</p>
+
+<p><code>
+npm install -g grunt-cli
+</code></p>
+
+<h4 id="section-2">プロジェクト毎にモジュールを組み込む</h4>
+
+<p>```
+cd your/project/path</p>
+
+<h1 id="section-3">プロジェクトの設定ファイルを作成します。</h1>
+<p>npm init</p>
+
+<h1 id="gruntinstall">プロジェクトで使うGruntのモジュールをInstallします。</h1>
+<p>npm install grunt –save-dev
+npm install grunt-contlib-concat –save-dev
+… etc
+```</p>
+
+<p>ここで<code>--save-dev</code>を入れておくと、initで作った設定ファイル（package.json）にdependenciesが追加されます。</p>
+
+<p>あとはpackage.jsonを引き継げば、他の環境でも同じようにパッケージをインストールしてくれます。</p>
+
+<h4 id="grunttask">Gruntで実行させたいtaskを登録する</h4>
+
+<p>Gruntfile.jsにTaskを書いていきます。</p>
+
+<p>細かい記法はググれば出てくるので省略。。。</p>
+
+<h4 id="task">Taskの実行</h4>
+
+<p>あとは<code>grunt [Task Name]</code>でタスクが走ります。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[node.jsを使ってみる]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/01/nodejs-install/"/>
+    <updated>2014-06-01T19:30:41+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/01/nodejs-install</id>
+    <content type="html"><![CDATA[<p>最近話題になってて、どうやら自分のところでも使えそうなので触ってみます。</p>
+
+<p>個人的にはサーバーサイドの技術としてのnode.jsには興味はないんですが
+（というか、JavaScriptなんてなるべく触りたくない）
+クライアントサイドの作業効率化のための色んなツールがあるようなので、
+それらのツールの基盤という点で興味があります。</p>
+
+<!--more-->
+
+<h3 id="section">導入手順</h3>
+
+<ul>
+  <li>OS： Ubuntu14.04 64bit</li>
+  <li>Node.js： 0.10.28</li>
+  <li>nvm： （node.jsと同じ？）</li>
+</ul>
+
+<p>はじめにnvm(Node Version Manager)を入れる。</p>
+
+<p><code>bash
+git clone git://github.com/creationix/nvm.git ~/.nvm
+</code></p>
+
+<p>で、このファイルを読み込ませるとnvmコマンドが使える。</p>
+
+<p><code>
+source ~/.nvm/nvm.sh
+</code></p>
+
+<p>nvm経由でnode.jsをインストールすると、複数バージョンが平行管理できるし、安全にインストールできるため便利です。
+（新しいVersionが出た時には、再度０から構築する方が依存関係とかが安心できます。）</p>
+
+<p>ではnvm経由でnodeJSを入れていきます。</p>
+
+<p><code>
+nvm install v0.10.28
+nvm list
+node -version
+# 0.10.28が入ってるはず。
+</code></p>
+
+<p>HelloWorld実行してみる。</p>
+
+<ul>
+  <li>server.js</li>
+</ul>
+
+<p>```
+var http = require(“http”);</p>
+
+<p>http.createServer(function(request, response) {
+  response.writeHead(200, {“Content-Type”: “text/plain”});
+  response.write(“Hello World”);
+  response.end();
+}).listen(8888);
+```</p>
+
+<p>で、</p>
+
+<p><code>
+node server.js
+</code></p>
+
+<p>とすれば、localhost:8888で表示されるはず。</p>
+
+<h2 id="section-1">ここまでやったけど。</h2>
+
+<p>ここまでやりましたが、サーバーとしてnode.jsを使う気はない（JS触りたくない）ので、
+あんまり意味ないかも。</p>
+]]></content>
+  </entry>
+  
+</feed>

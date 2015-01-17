@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Network | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/network/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[アカマイ　知られざるインターネットの巨人]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/05/akamai/"/>
+    <updated>2014-10-05T17:42:01+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/05/akamai</id>
+    <content type="html"><![CDATA[<p>世界最大のCDSを提供しているアカマイについてのまとめ。</p>
+
+<!--more-->
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/B00MIFE3BC/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51T4L8K2yLL.jpg" width="352" height="500" alt="アカマイ　知られざるインターネットの巨人 (角川ＥＰＵＢ選書)" title="アカマイ　知られざるインターネットの巨人 (角川ＥＰＵＢ選書)" /></a></p>
+
+<h3 id="section">インターネットの仕組み</h3>
+
+<p>インターネット以前のネット（ただのNetwork）は、企業ごとにプロトコルがバラバラだった。</p>
+
+<p>異なるプロトコルでは通信できないため、企画の統一が図られた。</p>
+
+<p>そして色々なネットワーク(≒Anonymous System)を繋げたものをインターネットと呼ぶ。</p>
+
+<h3 id="cdn">CDNの仕組み</h3>
+
+<p>あるURLへのアクセスを行いたいとき、</p>
+
+<ol>
+  <li>普段（最寄り）のキャッシュDNSサーバへドメイン名からIPを問い合わせる。</li>
+  <li>キャッシュDNSは権威サーバへ問い合わせる。</li>
+  <li>その際、権威サーバは予め登録してあるAkamaiのURLを本来のURLとして返す。</li>
+  <li>本来のURLを受け取ったキャッシュDNSは、再度該当の権威サーバ（Akamai社の）へ問い合わせる。</li>
+  <li>Akamaiの権威DNSサーバは問い合わせてきたDNSサーバに近いAkamaiサーバのIPを教える。</li>
+  <li>キャッシュDNSサーバはそのIPをクライアントに返す。</li>
+  <li>クライアントはそのIPにアクセスする（結果として、最寄りのAkamaiサーバと通信できる。）</li>
+</ol>
+
+<h3 id="section-1">利点</h3>
+
+<ul>
+  <li>物理的に近くなり通信速度が速くなる。</li>
+  <li>アクセス負荷が分散される。</li>
+  <li>直接アクセスされないためオリジンサーバが堅牢になる。</li>
+</ul>
+
+<h2 id="section-2">その他サービス</h2>
+
+<h3 id="sure-route">Sure Route(輻輳回避)</h3>
+
+<p>AS間のAkamaiサーバーで通信し合うことで、輻輳（ネットワークの混雑）を回避して通信ができる。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

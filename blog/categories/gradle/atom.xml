@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gradle | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/gradle/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GradleのJettyPlugin]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/10/samplemoke/"/>
+    <updated>2014-05-10T23:59:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/10/samplemoke</id>
+    <content type="html"><![CDATA[<p>GradleでJetty pluginを使って、簡単なServlet＋JSPのアプリを動かしていたんですが、
+FileUploadの時に以下のエラーが出まして。<!-- more --></p>
+
+<blockquote>
+  <p>java.lang.NoSuchMethodError: javax.servlet.http.HttpServletRequest.getParts()</p>
+</blockquote>
+
+<p>なんかぐぐってみると、gradleのプラグインで使えるJettyはversion6とかの古いやつで、Servlet3系に対応していない模様。。。</p>
+
+<p>しかたないので<a href="https://github.com/Khoulaiz/gradle-jetty-eclipse-plugin">こちらのURL</a>を参考にして、Jetty９のpluginを入れてみた。</p>
+
+<p>今まで<code>jettyRun</code>で動かしていたが、<code>JettyEclipseRun</code>というコマンドで動かせる。</p>
+
+<p>しかも、実行中に<code>r+Enter</code>でリロード＆コンパイルし直してくれるらしい。</p>
+
+<p>Eclipseに変な設定をしないでGradleのコマンドで実行できるのは手軽で嬉しい。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

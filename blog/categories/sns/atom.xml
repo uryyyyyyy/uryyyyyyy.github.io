@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SNS | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/sns/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SNSの使い方とか]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2013/04/14/how-to-use-sns/"/>
+    <updated>2013-04-14T18:08:22+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2013/04/14/how-to-use-sns</id>
+    <content type="html"><![CDATA[<p><strong>※過去記事です</strong></p>
+
+<p>昨日の記事の追記です。
+<!--more-->
+### ツイッターは、個人情報晒してる、特にフォロワーに興味ないなら鍵付きのが無難
+→公開ってことは、全世界にオープンにしてるってことで、犯罪とかはもちろん、酔ってうっかり不適切なツイートをすることも多々あります。そんで、Twitterはより拡散性が高いので、注意した方が良いかと思います。
+個人的には、ほとんどの人は鍵付きの方がいい、というか公開するメリットがないと思います。</p>
+
+<h3 id="facebook">Facebookは、個人情報や日々の書き込みの公開範囲を確認する。</h3>
+<p>→あたりまえですが一応。　新しく友達申請くれるひとのページ見ると、けっこう個人情報だだ漏れの人もいたりします。　あと、知らない美人アカウントから申請がくるのは、友達にしか公開してない個人情報を知るため、って聞いてます。そういったリテラシー低いことはしないように。</p>
+
+<h3 id="section">個人情報は思ったより漏れてると認識する。</h3>
+<p>→「俺は自分の勤め先記してないから何書いても問題ない」は間違いです。日々の書き込みや交友関係でだいたい特定出来ます。　また有事の際は、もし未確定でも、十分な根拠があれば会社とか巻き込んで炎上すると思われます。</p>
+
+<h3 id="section-1">著作権に注意する。</h3>
+<p>基本的に他者の所有物のアップロードは違法です。
+例えば、ネットに落ちてた画像、他人や肖像物が写り込んでる写真、他人の文章の全コピー、などなど。
+ツイッターのアイコンとかはかなり無法地帯感がありますね。あれらも厳密にはアウトです。</p>
+
+<p>詳しくは以前調べたのでこちらをご参考頂ければ。
+<a href="http://tyukenshibakou.blog51.fc2.com/blog-entry-212.html" target="_blank" title="http://tyukenshibakou.blog51.fc2.com/blog-entry-212.html">http://tyukenshibakou.blog51.fc2.com/blog-entry-212.html</a></p>
+
+<p>この記事でも書いたけど、いまやネット周りの法律は全ての人が知っとくべきことだと思います。</p>
+]]></content>
+  </entry>
+  
+</feed>

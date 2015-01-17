@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Delivery | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/delivery/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[出荷管理]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/22/delivery-management/"/>
+    <updated>2014-06-22T12:08:01+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/22/delivery-management</id>
+    <content type="html"><![CDATA[<p>ソフトウェア・工場に限らないDeliveryの話。
+このページを参考にしました。<a href="http://www.omoshirogari.com/delivery.htm">Dの問題</a></p>
+
+<!--more-->
+
+<h3 id="section">生産管理に万能解はあるのか</h3>
+
+<p>システムパッケージを導入したからといって、生産管理に直結するわけではない。
+能力以上の機能を期待していることがほとんど。
+（システムへの理解が足りない？営業が期待値を上げすぎ？）</p>
+
+<p>情報を整理整頓できて始めてシステムが機能できる。</p>
+
+<h3 id="section-1">標準化をサボるな</h3>
+
+<ul>
+  <li>作業が複雑で標準化できない。</li>
+  <li>標準化するなんてめんどくさい。</li>
+  <li>ウチは特殊だから。。。</li>
+</ul>
+
+<p>現場がそう思っている時点で改善できない。</p>
+
+<p>標準化できなければシステム化、効率化はできない。
+システムはそこまで万能ではない。
+システムを導入するということは、仕事内容が変わることを意味する。</p>
+
+<h3 id="section-2">標準化のステップ</h3>
+
+<p>４つのCというテクニックがある。</p>
+
+<ul>
+  <li>Collectー列挙する</li>
+  <li>Clasifyー分類する</li>
+  <li>Compareー比較する</li>
+  <li>Chooseー選択する</li>
+</ul>
+
+<p>まずはデータを収集して一元管理する。
+そのデータを分類する。
+比較する軸を定めて比較し、優先度をつけて選択する。</p>
+
+<h3 id="section-3">お客さんの要望は？</h3>
+
+<p>納期・品質・コスト、全てが順調なら問題ないのですが、
+概して営業はどこかで無茶をするもの。（そうしなければ勝てないので）</p>
+
+<p>また、納期だけが明確に差し迫ってくるのでそれを追求しますが、
+本来は品質やコストもお客さんの要望のはず。
+それを差し置いて納期だけに注力するのは誰得。</p>
+
+<p>営業と出荷管理とが一体となってお客さんの要望に合うものを提供しないといけない。</p>
+
+<h3 id="section-4">品質管理のためには</h3>
+
+<p>お客様のQCDの要望を満たすことなのであれば、
+まずは期待値のコントロールをしておく必要がある。</p>
+
+<ul>
+  <li>営業は、お客様の要望を踏まえて、必達・目標の指標を握っておく。</li>
+  <li>開発は、自分たちの工数や効率から、どこまでなら間に合うのかを用意しておく。</li>
+</ul>
+
+<p>それらを合わせて管理してお互いに協業できないと共倒れになる。</p>
+
+<p>そのためには客観的な指標が必要。
+（カン・経験・度胸といった暗黙知に頼らない）</p>
+
+<p>営業が独断で決めれることは多くない。</p>
+]]></content>
+  </entry>
+  
+</feed>

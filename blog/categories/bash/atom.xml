@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bash | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/bash/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[bashのDotfiles設定]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/bash-dotfiles/"/>
+    <updated>2014-05-31T12:29:51+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/31/bash-dotfiles</id>
+    <content type="html"><![CDATA[<p>bashの設定を、以下を参考に変更しました。</p>
+
+<p><a href="https://speakerdeck.com/jmblog/hurontoendoenziniafalsetamefalse-dotfiles">フロントエンドエンジニアのための Dotfiles by Yoshihide Jimbo</a></p>
+
+<!--more-->
+
+<p>ソースは以下に置いてあります。
+<a href="https://gist.github.com/uryyyyyyy/21f1e0011eb0a8254e29">gist</a></p>
+
+<p><code>~/.bash_profile</code>と<code>~/.inputrc</code>を変更します。</p>
+
+<p><strong>※UbuntuDesktopだと.bash_profileは起動時に読み込まれないようですね。。。</strong></p>
+
+<p><strong>.bashrcに書くようにしました。</strong></p>
+
+<p>変更後は、再ログインするか、</p>
+
+<p><code>
+$ source ~/.bash_profile
+$ bind -f ~/.inputrc
+</code></p>
+
+<p>で設定できます。</p>
+
+<h3 id="section">変更点</h3>
+
+<ul>
+  <li>ターミナルでのカレントディレクトリが色付きで表示されるようになります。</li>
+  <li>現在のgitのブランチが表示されるようになります。</li>
+  <li>lsコマンド時にファイルの種類によって色がつくようになります。</li>
+  <li>個人的によく使うところへaliasを仕込んでいます。</li>
+</ul>
+
+<p>サンプル</p>
+
+<p><img src="/images/bash_profile.png" alt="alt" /></p>
+
+<p>以上。</p>
+]]></content>
+  </entry>
+  
+</feed>

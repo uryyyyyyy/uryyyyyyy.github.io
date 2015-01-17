@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[bacon.js	入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/21/primer-of-bacon-dot-js/"/>
+    <updated>2014-09-21T22:41:24+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/21/primer-of-bacon-dot-js</id>
+    <content type="html"><![CDATA[<p>最近使おうと思っているので備忘録。</p>
+
+<!--more-->
+
+<p><a href="http://raimohanska.github.io/bacon.js-slides/index.html">参照１</a></p>
+
+<p><a href="http://latentflip.com/bacon-talk-realtimeconfeu/">参照2</a></p>
+
+<p><a href="http://blog.flowdock.com/2013/01/22/functional-reactive-programming-with-bacon-js/">参照3</a></p>
+
+<h2 id="baconjs-is-">bacon.js is 何？</h2>
+
+<p>JSでFRPをするためのライブラリ。</p>
+
+<h3 id="section">メソッド紹介</h3>
+
+<p>個人的にはpropertyはあまり使わないだろうと思っています。</p>
+
+<h4 id="aseventstream">asEventStream</h4>
+
+<p><code>stream = $(element).asEventStream(event)</code></p>
+
+<p>elementのDOMに対して、eventのイベントのstreamを作る。</p>
+
+<p>そのDOMに対してeventが起きると、streamに要素としてeventが流れる。</p>
+
+<p>普通の世界からstreamの世界への入り口。</p>
+
+<h4 id="map">map</h4>
+
+<p><code>stream2 = stream.map(function(elem){/* logic */})</code></p>
+
+<p>streamに流れてきた要素をlogicで変換して、返り値をstream2に流す。</p>
+
+<h4 id="scan">scan</h4>
+
+<p><code>stream2 = stream.scan(firstVal, function(result, elem){/* logic */})</code></p>
+
+<p>streamに流れてきた要素elemを、過去の結果resultと共にlogicで処理し、resultをstream2に流す。</p>
+
+<p>resultの初期値はfirstValで与えられる。</p>
+
+<p>reduceに近いが末端処理ではない。</p>
+
+<h4 id="filter">filter</h4>
+
+<p><code>stream2 = stream.filter(function(elem){/* logic */})</code></p>
+
+<p>streamに流れてきた要素のうち、logicでtrueを返すもののみをstream2に流す。</p>
+
+<h4 id="merge">merge</h4>
+
+<p><code>mergedStream = stream.merge(stream2)</code></p>
+
+<p>streamとstream2を結合したmergedStreamを作る。</p>
+
+<p>２つのストリームの要素をまとめて流す。</p>
+
+<h4 id="onvalue">onValue</h4>
+
+<p><code>stream.onValue(function(elem){/* logic */})</code></p>
+
+<p>streamに要素(elm)が流れてくるたびに関数を実行する。</p>
+
+<p>streamの世界から普通の世界に返ってくる末端処理。（forEachみたいな。）</p>
+
+<h4 id="flatmap">flatMap</h4>
+
+<p><code>newStream = stream.flatMap(function(elem){/* logic(return stream2) */})</code></p>
+
+<p>streamから流れてきたelemを、stream2を返すようなlogicに入れる。
+stream2から要素が流れてきたら、それをnewStreamに流す。</p>
+
+<p>（非同期処理系に用いるのが一般的かな）</p>
+
+<h4 id="flatmaplatest">flatMapLatest</h4>
+
+<p><code>newStream = stream.flatMapLatest(function(elem){/* logic(return stream2) */})</code></p>
+
+<p>flatMapと違い、stream2から流れてきた最新の要素のみをnewStreamに流す。</p>
+
+<p>（非同期処理系で処理に時間がかかる場合に、順序を保証するために使うのかな。）</p>
+
+<h4 id="conbine">conbine</h4>
+
+<p><code>newStream = stream.conbine(stream2, function(elem, elem2){/* logic */})</code></p>
+
+<p>streamから流れてきた要素elemと、stream2から流れてきた要素elem2をlogicで処理した結果をnewStreamに流す。</p>
+
+<p>どちらかのstreamから要素が流れてきたタイミングで実行される。要素が流れてこなかった方のsteamの要素は直前の要素を用いる。</p>
+
+<h3 id="section-1">後で調べる</h3>
+
+<h4 id="awaiting">awaiting</h4>
+
+<p><code>
+text.awaiting(suggestions).onValue(function(x) {
+  if (x) $('#results').html('Searching...');
+});
+</code></p>
+
+<p>要素が流れてくるまでの間の処理をするのかな</p>
+
+<h4 id="frompromise">fromPromise</h4>
+
+<p>promiseが解決したタイミングで要素が流れるstreamかな？</p>
+
+<h4 id="fromcallback">fromCallback</h4>
+
+<p>callbackが実行されたタイミングで要素が流れるstreamかな？</p>
+
+<h4 id="once">once</h4>
+
+<h4 id="throttle">throttle</h4>
+
+<h4 id="sample">sample</h4>
+
+<p>propertyの値が一定時間変わらなかったら要素が流れる？</p>
+]]></content>
+  </entry>
+  
+</feed>

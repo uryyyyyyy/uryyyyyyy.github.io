@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Test | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/test/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[pairwise]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/09/pairwise/"/>
+    <updated>2014-06-09T00:25:13+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/09/pairwise</id>
+    <content type="html"><![CDATA[<!--more-->
+
+<ol>
+  <li>Pairwise(all Pair)は組み合わせテスト技法の1つ。</li>
+  <li>組み合わせテストは、パラメータの組み合わせにより、ソフトウェアの挙動が変わる可能性があるという観点でテストすることで、組み合わせテスト技法は、パラメータの組み合わせを総当りでテストするのではなく、効率良くテストするための技法である。</li>
+  <li>組み合わせテスト技法の1つであるオールペア(ペアワイズ)法では、すべてのパラメータについて少なくとも、2パラメータ間での値の組み合わせが網羅されるようにテストパターンを作成する。</li>
+  <li>2パラメータ間で値の組み合わせが網羅されるようにテストパターンを作成する理由は、統計的に2パラメータ間までで発生する不具合が7～9割を占めるためである。</li>
+</ol>
+
+<h3 id="section">問題点</h3>
+
+<p>パラメータが多すぎる場合、全てを網羅したテストを行うことが出来ない。
+部分的にテストを行うことになるが、
+運用が属人的になり、テストケースが継承されない。
+網羅の範囲を狭めてしまい、テスト漏れが起こりやすくなる。</p>
+
+<h4 id="fullconbination">理想はFullConbination。</h4>
+
+<p>変数が少ない場合。製品出荷前など</p>
+
+<h4 id="pairwise">効率を優先したPairWise</h4>
+
+<p>変数が多い場合、日々の単体テストなど何度も行うようなテスト</p>
+
+<h3 id="section-1">参考資料</h3>
+<p>http://jasst.jp/archives/jasst05w/pdf/S4-3.pdf</p>
+]]></content>
+  </entry>
+  
+</feed>

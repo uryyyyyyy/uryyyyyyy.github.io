@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Template | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/template/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJSで動的にTemplateを書き換える]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/07/06/angular-template/"/>
+    <updated>2014-07-06T08:49:12+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/07/06/angular-template</id>
+    <content type="html"><![CDATA[<p>AngularJSで、取得したJsonデータによって動的にTemplateを書き換えるようにしてみます。</p>
+
+<!--more-->
+
+<h3 id="section">環境</h3>
+
+<ul>
+  <li>Angular1.2.16</li>
+  <li>ui-router</li>
+</ul>
+
+<h3 id="section-1">やり方</h3>
+
+<p>```html</p>
+
+<div ng-repeat="datum in data">
+	&lt;div ui-route=&gt;</div>
+
+<p>&lt;/div&gt;
+```</p>
+
+<p>こんなカンジで作っておいて、app.jsで、</p>
+
+<p><code>javascript
+state()
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

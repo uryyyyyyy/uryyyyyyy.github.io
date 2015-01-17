@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DesignPattern | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/designpattern/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[abstructFactoryとFactoryMethodの違い]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/22/abstructfactory-and-factory/"/>
+    <updated>2014-06-22T17:53:57+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/22/abstructfactory-and-factory</id>
+    <content type="html"><![CDATA[<p>未だによくわかっていなかったので簡単にまとめます。</p>
+
+<!--more-->
+
+<p>簡単に言うと、FactoryMethodを抽象化したものがAbstructFactoryです。
+実際のプログラムで使うのはAbstructの方になりそうです。</p>
+
+<h3 id="facrorymethod">FacroryMethod</h3>
+
+<p><code>java
+public class SampleClass{
+    public static void main(String args[]){
+        FactoryImpl factory = new FactoryImpl();
+        SomeObject obj = factory.createSomeObject();
+        obj.execute();
+    }
+}
+</code></p>
+
+<h3 id="abstructfactory">AbstructFactory</h3>
+
+<p>```java
+public class SampleClass{
+    public static void main(String args[]){
+        Factory factory = new FactoryImpl();
+        SomeObject obj = factory.createSomeObject();
+        obj.execute();
+    }
+}</p>
+
+<p>```</p>
+
+<p>要は、変更があった際にFactoryクラス自体を直接書き換えるか、
+Factoryクラスの実装を別のFactoryImplクラスに付け替えるかの違いです。</p>
+
+<p>Factory内のInjectionが複数あった時や、Injectionするのはこのセットで決まっている時などはAbstructFactoryを使うと思います。（ほぼ全てかも）</p>
+]]></content>
+  </entry>
+  
+</feed>

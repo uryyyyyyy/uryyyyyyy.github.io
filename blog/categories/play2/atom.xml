@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Play2 | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/play2/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[play2でのJsonの取り扱い]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/30/play2-json/"/>
+    <updated>2014-09-30T23:12:27+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/30/play2-json</id>
+    <content type="html"><![CDATA[<p>json ↔ scalaObjectの変換が上手く行かないのでメモ（解決してない。）</p>
+
+<!--more-->
+
+<h3 id="section">したいこと</h3>
+
+<p>redisなどのキャッシュサーバにデータを格納しておくとき、Scalaのオブジェクトを文字列にして格納しておきたい。</p>
+
+<p>で、取ってくるときにはその文字列をオブジェクトに再変換したい。</p>
+
+<h3 id="section-1">ざっくりとした例</h3>
+
+<p>Playについてるjsonライブラリを使う。</p>
+
+<p>JｓValueは、json文字列をパースした状態のオブジェクト。（ASTとか構文木って言うのかな。。よく知らない。）</p>
+
+<p>```
+import play.api.libs.json.{JsValue, Json}</p>
+
+<p>object PlayJson {</p>
+
+<pre><code>case class Person(id:Int, name:String)
+
+implicit val writes = Json.writes[Person]
+implicit val reads = Json.reads[Person]
+
+val person = Person(1,"shiba")
+
+//ScalaObject =&gt; jsonString
+val jsValue1: JsValue = Json.toJson(person)
+val str:String = Json.stringify(jsValue1)
+
+//ScalaObject &lt;= jsonString
+val jsValue2:JsValue = Json.parse(str)
+val person2:Person = Json.fromJson[Person](jsValue2).asOpt.get
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>型を細かく書いてるのでやりたいことはわかると思う。</p>
+
+<h3 id="section-2">結果</h3>
+
+<p>こんな感じで変換できるはず、、、なのだが、実際にWebアプリケーションで似たことをするとたまに（3割くらいで）変換に失敗する。</p>
+
+<p>この「たまに」ってのが非常にウザい。。。</p>
+
+<p>ちなみに、エラーの発生箇所は、JsValueから某Objectへの変換のところらしい。（たま〜にJsValueへの変換でもミスってる）</p>
+
+<p>原因として思い当たるのは、</p>
+
+<ul>
+  <li>文字列の格納にredisを使ってて、そこで文字列が改変される。</li>
+  <li>某ObjectがList[HogeObject]とかになってるせい。</li>
+  <li>Jsonとのマッピングをちゃんと定義してないせい</li>
+</ul>
+
+<p>たぶんどれもがちょっとずつ関与してるんだろうな、という感じで困っている。</p>
+
+<h3 id="section-3">解決案</h3>
+
+<p>JsValueと某Objectのマッピングを丁寧に書いてあげる。（まだ試してない。）</p>
+]]></content>
+  </entry>
+  
+</feed>

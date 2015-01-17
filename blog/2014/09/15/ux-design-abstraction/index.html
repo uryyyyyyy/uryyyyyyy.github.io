@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>UIデザイン論 抽象化 - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="優れたUIとは何なのか、それは体系化できるものなのか？を考える。 導入 先日、先輩から聞いた話で、 「最高のUIは飛行機のコックピットだ。熟練すれば、状態を確認するのも、何か動作させるのも一瞬でできる。」 というものがありました。 普通は使いやすいUIといえば、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">UIデザイン論 抽象化</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-15T09:01:37+09:00" pubdate data-updated="true">Sep 15<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>優れたUIとは何なのか、それは体系化できるものなのか？を考える。</p>
+
+<!--more-->
+
+<h3 id="section">導入</h3>
+
+<p>先日、先輩から聞いた話で、</p>
+
+<p>「最高のUIは飛行機のコックピットだ。熟練すれば、状態を確認するのも、何か動作させるのも一瞬でできる。」</p>
+
+<p>というものがありました。</p>
+
+<p>普通は使いやすいUIといえば、iPhoneのようなできる限りのシンプルさを指すことが多いように思いますが、コックピットの例は少し毛色が異なるように思います。</p>
+
+<p>この問題を考えるときに切り口は2つあるように思います。</p>
+
+<ul>
+  <li>コンシューマー向きかプロ向きか</li>
+  <li>クリエイティブな作業か単純作業か</li>
+</ul>
+
+<h4 id="section-1">コンシューマー向きかプロ向きか</h4>
+
+<p>例として挙げられるのが、instagramとphotoshopでしょうか。</p>
+
+<p>前者は簡単に画像のイメージを変えられるのに対し、後者は豊富な選択肢から顔の輪郭すら細かく調整できます。</p>
+
+<p>ニーズとしての違いは、大まかな操作ができればいいのか、細かいところまで自分でコントロールしたいかだと思います。</p>
+
+<p>後者はどうしても選択肢が多い分複雑になります。</p>
+
+<h4 id="section-2">クリエイティブな作業か単純作業か</h4>
+
+<p>例として挙げられるのが、数式の証明とただの計算でしょうか。</p>
+
+<p>証明においては、答えがなくコンピュータや下請けに投げても処理できないようなものです。</p>
+
+<p>ニーズとしての違いは、やることが決まっているか未定かでしょう。</p>
+
+<p>先のphotoshopの例でも輪郭の調整は自分でコントロールしたいしたいけど、それがグラデーションとして自然か、影の配置は妥当か、などの調整は答えが決まっているのでコンピュータに任せられます。</p>
+
+<h3 id="section-3">プログラミングも同じ</h3>
+
+<p>プログラミング言語でも、Javaなどのチューリング完全と謳われている汎用言語から、SQLなどのDSLまであります。
+また、汎用言語については様々なライブラリがあり、それらを組み合わせることで用途をしぼって簡単にしていく、というのが一般的になっています。</p>
+
+<h3 id="section-4">まとめ</h3>
+
+<p>要は、どこまで顧客のニーズを抽象化できるか・自動化できる（誰がやっても同じ）とみなせるかどうか。</p>
+
+<p>優れたUIの例として、</p>
+
+<p>「ニーズ」→「UIの例」</p>
+
+<p>を考えると、</p>
+
+<p>「実行のタイミングだけ制御したい、後は単純作業」→「実行ボタンだけ用意してあとは裏で処理する」</p>
+
+<p>「一つ一つの項目について目視で確認して確定させたい」→「一つ一つの項目の承認をボタンででき、押すと次の項目に飛べる。」</p>
+
+<p>「各項目について、都合の悪いものは文言を変えたり非表示にしたい」→「パターン化して自動処理させる。できなければ、各項目で文言編集・非表示などを選択できるようにする。」</p>
+
+<p>などが挙げられると思う。</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-15T09:01:37+09:00" pubdate data-updated="true">Sep 15<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/design/'>Design</a>, <a class='category' href='/blog/categories/ui/'>UI</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/14/tax-haven/" title="Previous Post: TAX HAVEN">&laquo; TAX HAVEN</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/15/nosql/" title="Next Post: NOSQLの基礎知識">NOSQLの基礎知識 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/nexus-to-iphone/">nexus５からiphone５に戻した理由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/not-employment-life/">就職しない生き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/why-react/">why react</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/octopress-reinstall/">octopressの再セットアップ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/real-of-starting-bussiness/">起業のリアル</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (107)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/java'>java (5)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/java'>Java (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li><li><a href='/blog/categories/devops'>DevOps (1)</a></li><li><a href='/blog/categories/bacon-js'>Bacon.js (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/di'>DI (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2014/09/15/ux-design-abstraction/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

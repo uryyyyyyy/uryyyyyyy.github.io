@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>NOSQLの基礎知識 - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="職場で使うかは未定ですが知識は入れておかないとと思って。 ※スケールアウトについて書きますが、NOSQLと書いてあるとおり、データストレージに関する話です。
+APサーバー側は触れません。 http://qcontokyo.com/tokyo-2009/pdf/GeneralSession-Day2 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">NOSQLの基礎知識</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-15T22:44:52+09:00" pubdate data-updated="true">Sep 15<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>職場で使うかは未定ですが知識は入れておかないとと思って。</p>
+
+<p>※スケールアウトについて書きますが、NOSQLと書いてあるとおり、データストレージに関する話です。
+APサーバー側は触れません。</p>
+
+<!--more-->
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4897978874/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41yDPT8jPyL.jpg" width="358" height="500" alt="NOSQLの基礎知識 (ビッグデータを活かすデータベース技術)" title="NOSQLの基礎知識 (ビッグデータを活かすデータベース技術)" /></a></p>
+
+<p>http://qcontokyo.com/tokyo-2009/pdf/GeneralSession-Day2-Maruyama.pdf</p>
+
+<h2 id="rdb">既存の手法（RDB）の問題点</h2>
+
+<p>多数のアクセス（書き込み）を効率的に捌けない。</p>
+
+<p>なんとかさばこうとすると、かなり高いマシンを用意する必要がある。
+（スケールアップ）</p>
+
+<h2 id="section">解決策</h2>
+
+<p>複数の汎用機で代替させる。
+（スケールアウト）</p>
+
+<p>ハードに頼るのではなく、ソフトで対応する。</p>
+
+<h2 id="section-1">その際に生じる問題</h2>
+
+<h3 id="section-2">マシンの台数が増えると、マシン・ネットワークエラーの確率が無視できなくなる。</h3>
+
+<p>解決策</p>
+
+<p>→NOSQLと分散技術</p>
+
+<h3 id="section-3">複数台でデータの整合性を保つのが難しくなる。</h3>
+
+<p>解決策</p>
+
+<p>→NOSQLとCAP定理</p>
+
+<h3 id="nosql">NOSQLとは？</h3>
+
+<p>厳密には、RDB以外。</p>
+
+<p>ざっくりというと、複数台前提の用途特化型DB</p>
+
+<p>シンプルで十分な場合。</p>
+
+<h3 id="cap">CAP定理とは？</h3>
+
+<p>C・・・Consistency</p>
+
+<p>A・・・Availability</p>
+
+<p>P・・・Partition-tolerance</p>
+
+<p>CA・・・全てのデータはいつでも矛盾がなくアクセスできる。ただしスケールアウトしない。（RDBなど）</p>
+
+<p>AP・・・エラーが起きても常にアクセスできるが、データの整合性は保証しない（Dynamoなど）</p>
+
+<p>CP・・・マスターで複数台を管理し、大量に捌ける。マスターから外されたらアクセスできない。（Google Tableなど）</p>
+
+<h2 id="acidbase">acidとbase</h2>
+
+<p>RDBがacidと思えば良いかな。</p>
+
+<p>ACID・・・Atomic Consistency Isolation Durability</p>
+
+<p>クラウドでは、可用性も分散も必須。
+すると整合性を弱めるしかない。</p>
+
+<p>BASE・・・Basically Available Soft-state Eventual Consistency</p>
+
+<p>そもそも、物理的に距離が離れていたら結果整合性に頼らざるを得なくなる。
+（東京で書き込みを行う際にアメリカまでLockの命令を飛ばして帰ってきてから更新して、それが終わったらまたアメリカへ完了を通知して、、、なんてやってられない。）</p>
+
+<p>※BASEの実現方法として、書き込みをQueueに積んでおく。読み込むデータを非同期レプリケーションして古いものを許容する。の二種類があると思う。
+前者はPrimary Keyを持つものなどに注意が必要。（TimeStamp VectorClockなどで処理する方法がある。）</p>
+
+<h3 id="dbms">用途別のDBMS選び方の例</h3>
+
+<h4 id="section-4">整合性重視の場合</h4>
+
+<p>例：商品の購入処理・オンラインゲームの敵の体力など。</p>
+
+<p>有用：トランザクション・CAS特性を持ったもの 単体で動くもの。</p>
+
+<p>DBMS例：RDB Hibari</p>
+
+<h4 id="section-5">拡張性重視の場合</h4>
+
+<p>例：突発的なアクセス増・毎日数TBのデータ蓄積</p>
+
+<p>有用：コンシステンスハッシング マルチデータセンター対応 シャーディング</p>
+
+<p>DBMS例：Cassandra Riak Dynamo</p>
+
+<h4 id="section-6">柔軟性重視の場合</h4>
+
+<p>例：ユーザーが自由に配置していくようなもの？</p>
+
+<p>有用：ドキュメント指向</p>
+
+<p>DBMS例：MongoDB CouchDB</p>
+
+<p>（後日追記する。）</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-15T22:44:52+09:00" pubdate data-updated="true">Sep 15<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/db/'>DB</a>, <a class='category' href='/blog/categories/nosql/'>NOSQL</a>, <a class='category' href='/blog/categories/book-review/'>book_review</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/15/ux-design-abstraction/" title="Previous Post: UIデザイン論 抽象化">&laquo; UIデザイン論 抽象化</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/15/liberal-for-adult/" title="Next Post: おとなの教養">おとなの教養 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/nexus-to-iphone/">nexus５からiphone５に戻した理由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/not-employment-life/">就職しない生き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/why-react/">why react</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/octopress-reinstall/">octopressの再セットアップ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/real-of-starting-bussiness/">起業のリアル</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (107)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/java'>java (5)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/java'>Java (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li><li><a href='/blog/categories/devops'>DevOps (1)</a></li><li><a href='/blog/categories/bacon-js'>Bacon.js (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/di'>DI (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2014/09/15/nosql/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

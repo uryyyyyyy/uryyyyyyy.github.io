@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GCE | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/gce/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[docker入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/01/docker-primer/"/>
+    <updated>2014-06-01T23:32:09+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/01/docker-primer</id>
+    <content type="html"><![CDATA[<p>先日書きましたが、改めてDockerのいいところや使い方を学んでいこうと思います。</p>
+
+<p>GoogleでもCoreOSを取り入れることになったようで、ますますDockerが普及していくんじゃないかなということで。</p>
+
+<p>先日クーポンを頂いたので、しばらくGCE（Google Compute Engine）ラブです。</p>
+
+<!--more-->
+
+<h3 id="docker">Dockerとは</h3>
+
+<p>仮想環境よりも軽量な、コンテナと呼ばれるものを管理する基盤。</p>
+
+<p>ホストOSにDockerを用意して、その上に複数のコンテナを載せていく。</p>
+
+<p>各コンテナは独立しており、同じマシン上で動いていても影響しない。付け替えも容易にできる。</p>
+
+<h3 id="section">何が嬉しいの？</h3>
+
+<p>オンプレ時代は、サーバー機に対して更新をかけるときは既存のものの上から更新をかける形だった。</p>
+
+<p>ちょっと修正するだけなので楽に見えるが、</p>
+
+<ul>
+  <li>一度処理を間違えると元に戻しにくい</li>
+  <li>ローカルとサーバーで環境が微妙に異なる</li>
+  <li>スケールしにくい</li>
+</ul>
+
+<p>などの問題があった。</p>
+
+<p>そこで、仮想環境に載せることで、あとからやり直せるような構成にする技術が進んだが、</p>
+
+<ul>
+  <li>実行速度が遅い</li>
+  <li>容量が大きくなる</li>
+  <li>デプロイも一苦労</li>
+</ul>
+
+<p>などのオーバーヘッドに起因する問題が発生していた。</p>
+
+<p>さらにはパブリッククラウド（EC2など）が登場し、snapshotで同じものを用意できるようになったが、</p>
+
+<ul>
+  <li>やはり開発環境と微妙に異なる。</li>
+  <li>細かく分けてサーバーを立てるとお金が大量にかかる</li>
+  <li>ベンダー依存してしまう</li>
+</ul>
+
+<p>といった問題があった。</p>
+
+<p>Dockerは、これらの問題を解決するために、</p>
+
+<ul>
+  <li>どこでも同じ環境として動く。<code>build once, Run anywhere</code></li>
+  <li>不安定な環境にならない。<code>Immutable Infrastracture</code></li>
+  <li>オーバーヘッドが少ない。</li>
+  <li>共有が容易<code>Docker Index</code></li>
+</ul>
+
+<p>といった利点を持っている。</p>
+
+<h3 id="section-1">機能は？</h3>
+
+<p>とりあえず現状調べたものとして、</p>
+
+<ul>
+  <li>リソース管理<code>cgroups</code></li>
+  <li>差分管理ファイルシステム<code>UnionFS</code></li>
+  <li>環境設定ファイル<code>Dockerfile</code></li>
+  <li>ルーティング</li>
+</ul>
+
+<h3 id="section-2">どう使うの？</h3>
+
+<h4 id="cgroups">リソース管理cgroups</h4>
+
+<p>仮想マシンでいうところのCPUやメモリの割り当てを行える。</p>
+
+<h4 id="unionfs">差分管理ファイルシステムUnionFS</h4>
+
+<p>作業の一つ一つがレイヤとして積み重なっていく。過去の作業を戻すことはないため、その部分を共有することができ、効率よく動作させることができる。</p>
+
+<h4 id="dockerfile">Dockerfile</h4>
+
+<p>Dockerfileがあれば、どの環境でもおなじように設定ができる。</p>
+
+<p>（Docker Indexからpullしてくるのと違いがあるの？）</p>
+
+<h4 id="section-3">ルーティング</h4>
+
+<p>調査中</p>
+
+<h3 id="on-gce">動作確認 on GCE</h3>
+
+<p><a href="http://docs.docker.io/installation/google/">公式インストール手順</a></p>
+
+<p><code>
+# sudo docker run [image type] [some operation]
+sudo docker run busybox echo 'docker on GCE \o/'
+sudo docker run ubuntu /bin/echo hello
+</code></p>
+
+<p>試しにVersionを見てみるとこんなカンジ。</p>
+
+<p><code>
+Client version: 0.11.1
+Client API version: 1.11
+Go version (client): go1.2.1
+Git commit (client): fb99f99
+Server version: 0.11.1
+Server API version: 1.11
+Git commit (server): fb99f99
+Go version (server): go1.2.1
+Last stable version: 0.11.1
+</code></p>
+
+<p>現在の最新版が入っています。</p>
+
+<h4 id="section-4">グローバル設定</h4>
+
+<p>グローバルな設定ファイルはこんなカンジ</p>
+
+<ul>
+  <li>/etc/default/docker</li>
+</ul>
+
+<p>```</p>
+
+<h1 id="docker-upstart-and-sysvinit-configuration-file">Docker Upstart and SysVinit configuration file</h1>
+
+<h1 id="customize-location-of-docker-binary-especially-for-development-testing">Customize location of Docker binary (especially for development testing).</h1>
+<p>#DOCKER=”/usr/local/bin/docker”</p>
+
+<h1 id="use-dockeropts-to-modify-the-daemon-startup-options">Use DOCKER_OPTS to modify the daemon startup options.</h1>
+<p>#DOCKER_OPTS=”–dns 8.8.8.8 –dns 8.8.4.4”</p>
+
+<h1 id="if-you-need-docker-to-use-an-http-proxy-it-can-also-be-specified-here">If you need Docker to use an HTTP proxy, it can also be specified here.</h1>
+<p>#export http_proxy=”http://127.0.0.1:3128/”</p>
+
+<h1 id="this-is-also-a-handy-place-to-tweak-where-dockers-temporary-files-go">This is also a handy place to tweak where Docker’s temporary files go.</h1>
+<p>#export TMPDIR=”/mnt/bigdrive/docker-tmp”
+```</p>
+
+<h4 id="section-5">インタラクティブ操作</h4>
+
+<p><code>
+sudo docker run -t -h ubuntu ubuntu /bin/bash
+</code></p>
+
+<ul>
+  <li>-t インタラクティブ実行</li>
+  <li>-h root権限</li>
+</ul>
+
+<p>っぽい。</p>
+
+<h4 id="log">log確認</h4>
+
+<p><code>
+docker logs -f [container id]
+</code></p>
+
+<ul>
+  <li>-f follow ずっと追い続ける。</li>
+</ul>
+
+<h4 id="section-6">現在のコンテナ確認</h4>
+
+<p><code>
+docker ps -a
+</code>
+* -a 停止中も含めたすべてのコンテナ</p>
+
+<h4 id="section-7">一時停止</h4>
+
+<p><code>
+docker stop [container id]
+</code></p>
+
+<h3 id="localdocker">Localでdocker</h3>
+
+<p>ちなみに、Local環境（Ubuntu14.04）でもやってみたところ、</p>
+
+<p><code>
+Client version: 0.9.1
+Go version (client): go1.2.1
+Git commit (client): 3600720
+Server version: 0.9.1
+Git commit (server): 3600720
+Go version (server): go1.2.1
+Last stable version: 0.11.1, please update docker
+</code></p>
+
+<p>少し古いバージョンでした。</p>
+
+<p>今後、Commitやpullを追加していきます。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Karma | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/karma/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Karma入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/02/karma-primer/"/>
+    <updated>2014-06-02T08:59:50+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/02/karma-primer</id>
+    <content type="html"><![CDATA[<p>ちょっと不十分ですが、一旦上げておきます。</p>
+
+<!--more-->
+
+<h3 id="karma">Karmaとは？</h3>
+
+<p>node.jsベースのJavaScriptテストランナー。</p>
+
+<p>実際にテストを実行するのは別フレームワーク（Jasmin, QUnitなど）で、それらを簡単に、ブラウザを用いてテストできるようにしたもの。（たぶん）</p>
+
+<h3 id="section">何が嬉しいの？</h3>
+
+<p>JSのテストの実行が楽になる。</p>
+
+<p>Karma直接の機能ではないですが、画面でSeleniumなどでやるのではなく、JSの関数一つ一つをテストすることが可能。</p>
+
+<p><code>karma start</code>と打てば該当のフォルダのテストを該当のブラウザで行ってくれるし、
+例えば、GruntでテストをTaskに組み込むことも可能です。</p>
+
+<p>オプションでカバレッジも取れる。</p>
+
+<p>これらの機能をまとめて管理してくれるので、とっても楽に設定できます。</p>
+
+<h3 id="section-1">使ってみる</h3>
+
+<ul>
+  <li>Ubuntu : 14.04</li>
+  <li>Karma : </li>
+  <li>Grunt : 0.4</li>
+  <li>node.js : 0.10.28</li>
+</ul>
+
+<p><code>
+npm install karma -g
+</code></p>
+
+<p>Pathが通ってないこともあるので、~/.nvm/v0.10.28/node-module/karma/bin/karma</p>
+
+<p>などを通す。</p>
+
+<p>対象プロジェクトで</p>
+
+<p><code>
+npm init
+npm install grunt-karma --save-dev
+karma init
+# 色々聞かれるがとりあえずDefaultで。
+</code></p>
+
+<p>これで準備が整った。</p>
+
+<p>あとはSpecフォルダにテストを書いて、（なんかSpecが一般的らしい。「仕様」ということ？）</p>
+
+<p><code>
+karma start
+</code></p>
+
+<p>で実行できる。</p>
+
+<h3 id="section-2">追記</h3>
+<p>AngularJSで使いたいと思っていますが、
+Scopeの設定や、Ajax通信のテスト（$httpBackend）を学び直したいです。</p>
+]]></content>
+  </entry>
+  
+</feed>

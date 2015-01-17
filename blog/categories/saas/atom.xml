@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SaaS | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/saas/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[「納品」をなくせばうまくいく]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/07/21/entrusted-development/"/>
+    <updated>2014-07-21T22:20:48+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/07/21/entrusted-development</id>
+    <content type="html"><![CDATA[<p>今話題の納品のない受託開発の本です。</p>
+
+<p>今までとこれからのビジネスモデルと、自分の生き残りを考える上で非常に参考になったので。</p>
+
+<!--more-->
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4534051948/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51krLM-rlvL.jpg" width="346" height="500" alt="「納品」をなくせばうまくいく ソフトウェア業界の“常識&quot;を変えるビジネスモデル" title="「納品」をなくせばうまくいく ソフトウェア業界の“常識&quot;を変えるビジネスモデル" /></a></p>
+
+<h3 id="section">納期の問題点</h3>
+
+<p>一度決めた要件定義から抜け出せない。
+仕様を満たすことがゴール。</p>
+
+<p>完成した頃には陳腐化したり、思ってたのと違うことがしばしばある。
+しかし、それの変更にはすごくコストがかかる。</p>
+
+<p>そもそも変更をすることを想定していない設計になっているから。</p>
+
+<h3 id="section-1">受託開発というより技術顧問</h3>
+
+<p>対象となる会社は小さくて技術者を持っていない会社。</p>
+
+<p>そこで使う業務システムは、要件を固めきれない流動的なものがほとんど。</p>
+
+<p>納品型は、使えるならいいけどそうでなければ
+ツールなどのカスタマイズが必要。</p>
+
+<h3 id="section-2">エンジニアにとっての利点</h3>
+
+<p>フィードバックが早い</p>
+
+<p>開発と保守の分離が少ないのでやる気が持続する</p>
+
+<p>古臭い仕組みに乗っ取らなくて良くなる。
+古い製品はむしろ負債になりうる。</p>
+
+<p>周りに優秀なエンジニアがいる。</p>
+
+<p>目的が、「何かをなすこと」というより、何かをなすための手伝いをITを使って行うこと、になる。</p>
+
+<p>定職につけ、収入が安定する。</p>
+
+<p>一気通貫で責任を持てる。</p>
+
+<p>チームを作れる。</p>
+
+<h3 id="section-3">ユーザーに取っ手の利点</h3>
+
+<p>サービス化することで変化に強い。
+気軽に始められる。</p>
+
+<h3 id="section-4">なぜ今までなかったのか</h3>
+
+<p>インフラ・環境が追いついた。
+インフラasコード</p>
+
+<p>実行環境の統一、
+ブラウザがあればだいたいできる。</p>
+
+<h3 id="section-5">今後</h3>
+
+<p>チーム開発が流行る。</p>
+
+<p>集団でフルスタックエンジニアになる。</p>
+
+<p>デザイナーはエンジニアと密接になる。</p>
+
+<p>モデルの広がり ギルドの浸透。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

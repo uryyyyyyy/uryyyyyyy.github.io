@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>play1のguice-moduleの使い方 - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="現在のプロジェクトで、Play1.2系でGuiceModule（1.2）を使っているのですが、なんかバグったので改めて学び直し。 ドキュメントがなんか不親切だったので色々調べましたが、GuiceModule使えねぇっす。。。 まずは基本から。 playには、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Play1のguice-moduleの使い方</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-31T15:30:46+09:00" pubdate data-updated="true">May 31<span>st</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>現在のプロジェクトで、Play1.2系でGuiceModule（1.2）を使っているのですが、なんかバグったので改めて学び直し。</p>
+
+<p>ドキュメントがなんか不親切だったので色々調べましたが、GuiceModule使えねぇっす。。。</p>
+
+<!--more-->
+
+<h3 id="section">まずは基本から。</h3>
+
+<p>playには、手っ取り早くGuiceを使えるGuiceModuleというのがあります。</p>
+
+<p>初期設定として、まずはconf/dependencies.ymlに</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"># Application dependencies
+</span><span class="line">
+</span><span class="line">require:
+</span><span class="line">- play
+</span><span class="line">- play -&gt; guice 1.2</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>そして、conf/application.confにも、</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">module.guice=${play.path}/modules/guice-1.2
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>を追加。</p>
+
+<p>そして、</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ play dependencies
+</span><span class="line">$ play eclipsify</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>これでEclipseからGuiceのライブラリが使えます。</p>
+
+<p>細かいことは省きますが、</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">di</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.AbstractModule</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemDao</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemDaoImple</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemService</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemServiceImpl</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Di</span> <span class="kd">extends</span> <span class="n">AbstractModule</span><span class="o">{</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">bind</span><span class="o">(</span><span class="n">ItemDao</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">ItemDaoImple</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class="line">		<span class="n">bind</span><span class="o">(</span><span class="n">ItemService</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">ItemServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class="line">	    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>これをどこかに置いておくと、アプリ起動時にconfigure()が走ってDIしてくれます。</p>
+
+<p>Injectする先では、</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">controllers</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">javax.inject.Inject</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">play.mvc.Controller</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">Controller</span> <span class="o">{</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Inject</span>
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">ItemService</span> <span class="n">itemService</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">index</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">renderText</span><span class="o">(</span><span class="n">itemService</span><span class="o">.</span><span class="na">hoge</span><span class="o">());</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>というように、@Injectすれば起動時にDIされます。</p>
+
+<p><strong>※import javax.inject.Injectです。ここだけなぜかGuiceではないので注意</strong></p>
+
+<p>ControllerでないクラスへのInjectは、クラスの頭に<code>@InjectSupport</code>をつければ動きます。</p>
+
+<p>さて、ここで問題が。。。</p>
+
+<p>どうやらこのDI、対象のフィールドがstaticで定義されていないとnullになってしまうのです。
+簡単に言うと、起動時に一度だけDIされます。インスタンスが一度しか生成されないという意味です。</p>
+
+<p>何が問題かというと、インスタンスをマルチスレッドで呼ばれた場合にデータが不正になるバグを含んでしまいます。
+基本的にはマルチスレッド間でのデータの共有は鬼門なので（synclonizedを適切にできればいいが、大抵はミスるor速度劣化する）、インスタンスは別々にするべきです。</p>
+
+<p>しかしGuiceModuleではそれができませんでした。</p>
+
+<p>（さらに、ちゃんと検証してませんが、なんかGuiceModuleがGuice2.0と3.0両方をパスに加えてる気がする。。。）</p>
+
+<h3 id="guice">Guiceライブラリのみで対応。</h3>
+
+<p>仕方ないので、Guiceライブラリ単独でなんとかしてみましょう。（Guiceライブラリは、現在3.0が出ているのでそれで。）</p>
+
+<ul>
+  <li>先ほどのGuiceModuleを全て消します。</li>
+  <li>改めて、Guice3.0を入れます。</li>
+</ul>
+
+<p>Diクラスは先ほどと同じでいいのですが、違うのは注入先の<code>@Inject</code>で使っていた<code>javax.inject.Inject</code>がないことです。</p>
+
+<p>どうするかというと、<code>Injector</code>というのを呼び出してあげます。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">controllers</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">play.mvc.Controller</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.Guice</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.Injector</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">di.Di</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="kd">extends</span> <span class="n">Controller</span> <span class="o">{</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Injector</span> <span class="n">injector</span> <span class="o">=</span> <span class="n">Guice</span><span class="o">.</span><span class="na">createInjector</span><span class="o">(</span><span class="k">new</span> <span class="n">Di</span><span class="o">());</span>
+</span><span class="line">
+</span><span class="line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">index</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">    	<span class="n">ItemService</span> <span class="n">itemService</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">ItemService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class="line">		<span class="n">renderText</span><span class="o">(</span><span class="n">itemService</span><span class="o">.</span><span class="na">hoge</span><span class="o">());</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Controller以外はこんなカンジ。
+ここで注入されたインスタンスはフィールド変数にfinalで持っておくのが無難でしょう。（一度のアクセスで複数回呼ばれるかもしれないため）</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">services</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.Guice</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.Injector</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">di.Di</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemServiceImpl</span> <span class="kd">implements</span> <span class="n">ItemService</span><span class="o">{</span>
+</span><span class="line">
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Injector</span> <span class="n">injector</span> <span class="o">=</span> <span class="n">Guice</span><span class="o">.</span><span class="na">createInjector</span><span class="o">(</span><span class="k">new</span> <span class="n">Di</span><span class="o">());</span>
+</span><span class="line">
+</span><span class="line">	<span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDao</span> <span class="n">itemDao</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(){</span>
+</span><span class="line">		<span class="k">this</span><span class="o">.</span><span class="na">itemDao</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">ItemDao</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">hoge</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="k">return</span> <span class="n">itemDao</span><span class="o">.</span><span class="na">findByHoge</span><span class="o">();</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>これで、GuiceModuleと同じように動きます。</p>
+
+<p>最後に、毎回別のインスタンスが作られるように、Diの設定をやり直します。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">di</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.AbstractModule</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">com.google.inject.Scopes</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemDao</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemDaoImple</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemService</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">controllers.ItemServiceImpl</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Di</span> <span class="kd">extends</span> <span class="n">AbstractModule</span><span class="o">{</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">bind</span><span class="o">(</span><span class="n">ItemDao</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">ItemDaoImple</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="n">Scopes</span><span class="o">.</span><span class="na">NO_SCOPE</span><span class="o">);</span>
+</span><span class="line">		<span class="n">bind</span><span class="o">(</span><span class="n">ItemService</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">ItemServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="n">Scopes</span><span class="o">.</span><span class="na">NO_SCOPE</span><span class="o">);</span>
+</span><span class="line">	    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>Scopes.NO_SCOPE</code>というのが加わりました。
+何をしてるかというと、スコープを持たない＝＞毎回新しく作りなおす、ということを定義しています。</p>
+
+<p>これでシングルトンでなく、きちんとインスタンスが分かれた設計になりました。</p>
+
+<p>（試しにItemDao.toStringを呼んでみると、たしかにアクセス毎に別アドレスが表示されました。）</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-31T15:30:46+09:00" pubdate data-updated="true">May 31<span>st</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/guice/'>Guice</a>, <a class='category' href='/blog/categories/play1/'>play1</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/31/bash-dotfiles/" title="Previous Post: bashのDotfiles設定">&laquo; bashのDotfiles設定</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/06/01/nodejs-install/" title="Next Post: node.jsを使ってみる">node.jsを使ってみる &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/nexus-to-iphone/">nexus５からiphone５に戻した理由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/not-employment-life/">就職しない生き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/why-react/">why react</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/octopress-reinstall/">octopressの再セットアップ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/real-of-starting-bussiness/">起業のリアル</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (107)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/java'>java (5)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/java'>Java (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li><li><a href='/blog/categories/devops'>DevOps (1)</a></li><li><a href='/blog/categories/bacon-js'>Bacon.js (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/di'>DI (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

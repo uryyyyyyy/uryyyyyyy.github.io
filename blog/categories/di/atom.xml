@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DI | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/di/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DIの書き方を迷い中]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di/"/>
+    <updated>2014-05-31T08:10:45+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di</id>
+    <content type="html"><![CDATA[<p>僕の会社ではjavaで大規模プロジェクトを開発しているため、DIはよく語られる技術です。</p>
+
+<p>しかし、コードを書いていて無駄にややこしくなっている気がしています。</p>
+
+<!--more-->
+
+<h3 id="section">コードを読んでいて、どこに飛ぶかわかりにくい</h3>
+
+<p>Controllerから順番に処理を見ていっても、Interfaceのところまでしか見れずに、EclipceなどでジャンプしてもInterfaceを見に行ってしまう。</p>
+
+<p>それがDIされてる実装クラスがどこにあるかを見ようと思ったら、DI部分のコードを読むか、○○Implなどでgrepかけるカンジになってしまう。</p>
+
+<h3 id="section-1">不必要そうなコードが並んでる。</h3>
+
+<p>これに関してはDIというよりウチの記述の話なのですが。</p>
+
+<p>例えば、あとでDIしようと思っての設計だと思うんですが、Controllerからサービスを呼びたいときに、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService(new DaoImple(new HogeDaoImpl));
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>みたいなことをウチのプロジェクトではしているんですが、まぁわかりにくい。。。</p>
+
+<p>これなら、コンストラクタの引数にnewで打ち込むのではなくて、各コンストラクタで</p>
+
+<p>```java</p>
+
+<p>public HogeService{
+	this.dao = new DaoImpl();
+}</p>
+
+<p>```</p>
+
+<p>とかってしておいて、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService();
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>の方が見やすいし依存関係も見やすくと思うんですけどどうなんでしょうか？</p>
+
+<p>（というか、さっさとDI部分を作るなり、どうせDIしないなら全てStatelessにしてしまえばいいのでは？と思ってるんですが。）</p>
+
+<h3 id="section-2">ライブラリなどの挙動が、実行時でないとわからない。</h3>
+
+<p>例えば今はplayでGuiceを使ってるんですが、なぜか2.0と3.0が混在していました。
+（これはただの、先人の負の遺産です）</p>
+
+<p>で、play-moduleで対応しているのが2.0なので、全部2.0に統一してしまおうと思っているのですが、なんか実行時エラーが出ます。</p>
+
+<p>仕方ないのでデバッガで見ていくと、どうやら3.0から2.0に直したコードの一部で、DIがされていなかったようです。</p>
+
+<p>（原因はおおよそ見当はついていますが、詳細は後日書きます。）</p>
+
+<p>DIに関しては、普通はxmlやアノテーションで書かれるため、コンパイル時に怪しいかどうかの判断ができません。
+実行して初めて「クラスが見つからない」「型が合わない」などの問題が出てきます
+（しかもログを読んでも、一見関係ないところがバグってるように見えたりして、原因がわかりにくかったりする。）</p>
+]]></content>
+  </entry>
+  
+</feed>

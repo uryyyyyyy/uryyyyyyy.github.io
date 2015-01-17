@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Functional | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/functional/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Road to Monad]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/07/road-to-monad/"/>
+    <updated>2014-10-07T08:38:02+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/07/road-to-monad</id>
+    <content type="html"><![CDATA[<p>随時更新</p>
+
+<!--more-->
+
+<h3 id="monad">モナド（Monad）</h3>
+
+<p>自己関手の圏におけるモノイド対象</p>
+
+<h3 id="monoid">モノイド（Monoid）</h3>
+
+<h3 id="functor">関手（Functor）</h3>
+
+<p>圏の間の対応付けのことである。
+関手は対象関数と射関数の組からなる。</p>
+
+<h3 id="category">圏（Category）</h3>
+
+<p>数学的構造とその変形を取り扱うための枠組みであり、数学的対象をあらわす「対象」とそれらの間の関係を表す「射」の集まりによって与えられる。</p>
+
+<p>例：</p>
+
+<ul>
+  <li>Set: 集合を「対象」とし、集合間の写像を「射」とする。</li>
+  <li>Grp: 群を「対象」とし、群の準同型を「射」とする。</li>
+</ul>
+
+<h2 id="haskel">Haskel用語？</h2>
+
+<h3 id="section">型クラス</h3>
+
+<p>型の振る舞いを指定する為の仕組み。
+特定の型クラスに属する型は、特定の関数が定義されている事が保証されている。</p>
+
+<p>例： Fanctor型クラス</p>
+
+<p><code>
+class Functor f where
+  fmap :: (a -&gt; b) -&gt; f a -&gt; f b
+</code></p>
+
+<h3 id="section-1">型コンストラクタ</h3>
+
+<p>様々な中身に応じた型を作る為の仕組み。</p>
+
+<p>例：</p>
+
+<p><code>
+[1, 2, 3] -- [Int] 型。 [] Int 型とも表記可能。
+Just 'say' -- Mayby String 型。
+Nothing -- Maybe a 型。aは任意の型。
+</code></p>
+
+<h2 id="section-2">参考資料</h2>
+
+<ul>
+  <li>http://south37.hatenablog.com/entry/2014/03/25/Functor%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%EF%BC%9F</li>
+  <li>http://south37.hatenablog.com/entry/2014/04/20/%E3%83%A2%E3%83%8A%E3%83%89%E3%80%81%E3%81%82%E3%82%8B%E3%81%84%E3%81%AF%E8%87%AA%E5%B7%B1%E9%96%A2%E6%89%8B%E3%81%AE%E5%9C%8F%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89</li>
+  <li></li>
+  <li></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[関数プログラミング試行錯誤]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/23/functional-programing/"/>
+    <updated>2014-09-23T23:12:16+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/23/functional-programing</id>
+    <content type="html"><![CDATA[<p>なんとかして関数型プログラミングをやりたいんですが、
+慣れてないので苦戦中です。</p>
+
+<p>とりあえず試行錯誤の記録を残しておきます。</p>
+
+<h2 id="section">目的</h2>
+
+<p>関数プログラミングをしたいモチベーションは、</p>
+
+<ul>
+  <li>なるべく小さなまとまりに分け、テストをしやすくする。</li>
+  <li>処理の流れを宣言的に書いて見やすくする。</li>
+  <li>システムのスケールアウトに対応する。</li>
+</ul>
+
+<p>です。</p>
+
+<p>http://qiita.com/kenokabe/items/a8477694a499ca869cde</p>
+
+<h2 id="section-1">言語と特徴</h2>
+
+<h3 id="scala">Scala</h3>
+
+<ul>
+  <li>サーバーサイド（WebAPIサーバー）の実装に使っている。</li>
+  <li>DBサーバーへのアクセスを抽象化したい。</li>
+  <li>valとdefの違い、implicit parameterの使いドコロが難しい</li>
+  <li>関数の結合とかしていきたい。</li>
+</ul>
+
+<h4 id="section-2">理想のイメージ</h4>
+
+<ul>
+  <li>DAO層はRDBでもCacheでも、非同期でも対応できるようにしたい。</li>
+  <li>Logic部はテスタブル・粗結合な小さな関数を組み合わせたい。</li>
+  <li>newとか書きたくない。状態を持ちたくない。</li>
+  <li>ローカル変数もなるべく使わずメソッドチェーン的に書きたい。</li>
+</ul>
+
+<h3 id="javascript">Javascript</h3>
+
+<ul>
+  <li>WebAPIクライアントとして使っている。</li>
+  <li>bacon.js lodash.jsを主に使う予定。</li>
+  <li>演算はサーバーに任せるのでもっぱらDOM操作系</li>
+  <li>FRPに興味があるので試してみたい。</li>
+</ul>
+
+<h4 id="section-3">目指すカタチ</h4>
+
+<ul>
+  <li>イベント・DOMの管理は全てControllerで把握したい。</li>
+  <li>FRPは興味あるけど、Angularでバインドしたデータの変更が追い切れなくなった経験があるので、データバインディング嫌い。</li>
+  <li>そもそもModelっていう状態を持ちたくない。</li>
+  <li>WebAPIをリッチに用意することで、クライアントはそもそもシンプルにしたい。</li>
+  <li>手続き型を卒業して全体の見通しを良くしたい。</li>
+</ul>
+
+<h2 id="section-4">困った例</h2>
+
+<h3 id="baconjs">bacon.jsのイベントストリームを使うと、パラメータが足りない。</h3>
+
+<h4 id="section-5">事象</h4>
+
+<p>ｊQueryプラグインのオブジェクトに対してeventStreamを作っても、パラメータが一つしか取れない。</p>
+
+<h4 id="section-6">解決法</h4>
+
+<p>普通にイベントを貼り付けて、イベント発火時にイベントストリームを後から作ればいいや。</p>
+
+<h3 id="scaladaointerface">ScalaのDAO層のinterfaceをどうするか？</h3>
+
+<h4 id="section-7">事象</h4>
+
+<p>DAO層はCacheサーバーの場合とRDBの場合とがあるが、session（RDBのtransaction・connection管理用）の使い回しとか返す型とかをどうしようか迷った。</p>
+
+<h4 id="section-8">解決策</h4>
+
+<p>そもそも、読み込みと書き込みで用途が違うことに気がついた。</p>
+
+<p>KVS系の場合はそもそも書き込みしないので、読み込みはsessionを含めず、書き込みだけ含める仕様に変える。</p>
+
+<p>そもそも書き込みだけ別オブジェクトにすべき。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[カリー化と部分適用の違い]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/08/20/curry-partially-applied/"/>
+    <updated>2014-08-20T00:39:43+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/08/20/curry-partially-applied</id>
+    <content type="html"><![CDATA[<p>カリー化と部分適用の違い</p>
+
+<!--more-->
+
+<p>http://qiita.com/f81@github/items/e8bfab96b4be9e404840</p>
+
+<h3 id="section">カリー化</h3>
+
+<p>複数の引数を取る関数を、1つの引数を取る関数のチェーンに変換すること。</p>
+
+<h3 id="section-1">部分適用</h3>
+
+<p>複数の引数を取る関数に対して、一部の引数に値を束縛した関数を返すこと。 </p>
+]]></content>
+  </entry>
+  
+</feed>

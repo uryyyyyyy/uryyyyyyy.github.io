@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularJS | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[angularJSをminifyしてみる]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/12/angular-minify/"/>
+    <updated>2014-06-12T08:16:14+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/12/angular-minify</id>
+    <content type="html"><![CDATA[<p>Gruntを使ってAngularJSファイルをminifyしてみました。</p>
+
+<!--more-->
+
+<p>使ったのは以下。</p>
+
+<ul>
+  <li>grunt</li>
+  <li>grunt-contlib-concat</li>
+  <li>grunt-ngmin</li>
+  <li>grunt-contlib-uglify</li>
+</ul>
+
+<h3 id="section">詰まったこと</h3>
+
+<p>普通にuglifyすると、AngularJSの命名規約が崩れます。
+それは困るので、ng-minというpre-minifyするものをかけてあげます。</p>
+
+<p>また、app/js/<em>*/</em>.jsなどとしたら、
+「moduleが見つかりません」と言われます。
+同一フォルダの中にあったController.jsが、Module定義をしたjsファイルより前に読まれてしまっていたのが原因みたいです。</p>
+
+<p>とりあえず先にModuleを読み込ませるようにしましたが、記述量が増えてしまいました。</p>
+
+<p>今後プロジェクトを作るときは、module定義は別フォルダで先にやってしまおうと思います。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[angular with nodejs]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/02/angular-with-nodejs/"/>
+    <updated>2014-06-02T09:01:05+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/02/angular-with-nodejs</id>
+    <content type="html"><![CDATA[<p>あとで書く</p>
+
+<!--more-->
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[angularJS-GlobalAPI]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/18/angular-api/"/>
+    <updated>2014-05-18T08:07:36+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/18/angular-api</id>
+    <content type="html"><![CDATA[<p>AngularJSの標準に用意されている関数を見てみました。</p>
+
+<p>なるべくサードパーティーのライブラリに依存したくないとは思うものの、
+Angularの方でここまでカバーしなくてもいいんじゃね？という気はしましたが、
+せっかく用意してくれている以上は使っておこうかと思います。</p>
+
+<!--more-->
+
+<h3 id="section">チェック系</h3>
+
+<p>役割は名前のとおりです。</p>
+
+<ul>
+  <li>angular.isDefined(value)</li>
+  <li>angular.isUndefined(value)</li>
+  <li>angular.equals(value1, value2)</li>
+  <li>angular.isString(value);</li>
+  <li>angular.isNumber(value);</li>
+  <li>angular.isArray(value);</li>
+  <li>angular.isFunction(value);</li>
+</ul>
+
+<h3 id="section-1">配列操作</h3>
+
+<ul>
+  <li>angular.forEach(values, function(value, key){/* logic */}
+    <ul>
+      <li>仮想配列も配列も同じように扱える。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="section-2">その他</h3>
+
+<ul>
+  <li>angular.copy(source, [destination]);
+    <ul>
+      <li>deepCopy</li>
+    </ul>
+  </li>
+  <li>angular.extend(dst, src);
+    <ul>
+      <li>dstの元の要素+srcの要素</li>
+    </ul>
+  </li>
+  <li>
+    <p>angular.toJson(obj, [pretty]);</p>
+  </li>
+  <li>
+    <p>angular.fromJson(json);</p>
+  </li>
+  <li>angular.injector([‘myModule’, ‘ng’]);
+    <ul>
+      <li>MyModuleの要素を他へ注入する（詳しくはまた調べる。）</li>
+    </ul>
+  </li>
+</ul>
+]]></content>
+  </entry>
+  
+</feed>

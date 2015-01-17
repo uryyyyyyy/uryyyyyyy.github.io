@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sample | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/sample/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[表示テスト]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/04/sample2/"/>
+    <updated>2014-05-04T08:15:02+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/04/sample2</id>
+    <content type="html"><![CDATA[<h1 id="sample">sampleです。</h1>
+
+<ol>
+  <li>moke</li>
+  <li>boke</li>
+  <li>hoge</li>
+</ol>
+
+<hr />
+
+<p><a href="http://google.com">google</a></p>
+
+<p><img src="/images/email.png" alt="alt text" /></p>
+
+<h1 id="section">上の内容までがトップページに表示</h1>
+<!-- more -->
+<p># 下の内容が個別の記事のページに表示 #</p>
+
+<h2 id="h2sample">h2の表示Sample</h2>
+
+<h3 id="h3sample">h3の表示Sample</h3>
+
+<h4 id="h4sample">h4の表示Sample</h4>
+
+<hr />
+
+<ul>
+  <li>line</li>
+  <li>line2
+    <ul>
+      <li>sub</li>
+      <li>sub2</li>
+    </ul>
+  </li>
+  <li>line3</li>
+</ul>
+
+<p><img src="/images/email.png" alt="alt text" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Column1(left)</th>
+      <th style="text-align: center">Column2(center)</th>
+      <th style="text-align: right">Column2(right)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">foo</td>
+      <td style="text-align: center">foo</td>
+      <td style="text-align: right">foo</td>
+    </tr>
+  </tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+</feed>

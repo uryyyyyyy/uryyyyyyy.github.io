@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Async | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/async/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ScalaのFutureの使い方メモ]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/27/scala-future/"/>
+    <updated>2014-09-27T19:44:21+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/27/scala-future</id>
+    <content type="html"><![CDATA[<p>Futureは非同期に行いたい処理（時間かかる系・ファイルIOや通信など、外部システムに処理を投げる系）を非同期に行うことができるAPIです。</p>
+
+<p><a href="http://docs.scala-lang.org/ja/overviews/core/futures.html">参考サイト</a></p>
+
+<!--more-->
+
+<h3 id="section">宣言の仕方</h3>
+
+<p><code>
+val firstOccurence: Future[Int] = future {
+  val source = scala.io.Source.fromFile("myText.txt")
+  source.toSeq.indexOfSlice("myKeyword")
+}
+</code></p>
+
+<p>ここではファイル操作のシステムに処理を投げ、結果をFuture[Int]という入れ物に入れてもらうと宣言している。</p>
+
+<p>ちなみに、Scala2.11〜はfutureメソッドの代わりにFutureを使うことが推奨されてるらしい。</p>
+
+<h3 id="section-1">使い方</h3>
+
+<p>普通は、処理を外部に投げた後に、処理の結果（先の例だとInt型のデータ）を使いたいことがほとんどだと思われる。</p>
+
+<p>取り出し方法は二通りあって、</p>
+
+<ul>
+  <li>処理が完了した時点でcallback関数を実行する（Non-Blocking）</li>
+  <li>処理が完了するまで同一スレッドで待機させる（Blocking）</li>
+</ul>
+
+<p>Webアプリケーションなどのサーバーサイドの実装をしたい場合は、Non-Blockingだと一スレッドで完結しないのでたぶん使いづらいんだと思う。</p>
+
+<p>例えば、ある時間のかかる処理を依頼するPOSTリクエストを投げた時には、一度そのリクエストを受け取ったというメッセージだけ返して、裏で非同期に処理させて、結果は別途通知する、という仕組みになるんだろうな、と思っています。</p>
+
+<h4 id="non-blocking">Non-Blockingの場合</h4>
+
+<p><code>
+f onComplete {
+  case Success(posts) =&gt; callback(posts)
+  case Failure(t) =&gt; println("エラーが発生した: " + t.getMessage)
+}
+</code></p>
+
+<p>成功ならFuture[T]のT型が、失敗ならThrowable型が返ってきます。</p>
+
+<p>成功時だけ取ってきたい場合は、</p>
+
+<p><code>
+f onSuccess {
+  case posts =&gt; callback(posts)
+}
+</code></p>
+
+<p>などとします。</p>
+
+<h4 id="blocking">Blockingの場合</h4>
+
+<p>※これをやると実質非同期にならないのでオススメしない。</p>
+
+<p>```
+//Future[T]のT型が返ってくる。失敗なら例外[Throwable]が投げられます。
+Await.result(f, Duration.Inf)</p>
+
+<p>//終わった結果を取得する。値はThrowaleかTでパターンマッチして処理する。
+Await.ready(f, Duration.Inf)
+```</p>
+
+<p>ちなみに、<code>Duration.Inf</code>はAwaitする期間を表す。今回の例は「無限に待つ」の意。
+他にも<code>10 nanos</code>とか使える。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

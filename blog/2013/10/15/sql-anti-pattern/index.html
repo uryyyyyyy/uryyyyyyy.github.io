@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQLアンチパターン - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="※過去記事です。 さて、今日はこの本です。
+最近、本のレビューを上げられていないのですが、別にサボっているわけじゃなくて技術書とかやたら難解な哲学書に時間を取られてるからです。普通の本と比べてこれらの本は全然読み進められないですね。。。 さて、本書は具体的な事例を元に、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQLアンチパターン</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T18:11:16+09:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>※過去記事です。</strong></p>
+
+<p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873115892/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41qHKrFZi0L.jpg" width="391" height="500" alt="SQLアンチパターン" title="SQLアンチパターン" /></a></p>
+
+<p>さて、今日はこの本です。
+最近、本のレビューを上げられていないのですが、別にサボっているわけじゃなくて技術書とかやたら難解な哲学書に時間を取られてるからです。普通の本と比べてこれらの本は全然読み進められないですね。。。</p>
+
+<!--more-->
+
+<p>さて、本書は具体的な事例を元に、RDB設計においてのアンチパターン（やってはいけないやり方）とTipsが紹介されています。一つ一つ取り上げて思い出しながらまとめます。が、これだけ読んでも絶対ピンと来ないと思うので、興味を持った人は本書をお手にとって頂ければ。今回はあくまで自分用のまとめになると思います。</p>
+
+<h3 id="section">１ 信号無視</h3>
+<p>データ一つに対して複数のIDをひもづける場合。</p>
+
+<p>アンチパターン：VARCHARなどで、カンマ区切りでIDを入れていくこと。検索や集約関数が複雑になってしまう。VARCHARの文字数制限に依存してしまう。</p>
+
+<p>解決策： 多対多の交差テーブルを用意する。</p>
+
+<h3 id="section-1">２ ナイーブツリー</h3>
+<p>コメントへのレスなど、階層構造が未定のものの設計。</p>
+
+<p>アンチパターン：常に親のみに依存する。検索クエリが、有限値までしか機能しない。</p>
+
+<p>解決策： 代替ツリーモデル採用 ・経路列挙 ・入れ子集合 ・閉包テーブル</p>
+
+<h3 id="id">３ とりあえずID</h3>
+<p>主キーの目的は一意性を保つため。データの重複が起きては全く意味が無い。</p>
+
+<p>アンチパターン： 全てのテーブルにID列を用いる。</p>
+
+<p>解決策：ほんとうに意味がある列なのかを考え、臨機応変に対応するしかない。</p>
+
+<h3 id="section-2">４ 外部キー嫌い</h3>
+<p>アンチパターン： 外部キー制約を利用しない。ミスを想定・検証できない。孤児（どこからも参照されないデータ）が生じる。オーバーヘッドが生じるというが、エラーチェックやバグ検証に比べれば微々たるもの。</p>
+
+<p>解決策：きちんと制約を設ける。</p>
+
+<h3 id="section-3">５ 様々な属性値を使いたい。</h3>
+<p>後から追加できるような様々な属性値を使いたい。</p>
+
+<p>アンチパターン：汎用的な属性テーブルを使用する。
+検索や集約のクエリが複雑になる。データの整合性の確認ができない。</p>
+
+<p>解決策：事前に入りうるデータを想定すべき。（Check制約などを使い制限） 別途テーブルを用意して属性値を並べる。（項目が増えるときはそこだけ修正する。）
+### ６ 複数の親テーブルを、条件に応じて参照したい。</p>
+
+<p>アンチパターン：列を一つ追加してそこの値に応じて参照テーブルを変える。</p>
+
+<ul>
+  <li>クエリが行いづらい。</li>
+  <li>外部キー制約が出来ない。</li>
+</ul>
+
+<p>解決策： 参照関係を逆にする。（交差テーブルを用いて、複数の子を持つようにする。）</p>
+
+<h3 id="section-4">７ 複数の値を持つ属性を格納する。</h3>
+
+<p>アンチパターン：複数の列を定義する 列の数までしか追加できない。 Nullが多く入り、検索が困難。</p>
+
+<p>解決策： 交差テーブルを用意する。</p>
+
+<h3 id="section-5">８ メタデータドリブン</h3>
+<p>データが大量に溜まってしまった状態。処理が遅くなってしまっているので、各年ごと（or〜ごと）のデータを上手く活用したい。</p>
+
+<p>アンチパターン：テーブルや列を増やしていく。</p>
+
+<p>解決策：パーティショニングと正規化を行う。</p>
+
+<h3 id="section-6">９ 丸め誤差</h3>
+<p>小数値を扱う場合</p>
+
+<p>アンチパターン：Float型を使う。</p>
+
+<p>解決策：numericデータ型を使う。制度やスケールを調整することで正しい数値を利用できる。</p>
+
+<h3 id="section-7">10 列の値を特定の値に限定したい</h3>
+<p>しかし、その値が増減する可能性がある。（例：勤務地データ　東京・大阪・名古屋・札幌(new)）</p>
+
+<p>アンチパターン：CHECK制約（限定する値で縛る）→拡張が効かない、移植が難しい。変更しづらい。</p>
+
+<p>解決策：別に列テーブルを作って参照する。
+（ただし、性別や月次などのように値が決まりきってる場合はCheckでよい）</p>
+
+<h3 id="section-8">11画像など大容量データの紐付け。</h3>
+
+<p>アンチパターン：物理ファイルの使用を必須と思い込む。</p>
+
+<p>一般に対処法は2つある。BLOB型に入れるか、物理ファイルへのパスを保管するか。前者は不規則なデータ量の時にDBの容量がかさむ、編集がしづらい。後者は、物理ファイルのデータはバックアップやロールバックが行いにくく、整合性を保てない。</p>
+
+<p>解決策：必要に応じてBLOB型も検討する。</p>
+
+<h3 id="index">12 indexをやみくもに定義する。</h3>
+
+<p>アンチパターン：なんでもかんでもindexを定義する。→毎回indexを更新する必要があり、重くなる。あまり効率化されない。</p>
+
+<p>解決策：必要なところにのみindexをつけることを徹底する。</p>
+
+<h3 id="section-9">13 列で欠けている値を区別する　</h3>
+
+<p>アンチパターン：NULLと一般値を混同する。→NULLを用いると論理式が複雑になる。一般値で代用するときは、その値の正当性が保証されるか判断する。</p>
+
+<p>解決策：NULLが入らないような設計。そうでなければNULLを一意の値として用いる。</p>
+
+<h3 id="section-10">14 非グループ化列を参照する。</h3>
+
+<p>アンチパターン：非グループ化された列（式）を参照してしまう。</p>
+
+<p>解決策：SQLに甘えず、曖昧さを排除したselect文を記述する。</p>
+
+<h3 id="section-11">15 ランダムセレクション</h3>
+
+<p>アンチパターン：データ量が大きい中でランダムに行をセレクトすると重くなる。→全ての行を配置しなおしたりするから。</p>
+
+<p>解決策：値が連続している場合→１〜MAX値までの間で、主キーでランダムに取る。
+飛び飛びの値の場合→欠番の行を取得するなど。</p>
+
+<p>（キー列のリストを受け取って乱数にかけるのが速い。indexもあるだろうし。）</p>
+
+<h3 id="section-12">16 全文検索を行う。</h3>
+
+<p>アンチパターン：LIKEを用いる。</p>
+
+<p>解決策：適切な検索ツールを使う。（各DBベンダーが拡張機能を提供している。フルテキストインデックスなど。）</p>
+
+<h3 id="section-13">17 スパゲッティクエリ</h3>
+
+<p>アンチパターン：複雑なものを一度に取得しようとする。</p>
+
+<p>解決策：一個ずつやればいい。</p>
+
+<h3 id="section-14">18 列名はちゃんと命名しろ</h3>
+
+<p>アンチパターン：SYA_IDとか</p>
+
+<p>解決策：見て意味が理解できなければ意味が無い。</p>
+
+<h3 id="section-15">19 パスワード</h3>
+<p>アンチパターン：平文で残すな。</p>
+
+<p>解決策：ハッシュ値を格納して、チェックのみ行う。（≒暗号化）</p>
+
+<h3 id="sql">20 SQLインジェクション</h3>
+
+<p>アンチパターン：何も対策しない。</p>
+
+<p>解決策：プログラムを作る際はサニタイズする。</p>
+
+<h3 id="id-1">21 擬似キー（IDとか。重複を防ぐ役割）</h3>
+
+<p>アンチパターン：欠番を気にする。</p>
+
+<p>解決策：int型だけでものすごい数があるので気にしない。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T18:11:16+09:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sql/'>SQL</a>, <a class='category' href='/blog/categories/book-review/'>book_review</a>, <a class='category' href='/blog/categories/past/'>past</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/15/deception-of-the-liberalparty/" title="Previous Post: 自民党の欺瞞">&laquo; 自民党の欺瞞</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/10/22/security-is-habit/" title="Next Post: セキュリティ対策は乾布摩擦だ">セキュリティ対策は乾布摩擦だ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/nexus-to-iphone/">nexus５からiphone５に戻した理由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/not-employment-life/">就職しない生き方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/why-react/">why react</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/octopress-reinstall/">octopressの再セットアップ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/10/real-of-starting-bussiness/">起業のリアル</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (107)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/java'>java (5)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/java'>Java (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li><li><a href='/blog/categories/devops'>DevOps (1)</a></li><li><a href='/blog/categories/bacon-js'>Bacon.js (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/di'>DI (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2013/10/15/sql-anti-pattern/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

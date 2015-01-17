@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Game | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/game/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ゲームと技術]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/30/game-and-technology/"/>
+    <updated>2014-05-30T01:50:40+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/30/game-and-technology</id>
+    <content type="html"><![CDATA[<p>又聞きですが、ゲームを企画するときは、構想時点から技術の話が出てくるそうです。
+それを受けて世界観を組んでいくこともあるんだとか。</p>
+
+<!--more-->
+
+<p>なぜかというと、楽しくゲームしてもらうには応答速度は必須要件だから。</p>
+
+<p>めちゃくちゃ綺麗なグラフィックだろうが、カクカクしていたら「現実の限界」が見えてしまって、世界観も全て台無しで萎えるわけです。</p>
+
+<p>例を２つ</p>
+
+<h3 id="section">塊魂</h3>
+
+<p>いろんな物体が引っ付いていくことで有名なゲームですが、これはあらゆる３Dオブジェクトの動きを処理して表示させようと思ったらむちゃくちゃ重たいわけです。</p>
+
+<p>そこで、世界観をカクカクしたキャラクターやもっさりした町並みにすることで速度を稼いでいるんだとか。</p>
+
+<h3 id="section-1">無双シリーズ</h3>
+
+<p>何百人もの敵をバッタバッタと薙ぎ払っていくゲームですが、これも普通にやったら、全てのキャラの動きをレンダリングして主人公の必殺技も処理して、となると持たないわけです。</p>
+
+<p>そこで、敵キャラのオブジェクトや動作を統一して軽くして速度を稼いでいるようです。
+それを普通に見ると、敵キャラの個性がない、という世界観を作り出しているそうです。</p>
+
+<h2 id="section-2">まとめ</h2>
+
+<p>FFなんかも、あれだけの３Dを表示できるスペックのマシンが出てきたから、それを最大限活かそう、というカンジで作られているんじゃないでしょうか。もう最近じゃないですが、PS３の「アフリカ」とかもそうですよね。</p>
+
+<p>思い返せば、PCがあるからSNSなども発想されたし、Amazonのドローン配達なんかも技術主導かもしれません。</p>
+
+<p>技術はただのツールでなくて、僕らの固定観念を壊していく上でも技術ドリブンで考えるのもいいかもしれません。</p>
+]]></content>
+  </entry>
+  
+</feed>

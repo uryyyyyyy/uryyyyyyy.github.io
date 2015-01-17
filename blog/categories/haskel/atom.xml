@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Haskel | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/haskel/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Road to Monad]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/07/road-to-monad/"/>
+    <updated>2014-10-07T08:38:02+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/07/road-to-monad</id>
+    <content type="html"><![CDATA[<p>随時更新</p>
+
+<!--more-->
+
+<h3 id="monad">モナド（Monad）</h3>
+
+<p>自己関手の圏におけるモノイド対象</p>
+
+<h3 id="monoid">モノイド（Monoid）</h3>
+
+<h3 id="functor">関手（Functor）</h3>
+
+<p>圏の間の対応付けのことである。
+関手は対象関数と射関数の組からなる。</p>
+
+<h3 id="category">圏（Category）</h3>
+
+<p>数学的構造とその変形を取り扱うための枠組みであり、数学的対象をあらわす「対象」とそれらの間の関係を表す「射」の集まりによって与えられる。</p>
+
+<p>例：</p>
+
+<ul>
+  <li>Set: 集合を「対象」とし、集合間の写像を「射」とする。</li>
+  <li>Grp: 群を「対象」とし、群の準同型を「射」とする。</li>
+</ul>
+
+<h2 id="haskel">Haskel用語？</h2>
+
+<h3 id="section">型クラス</h3>
+
+<p>型の振る舞いを指定する為の仕組み。
+特定の型クラスに属する型は、特定の関数が定義されている事が保証されている。</p>
+
+<p>例： Fanctor型クラス</p>
+
+<p><code>
+class Functor f where
+  fmap :: (a -&gt; b) -&gt; f a -&gt; f b
+</code></p>
+
+<h3 id="section-1">型コンストラクタ</h3>
+
+<p>様々な中身に応じた型を作る為の仕組み。</p>
+
+<p>例：</p>
+
+<p><code>
+[1, 2, 3] -- [Int] 型。 [] Int 型とも表記可能。
+Just 'say' -- Mayby String 型。
+Nothing -- Maybe a 型。aは任意の型。
+</code></p>
+
+<h2 id="section-2">参考資料</h2>
+
+<ul>
+  <li>http://south37.hatenablog.com/entry/2014/03/25/Functor%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A7%E3%81%99%E3%81%8B%EF%BC%9F</li>
+  <li>http://south37.hatenablog.com/entry/2014/04/20/%E3%83%A2%E3%83%8A%E3%83%89%E3%80%81%E3%81%82%E3%82%8B%E3%81%84%E3%81%AF%E8%87%AA%E5%B7%B1%E9%96%A2%E6%89%8B%E3%81%AE%E5%9C%8F%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89</li>
+  <li></li>
+  <li></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

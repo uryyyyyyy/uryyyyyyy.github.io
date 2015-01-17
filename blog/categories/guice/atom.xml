@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Guice | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/guice/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[play1のguice-moduleの使い方]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule/"/>
+    <updated>2014-05-31T15:30:46+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/31/play-guice-moodule</id>
+    <content type="html"><![CDATA[<p>現在のプロジェクトで、Play1.2系でGuiceModule（1.2）を使っているのですが、なんかバグったので改めて学び直し。</p>
+
+<p>ドキュメントがなんか不親切だったので色々調べましたが、GuiceModule使えねぇっす。。。</p>
+
+<!--more-->
+
+<h3 id="section">まずは基本から。</h3>
+
+<p>playには、手っ取り早くGuiceを使えるGuiceModuleというのがあります。</p>
+
+<p>初期設定として、まずはconf/dependencies.ymlに</p>
+
+<p>```
+# Application dependencies</p>
+
+<p>require:
+- play
+- play -&gt; guice 1.2
+```</p>
+
+<p>そして、conf/application.confにも、</p>
+
+<p>```
+module.guice=${play.path}/modules/guice-1.2</p>
+
+<p>```
+を追加。</p>
+
+<p>そして、</p>
+
+<p><code>
+$ play dependencies
+$ play eclipsify
+</code></p>
+
+<p>これでEclipseからGuiceのライブラリが使えます。</p>
+
+<p>細かいことは省きますが、</p>
+
+<p>```java
+package di;</p>
+
+<p>import com.google.inject.AbstractModule;</p>
+
+<p>import controllers.ItemDao;
+import controllers.ItemDaoImple;
+import controllers.ItemService;
+import controllers.ItemServiceImpl;</p>
+
+<p>public class Di extends AbstractModule{</p>
+
+<pre><code>@Override
+public void configure() {
+	bind(ItemDao.class).to(ItemDaoImple.class);
+	bind(ItemService.class).to(ItemServiceImpl.class);
+    } } ```
+</code></pre>
+
+<p>これをどこかに置いておくと、アプリ起動時にconfigure()が走ってDIしてくれます。</p>
+
+<p>Injectする先では、</p>
+
+<p>```java
+package controllers;</p>
+
+<p>import javax.inject.Inject;</p>
+
+<p>import play.mvc.Controller;</p>
+
+<p>public class Application extends Controller {</p>
+
+<pre><code>@Inject
+private static ItemService itemService;
+
+public static void index() {
+	renderText(itemService.hoge());
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>というように、@Injectすれば起動時にDIされます。</p>
+
+<p><strong>※import javax.inject.Injectです。ここだけなぜかGuiceではないので注意</strong></p>
+
+<p>ControllerでないクラスへのInjectは、クラスの頭に<code>@InjectSupport</code>をつければ動きます。</p>
+
+<p>さて、ここで問題が。。。</p>
+
+<p>どうやらこのDI、対象のフィールドがstaticで定義されていないとnullになってしまうのです。
+簡単に言うと、起動時に一度だけDIされます。インスタンスが一度しか生成されないという意味です。</p>
+
+<p>何が問題かというと、インスタンスをマルチスレッドで呼ばれた場合にデータが不正になるバグを含んでしまいます。
+基本的にはマルチスレッド間でのデータの共有は鬼門なので（synclonizedを適切にできればいいが、大抵はミスるor速度劣化する）、インスタンスは別々にするべきです。</p>
+
+<p>しかしGuiceModuleではそれができませんでした。</p>
+
+<p>（さらに、ちゃんと検証してませんが、なんかGuiceModuleがGuice2.0と3.0両方をパスに加えてる気がする。。。）</p>
+
+<h3 id="guice">Guiceライブラリのみで対応。</h3>
+
+<p>仕方ないので、Guiceライブラリ単独でなんとかしてみましょう。（Guiceライブラリは、現在3.0が出ているのでそれで。）</p>
+
+<ul>
+  <li>先ほどのGuiceModuleを全て消します。</li>
+  <li>改めて、Guice3.0を入れます。</li>
+</ul>
+
+<p>Diクラスは先ほどと同じでいいのですが、違うのは注入先の<code>@Inject</code>で使っていた<code>javax.inject.Inject</code>がないことです。</p>
+
+<p>どうするかというと、<code>Injector</code>というのを呼び出してあげます。</p>
+
+<p>```java
+package controllers;</p>
+
+<p>import play.mvc.Controller;</p>
+
+<p>import com.google.inject.Guice;
+import com.google.inject.Injector;</p>
+
+<p>import di.Di;</p>
+
+<p>public class Application extends Controller {</p>
+
+<pre><code>private static Injector injector = Guice.createInjector(new Di());
+
+public static void index() {
+	ItemService itemService = injector.getInstance(ItemService.class);
+	renderText(itemService.hoge());
+} } ```
+</code></pre>
+
+<p>Controller以外はこんなカンジ。
+ここで注入されたインスタンスはフィールド変数にfinalで持っておくのが無難でしょう。（一度のアクセスで複数回呼ばれるかもしれないため）</p>
+
+<p>```
+package services;</p>
+
+<p>import com.google.inject.Guice;
+import com.google.inject.Injector;</p>
+
+<p>import di.Di;</p>
+
+<p>public class ItemServiceImpl implements ItemService{</p>
+
+<pre><code>private static Injector injector = Guice.createInjector(new Di());
+
+private final ItemDao itemDao;
+
+public ItemServiceImpl(){
+	this.itemDao = injector.getInstance(ItemDao.class);
+}
+
+@Override
+public String hoge() {
+	return itemDao.findByHoge();
+} } ```
+</code></pre>
+
+<p>これで、GuiceModuleと同じように動きます。</p>
+
+<p>最後に、毎回別のインスタンスが作られるように、Diの設定をやり直します。</p>
+
+<p>```java
+package di;</p>
+
+<p>import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;</p>
+
+<p>import controllers.ItemDao;
+import controllers.ItemDaoImple;
+import controllers.ItemService;
+import controllers.ItemServiceImpl;</p>
+
+<p>public class Di extends AbstractModule{</p>
+
+<pre><code>@Override
+public void configure() {
+	bind(ItemDao.class).to(ItemDaoImple.class).in(Scopes.NO_SCOPE);
+	bind(ItemService.class).to(ItemServiceImpl.class).in(Scopes.NO_SCOPE);
+    } } ```
+</code></pre>
+
+<p><code>Scopes.NO_SCOPE</code>というのが加わりました。
+何をしてるかというと、スコープを持たない＝＞毎回新しく作りなおす、ということを定義しています。</p>
+
+<p>これでシングルトンでなく、きちんとインスタンスが分かれた設計になりました。</p>
+
+<p>（試しにItemDao.toStringを呼んでみると、たしかにアクセス毎に別アドレスが表示されました。）</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DIの書き方を迷い中]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di/"/>
+    <updated>2014-05-31T08:10:45+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di</id>
+    <content type="html"><![CDATA[<p>僕の会社ではjavaで大規模プロジェクトを開発しているため、DIはよく語られる技術です。</p>
+
+<p>しかし、コードを書いていて無駄にややこしくなっている気がしています。</p>
+
+<!--more-->
+
+<h3 id="section">コードを読んでいて、どこに飛ぶかわかりにくい</h3>
+
+<p>Controllerから順番に処理を見ていっても、Interfaceのところまでしか見れずに、EclipceなどでジャンプしてもInterfaceを見に行ってしまう。</p>
+
+<p>それがDIされてる実装クラスがどこにあるかを見ようと思ったら、DI部分のコードを読むか、○○Implなどでgrepかけるカンジになってしまう。</p>
+
+<h3 id="section-1">不必要そうなコードが並んでる。</h3>
+
+<p>これに関してはDIというよりウチの記述の話なのですが。</p>
+
+<p>例えば、あとでDIしようと思っての設計だと思うんですが、Controllerからサービスを呼びたいときに、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService(new DaoImple(new HogeDaoImpl));
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>みたいなことをウチのプロジェクトではしているんですが、まぁわかりにくい。。。</p>
+
+<p>これなら、コンストラクタの引数にnewで打ち込むのではなくて、各コンストラクタで</p>
+
+<p>```java</p>
+
+<p>public HogeService{
+	this.dao = new DaoImpl();
+}</p>
+
+<p>```</p>
+
+<p>とかってしておいて、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService();
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>の方が見やすいし依存関係も見やすくと思うんですけどどうなんでしょうか？</p>
+
+<p>（というか、さっさとDI部分を作るなり、どうせDIしないなら全てStatelessにしてしまえばいいのでは？と思ってるんですが。）</p>
+
+<h3 id="section-2">ライブラリなどの挙動が、実行時でないとわからない。</h3>
+
+<p>例えば今はplayでGuiceを使ってるんですが、なぜか2.0と3.0が混在していました。
+（これはただの、先人の負の遺産です）</p>
+
+<p>で、play-moduleで対応しているのが2.0なので、全部2.0に統一してしまおうと思っているのですが、なんか実行時エラーが出ます。</p>
+
+<p>仕方ないのでデバッガで見ていくと、どうやら3.0から2.0に直したコードの一部で、DIがされていなかったようです。</p>
+
+<p>（原因はおおよそ見当はついていますが、詳細は後日書きます。）</p>
+
+<p>DIに関しては、普通はxmlやアノテーションで書かれるため、コンパイル時に怪しいかどうかの判断ができません。
+実行して初めて「クラスが見つからない」「型が合わない」などの問題が出てきます
+（しかもログを読んでも、一見関係ないところがバグってるように見えたりして、原因がわかりにくかったりする。）</p>
+]]></content>
+  </entry>
+  
+</feed>

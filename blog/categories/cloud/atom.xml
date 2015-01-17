@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cloud | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/cloud/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dockerって何がいいの？]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/28/docker-and-chef/"/>
+    <updated>2014-05-28T22:48:02+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/28/docker-and-chef</id>
+    <content type="html"><![CDATA[<p>Google Compute Engineのハンズオンを受けました。</p>
+
+<p>素人なのでEC2との違いを上手く語れませんが、
+Webコンソールも軽くて使いやすいし、
+EC2ほどややこしい設定をしなくて済むので、
+ちょっとした利用だったらむしろ使いやすいかもと思いました。</p>
+
+<!--more-->
+
+<p>さて、とりあえずメジャーなIaaSの選択肢が増えたわけですが、
+クラウドの利点として、同じ設定のマシンを複製してたくさん作れるというのがあります。</p>
+
+<p>EC2にしろcompute engineにしろ、他プラットフォームへのインスタンスの移植はできません。</p>
+
+<p>簡単に言えば、ベンダーにロックされてしまいます。</p>
+
+<h2 id="docker">そこでDockerです。</h2>
+
+<p>Dockerで設定などを保存しておくと、Dockerが入っているマシンであればEC2でも、Googleでも、ローカルでも同じ環境を作れます。</p>
+
+<p>これによってベンダー依存がなくなり、万が一EC2がサービス辞めても、Googleが値上げしても、すぐに退避できるわけです。</p>
+
+<p>さらに、オンプレの環境だろうがVMが使えればDockerは立てられるので、
+費用はもっと安くなるかもしれません。</p>
+
+<p><code>Build Once, Run Anywhere</code>の概念でコンテナごと移植ができると、もはやJavaのメリットがごっそり消えるんじゃないかとすら思います。</p>
+
+<p>どんな言語でもDockerImageごと乗っけちゃえば動かせるわけですし。</p>
+
+<h3 id="chef">おまけ、chef</h3>
+
+<p>chefはなにがいいのかまだ全然わかっていませんが、先輩いわく、</p>
+
+<blockquote>
+  <p>スナップショットとかを使おうが、万が一のために環境構築の手順は残しておくべきで、chefのスクリプトとして残せれば再現も楽でお得じゃない？</p>
+</blockquote>
+
+<p>ということでした。</p>
+]]></content>
+  </entry>
+  
+</feed>

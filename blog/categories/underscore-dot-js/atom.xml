@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: underscore.js | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/underscore-dot-js/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[underscore.js入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/22/underscore-dot-js/"/>
+    <updated>2014-06-22T03:38:03+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/22/underscore-dot-js</id>
+    <content type="html"><![CDATA[<p>普段使っているのですが、まだまだ知らないメソッドが多いので改めてメモ。</p>
+
+<!--more-->
+
+<h3 id="collection">Collection操作系</h3>
+
+<p>```
+var nos = [2,11,3,17,75,39,10,14];
+var squaringNos = _.map(nos,function(no){ return no * no; }) </p>
+
+<p>console.log(squaringNos);
+//=&gt; [4, 121, 9, 289, 5625, 1521, 100, 196]
+```</p>
+
+<p>とか、</p>
+
+<p>```
+var nos = [143,3343,343,344,556,344,5876,543,7764,83477,92340,1045,1100,1200];
+var evenNos = _.filter( nos, function(no){ return no % 2 == 0;} );</p>
+
+<p>console.log(evenNos);
+//=&gt; [344, 556, 344, 5876, 7764, 92340, 1100, 1200]
+```</p>
+
+<p>とかできます。</p>
+]]></content>
+  </entry>
+  
+</feed>

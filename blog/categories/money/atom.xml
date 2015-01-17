@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Money | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/money/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[電話回線のプランメモ]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/23/phone-plan/"/>
+    <updated>2014-10-23T06:34:02+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/23/phone-plan</id>
+    <content type="html"><![CDATA[<!--more-->
+
+<h3 id="section">データ回線のみ</h3>
+
+<h3 id="section-1">電話回線のみ</h3>
+
+<p>http://www.hanacell.com/japan/
+http://www.hanacell.com/jp/tariff/handset.php</p>
+
+<h3 id="section-2">電話＋データ回線</h3>
+
+<p>https://www.iijmio.jp/hdd/service/voice.jsp</p>
+
+<p>→ １６００円 ２GB</p>
+
+<p>http://umobile.jp/service/sim/vc/</p>
+
+<p>→ １５８０ １GB</p>
+
+]]></content>
+  </entry>
+  
+</feed>

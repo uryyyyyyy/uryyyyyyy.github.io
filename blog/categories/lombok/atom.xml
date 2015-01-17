@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: lombok | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/lombok/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Lombok]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/18/lombok/"/>
+    <updated>2014-05-18T09:38:39+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/18/lombok</id>
+    <content type="html"><![CDATA[<p>リソースの閉じ忘れとか、Beans系の生成を自動でやってくれるライブラリ、Lombokです。</p>
+
+<p>まぁシンタックスシュガーの盛り合わせですね。</p>
+
+<!--more-->
+
+<h3 id="features">Features</h3>
+
+<ul>
+  <li>@NonNull → nullチェックしてくれる。</li>
+  <li>@Cleanup → リソースをよろしく閉じて開放してくれる。</li>
+  <li>@Data, @Getter/@Setter, etc → Beans系のメソッドやコンストラクタを裏で作ってくれる。</li>
+  <li>@Log, @Log4j, etc → ロガーを作るシンタックスシュガー</li>
+</ul>
+
+<h3 id="section">何が便利？</h3>
+
+<ul>
+  <li>いちいちGetterとか書かなくて済む</li>
+  <li>うっかりミスがなくなる。</li>
+</ul>
+
+<p>IDEで自動生成できるといっても、それすらめんどいよね。あと、うっかり更新し忘れたりもするよね。</p>
+
+<p>ただ、Beansの値に変更があった場合に、Beans内で反映されても、それを呼び出してるクラスまでは自動更新してくれないっぽいので、renameするほうが楽なんじゃないかと思ったり。</p>
+
+<p>また、アノテーションだけでコンパイル時によろしく作ってくれるため、うっかりミス（前述の更新し忘れなど）がなくなるのが嬉しい。コンパイルが通れば、最新の状態になってることが保証されるわけですよね。</p>
+]]></content>
+  </entry>
+  
+</feed>

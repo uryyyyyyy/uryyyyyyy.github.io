@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Scale | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/scale/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Scalability&amp;Availability]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/22/scalability-and-availability/"/>
+    <updated>2014-09-22T00:15:47+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/22/scalability-and-availability</id>
+    <content type="html"><![CDATA[<p>小規模ながらスケールするシステムを考える必要があるので。</p>
+
+<!--more-->
+
+<p><a href="http://qcontokyo.com/tokyo-2009/pdf/GeneralSession-Day2-Maruyama.pdf">Cloudの技術的特徴について</a></p>
+
+<p>クラウドというよりは分散処理の話でした。</p>
+
+<h3 id="section">分散処理の時代</h3>
+
+<p>クラウド技術が進歩し、大量のサーバーを用意するのが容易になった。</p>
+
+<p>複数台で分散して処理をさせることで、高いスループットを出せるようになった。</p>
+
+<p>ただし、複数台を運用すると故障確率も跳ね上がるようになるため対応が必須</p>
+
+<h3 id="scaleoutscaleup">ScaleOutとScaleUp</h3>
+
+<p>本当にスケールアウトの方がコスパがいいのか？</p>
+
+<ul>
+  <li>一台で積めるメモリ・CPUコアに限界があるので、大規模ではそもそも不可能。</li>
+  <li>CPU単価が圧倒的に安い。</li>
+  <li>ハードでの調整はベンダーしかできないが、ソフトでの調整なら誰でもできる。</li>
+  <li>ソフトウェアは無限に複製できる。</li>
+</ul>
+
+<p>※ただし、サービスによっては一台の高性能マシンの方がコスパがいいケースも当然ある。</p>
+
+<h3 id="section-1">分散処理の分類</h3>
+
+<p>大まかに、</p>
+
+<ul>
+  <li>マスタースレーブ系（全体を管理するマスターがいる）</li>
+  <li>並列ノード系（全体を管理するものはいない）</li>
+</ul>
+
+<p>があるかと。（名称は適当）</p>
+
+<h4 id="section-2">マスタースレーブ系</h4>
+
+<p>トランザクション処理系も原理的に扱える。</p>
+
+<p>扱いやすい反面、マスターがSPOFであり、マスターのスケールはできない。</p>
+
+<p>例：</p>
+
+<ul>
+  <li>RDBのレプリケーション</li>
+  <li>Google File System</li>
+  <li>load Balancer？</li>
+</ul>
+
+<h4 id="section-3">並列ノード系</h4>
+
+<p>全体を管理するものがいないため、無限にスケールできる。</p>
+
+<p>データの整合性は、多数決原理(quorum)・結果整合性、などで決定される。</p>
+
+<p>システムのバランスを取ることと、データの整合性の確保は難しそう。</p>
+
+<p>例：
+* Dynamo
+* KVS系のDBMS
+* ネットワーク？</p>
+
+<h3 id="cap">CAP定理</h3>
+
+<p>全てを同時に満たすことはできないという定理。</p>
+
+<p>スケールするシステムの場合、分散処理（P）は必須。</p>
+
+<h4 id="cp">CとPを選んだ場合</h4>
+
+<p>→マスタースレーブ系</p>
+
+<h4 id="ap">AとPを選んだ場合</h4>
+
+<p>→並列ノード系</p>
+
+<h3 id="acidbase">ACIDとBASE</h3>
+
+<p>ACID</p>
+
+<p>→RDBの考え方。データは常に正しいとする。CAPのうちCA。</p>
+
+<p>BASE</p>
+
+<p>→Dynamo系の考え方。結果整合性があれば良い。CAPのうちAP。</p>
+
+<h3 id="section-4">物理的距離の問題</h3>
+
+<p>物理的に離れているとネットワーク遅延が無視できなくなり、可用性を犠牲にするととても使い物にならなくなる。</p>
+
+<h3 id="section-5">書き込みと読み込みの問題</h3>
+
+<p>書き込みの際にトランザクション系を実装するならマスターは必須だが、読み込みの場合はマスターを経由する必然性はない。（ただし同期に一定の遅延が生じる恐れがある。）</p>
+
+<h3 id="section-6">高レイヤーへの集中</h3>
+
+<p>技術が進歩するにつれ、低レイヤーのことを考えることが少なくなる。（あるいは低レイヤーの領域が拡大する）</p>
+
+<ul>
+  <li>マルチスレッド→順序に依存しない設計へ。</li>
+  <li>マルチプロセス→共有コンテキストを使わない設計へ。</li>
+  <li>マルチマシン→状態を持たない設計へ。</li>
+  <li>信頼できないマルチマシン→一人を信頼しない（結果整合性的）設計へ。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: maven | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/maven/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[mavenメモ]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/01/maven-memo/"/>
+    <updated>2014-05-01T11:45:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/01/maven-memo</id>
+    <content type="html"><![CDATA[<h2 id="maven">Maven</h2>
+
+<p>何が嬉しいのか</p>
+
+<ul>
+  <li>ビルドの自動化</li>
+  <li>プロジェクトのモジュール化</li>
+  <li>依存関係管理</li>
+  <li>ソースコード品質チェック</li>
+  <li>TDD</li>
+  <li>受け入れテスト自動化</li>
+  <li>デプロイ自動化</li>
+</ul>
+
+<h3 id="mvn-commands">mvn commands</h3>
+
+<p>validate
+compile
+test //src/test 以下を全て実行
+package
+integration-test //validate + compile + test + package の後に統合テスト
+verify
+install
+deploy
+clean //生成物（target以下）を削除</p>
+
+<p>フェーズ順</p>
+
+<p>archetype:ganerate</p>
+
+<hr />
+
+<h2 id="pom">POMの定義</h2>
+
+<p>modelVersion</p>
+
+<h3 id="basic">basic</h3>
+
+<p>groupId //プロジェクトを一意に識別する名前。 プロジェクトのルートパッケージ名を指定するのが一般的です。
+artifactId //プロジェクトの成果物の名前。 作成する JAR や WAR, EAR ファイルなどの名前に使用されます。
+version
+packaging // 作成する成果物のパッケージング・タイプ。 jar (デフォルト), war, ear など。
+dependencies //プロジェクトが依存するライブラリの情報。
+scope //対象となるフェーズ
+parent
+modules
+properties</p>
+
+<h3 id="build-settings">build Settings</h3>
+
+<p>build
+reporting</p>
+
+<h3 id="project-meta-data">Project Meta Data</h3>
+
+<p>name //プロジェクトの表示名。 ドキュメントを作成するときなどに使用されます。
+url //プロジェクトのサイトの URL。 ドキュメントを作成するときなどに使用されます。
+description
+licences
+organization
+developper
+contributor</p>
+
+<h3 id="environment">Environment</h3>
+
+<p>issuManagement
+ciManagement
+mailingLists
+scm
+prerequisite
+repositories
+plubinRepositories
+profiles //環境に応じて設定を選べる。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

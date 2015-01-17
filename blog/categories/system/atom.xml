@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: System | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/system/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[think as system]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/22/think-as-system/"/>
+    <updated>2014-06-22T18:05:15+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/22/think-as-system</id>
+    <content type="html"><![CDATA[<p>以下のサイトの感想というかまとめ<a href="http://www.omoshirogari.com/system.htm">システムからの発想</a></p>
+
+<!--more-->
+
+<p>システムとは、</p>
+
+<ul>
+  <li>機能</li>
+  <li>インプット</li>
+  <li>アウトプット</li>
+</ul>
+
+<p>を持つ全てのもの。
+（世の中の全てのものはシステムたりうる。）</p>
+
+<p>目的が大事で、手段は代替できる。
+コスパなどを考えて最適解はあるけども。</p>
+
+<p>全てのものをシステムとして小さな単位で捉えて、
+その個々で切り分けていくと、インターフェースの概念が身につくのでは。</p>
+
+<p>設計・システムの考え方はプログラミングだけでなく、どこでも生かせる。</p>
+]]></content>
+  </entry>
+  
+</feed>

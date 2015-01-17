@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bugs | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/bugs/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[不具合の定義]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/07/definition-of-the-bugs/"/>
+    <updated>2014-06-07T23:33:44+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/07/definition-of-the-bugs</id>
+    <content type="html"><![CDATA[<p>お客さんなどから不具合を報告された場合に、なんでも優先度マックスでがむしゃらに対応するのは考えものではないかと。</p>
+
+<!--more-->
+
+<p>個人的には、バグ自体が悪いのではなくて、お客さんや今後の開発に悪影響を与えることが悪いと思っています。</p>
+
+<p>つまりは、そんなに影響ないのであれば無視すればいいのです。</p>
+
+<p>不具合のパターンとして大きく３つあるかなと思っていまして、</p>
+
+<h4 id="section">実装ミス</h4>
+<p>テストがちゃんとできていなかったことが原因で、実行時エラーが出るパターン</p>
+
+<p>「未記入だとぬるぽで落ちる。」「強制終了した」などの一般的なバグ。</p>
+
+<h4 id="ui">UIが悪い</h4>
+<p>作ってあるものの、お客さんに理解してもらえず活かせてないパターン。</p>
+
+<p>「実行ボタンが見つからない」「画面が止まった（実は裏で超計算してる）」とか。</p>
+
+<h4 id="section-1">仕様漏れ</h4>
+<p>そもそも観点から漏れてた。</p>
+
+<p>「ここで帳票出したいんだけど」「２０ｋBまでしか添付できないとか。。」</p>
+
+<hr />
+
+<p>などなどあると思います。</p>
+
+<p>それらについて、</p>
+
+<ul>
+  <li>なぜ困るのか。</li>
+  <li>修正にどのくらいコストがかかるか。</li>
+</ul>
+
+<p>を考えることが重要かなと思ってます。</p>
+
+<p>ざっくり言うと、放っておいた場合、</p>
+
+<ul>
+  <li>実装ミスは、お客さんに注意してもらう必要があることと、後任の開発者が混乱すること</li>
+  <li>UIは、お客さんにUIを理解してもらうことと、担当者が説明すること</li>
+  <li>仕様漏れは、他の運用で回避すること</li>
+</ul>
+
+<p>がコストになると思います。それらと修正コストを比較して、
+直すほうがメリットが大きい物から順に修正していくとハッピ−になれるんじゃないかと思ってます。</p>
+]]></content>
+  </entry>
+  
+</feed>

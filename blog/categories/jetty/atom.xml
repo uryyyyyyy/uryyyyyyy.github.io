@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Jetty | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/jetty/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Jettyで画像のアップロードが上手く行かない]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/11/sample/"/>
+    <updated>2014-05-11T00:17:49+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/11/sample</id>
+    <content type="html"><![CDATA[<p>Jetty9でアプリケーションを動かすと、<code>webapp</code>フォルダ以下がstatic publicなファイルになるらしい。
+ということで、実行時にそこのフォルダの中の<code>upload</code>フォルダに画像をuploadしたいのですが、いざ保存してみると<!-- more -->エラーは出ないもののそのフォルダに何も入っておらず。</p>
+
+<p>よく調べると、なぜか<code>webapp</code>があるフォルダと同じ階層にuploadされていた。。。（しかもファイル名画「Multimedia-2014〜〜」みたいな名前で拡張子なし）</p>
+
+<p>ここは<code>webapp</code>以下でないため残念ながら、アプリケーションから呼び出すことができない。→保存しても表示できない。</p>
+
+<p>保存ロジックを見ると、ちゃんと保存先のpathは<code>getServletContext().getRealPath("upload")</code>で指定できているようで、そのpathにたしかにuploadフォルダがあるんだけど、なぜかそこへはアップされてくれない。。。
+意味がわからないっす。。。</p>
+
+<p>とりあえず保留で。。。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GradleのJettyPlugin]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/10/samplemoke/"/>
+    <updated>2014-05-10T23:59:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/10/samplemoke</id>
+    <content type="html"><![CDATA[<p>GradleでJetty pluginを使って、簡単なServlet＋JSPのアプリを動かしていたんですが、
+FileUploadの時に以下のエラーが出まして。<!-- more --></p>
+
+<blockquote>
+  <p>java.lang.NoSuchMethodError: javax.servlet.http.HttpServletRequest.getParts()</p>
+</blockquote>
+
+<p>なんかぐぐってみると、gradleのプラグインで使えるJettyはversion6とかの古いやつで、Servlet3系に対応していない模様。。。</p>
+
+<p>しかたないので<a href="https://github.com/Khoulaiz/gradle-jetty-eclipse-plugin">こちらのURL</a>を参考にして、Jetty９のpluginを入れてみた。</p>
+
+<p>今まで<code>jettyRun</code>で動かしていたが、<code>JettyEclipseRun</code>というコマンドで動かせる。</p>
+
+<p>しかも、実行中に<code>r+Enter</code>でリロード＆コンパイルし直してくれるらしい。</p>
+
+<p>Eclipseに変な設定をしないでGradleのコマンドで実行できるのは手軽で嬉しい。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

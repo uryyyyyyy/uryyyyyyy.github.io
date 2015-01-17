@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bootstrap | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/bootstrap/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-01-17T21:15:29+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[yeomanで作ったアプリでbootstrapを動かす]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/28/yeoman-bootstrap/"/>
+    <updated>2014-06-28T22:15:30+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/28/yeoman-bootstrap</id>
+    <content type="html"><![CDATA[<p>yeomanでAngularのテンプレートを作ったら、Bootstrapが上手く入らなかったのでメモ。</p>
+
+<!--more-->
+
+<h3 id="environment">environment</h3>
+
+<ul>
+  <li>yeoman (angular-generator)</li>
+  <li>bowerでbootstrap入れた。</li>
+  <li>gruntタスクはいじってない</li>
+  <li><code>grunt serve</code>時では普通に動く</li>
+  <li><code>glyphicon</code>を使うとfontを呼びに行くが、Deploy後だとミスる。</li>
+</ul>
+
+<h3 id="incident">Incident</h3>
+
+<p>yeomanで作成されたAngularアプリのgruntタスクでBuildすると、Deploy先でbootstrapのファイルの読み込みに失敗していた。</p>
+
+<p>どうも<code>dist/fonts</code>以下を呼ぼうとしてるんだけど、そんなところにファイルはできてない。。。</p>
+
+<h3 id="section">対応</h3>
+
+<p>gruntのタスクを編集。
+dist/fonts以下にbower_component/bootstrapのやつをcopyすればいいらしい。</p>
+
+<p><code>
+copy: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'bower_components/bootstrap/dist/fonts/',
+          dest: '&lt;%= yeoman.dist %&gt;/fonts',
+          src: '*.*'
+        }, 
+</code></p>
+
+<p>cwdとかをちゃんとわかっていなかったけど、どうやら相対パスを示すようで、
+<code>cwd + src</code>のファイルを、<code>dest + src</code>に移すみたい。</p>
+
+<p>ずっと悩んでいたのは、</p>
+
+<p><code>
+copy: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '.',
+          dest: '&lt;%= yeoman.dist %&gt;/fonts',
+          src: 'bower_components/bootstrap/dist/fonts/*'
+        }, 
+</code></p>
+
+<p>こんなカンジにすると、<code>dist/bower_component/......</code>みたいなカンジにcopyされてしまうことでした。。。</p>
+
+<p>grunt難しい。。</p>
+]]></content>
+  </entry>
+  
+</feed>
