@@ -4,7 +4,7 @@
   <title><![CDATA[ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-01-17T21:15:29+09:00</updated>
+  <updated>2015-01-18T15:04:54+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[develop Clientside with server]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/01/18/develop-clientside-with-server/"/>
+    <updated>2015-01-18T14:31:10+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/01/18/develop-clientside-with-server</id>
+    <content type="html"><![CDATA[<p>最近のクライアントサイド開発がリッチになったおかげで、僕のノートPCだとビルドとかに時間かかるようになってしまったので、その対応のお話。</p>
+
+<!--more-->
+
+<h2 id="section">問題提起</h2>
+
+<p>クライアントサイドの開発で、Reactを使うと必然的にwebpackなどのモジュール管理ツールが必要になったり、逐次動作を確認したいので仮サーバー（SimpleHttpServerやgulp-webserverなど）を立てたりすると思います。</p>
+
+<p>が、僕のノートPCが低スペックなおかげで、これらをやりながらEditorとブラウザを立ち上げてると発熱がヤバイです。</p>
+
+<p>ということで、ビルドや仮サーバーの処理を外部マシンにやってもらうことでノートPCの負荷を軽くしようと考えました。</p>
+
+<p>なお、以降は、</p>
+
+<ul>
+  <li>HostPC ： ブラウザやコードをいじるメインのPC。今回だと低スペックのノートPC。</li>
+  <li>GuestPC ： ビルドなどの処理用PC。GUI要らない。</li>
+</ul>
+
+<p>と呼ぶことにします。</p>
+
+<h2 id="section-1">ゴール</h2>
+
+<ul>
+  <li>HostPCはブラウザとEditorのみを開き、HostPCのコードを編集する。</li>
+  <li>GuestPCは、HostPCで編集されたコードをビルドして仮サーバーを立てる。</li>
+</ul>
+
+<p>そのために、</p>
+
+<ul>
+  <li>GuestPCにHostPCのソースコードを同期できる。</li>
+  <li>GuestPCのgulp-webserverにHostPCからアクセスできる。</li>
+</ul>
+
+<p>を構築します。</p>
+
+<h2 id="section-2">構築開始</h2>
+
+<h3 id="guestpchostpc">GuestPCにHostPCのソースコードを同期</h3>
+
+<p>今回の例だとGuestPCはただの負荷分散用で、必要なときに必要なスペックだけ調達したいので、このPCでコードを管理しておくことは想定しません。</p>
+
+<p>ということでソースコードはHostPCにあります。</p>
+
+<p>そこからGuestPCへファイルを転送するには、<code>rsync</code>を使います。使うには、GuestPC、HostPCのどちらにもrsyncをインストールするだけです。</p>
+
+<p>そして、HostPCでこんな感じのコマンドを打ちます。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">rsync -arvz -e ssh /hostPC/path/to/target guestPC@XXX.XXX.XXX.XXX:/home/guest/folder</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>これで転送できます。
+オプションは調べてください。（–deleteをつけてしまうとGuestPCでbuildしたものが消えてしまうので付けないほうがいいです。）</p>
+
+<p>パスワードを聞かれるのが嫌なら、GuestPCにHostPCの公開鍵を入れておきましょう。「ssh パスワードなし」とかでググればあります。</p>
+
+<p>ちなみに、始めは全て転送しますが、その後の変更は差分だけで済むようです。
+数十MBのフォルダで試しても転送量と速度は気になりませんでした。</p>
+
+<h3 id="guestpcgulp-webserverhostpc">GuestPCのgulp-webserverにHostPCからアクセス</h3>
+
+<p>開発用の仮サーバーは自分自身のアクセスしか受け付けないことが多いです。その場合、HostPCから閲覧できなくなってしまうので、プロキシサーバを立ててリバースプロキシさせる必要があります。</p>
+
+<p>今回はnginxを使うことにします。</p>
+
+<p>GuestPC側でnginxをインストールし、<code>/etc/nginx/nginx.conf</code>あたりの設定ファイルを編集します。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">http {
+</span><span class="line">    server {
+</span><span class="line">        listen       8000;
+</span><span class="line">        server_name  localhost;
+</span><span class="line">        location / {
+</span><span class="line">          proxy_pass http://localhost:8001/;
+</span><span class="line">        }
+</span><span class="line">    }
+</span><span class="line">    server {
+</span><span class="line">        listen       8080;
+</span><span class="line">        server_name  localhost;
+</span><span class="line">        location / {
+</span><span class="line">          proxy_pass http://localhost:8081/;
+</span><span class="line">        }
+</span><span class="line">    }
+</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>設定ファイルを編集したら<code>sudo service nginx restart</code>で再起動。</p>
+
+<p>こんな感じで設定してあげると、HostPCからhttp://GuestPC:8001にアクセスするとGsudo service nginx restartuestPCでポート8000番で立ってる仮サーバーにアクセスできます。今回のサンプルでは、同様に8081番にアクセスすると8080で立ってるサーバーに転送されます。</p>
+
+<h2 id="section-3">まとめ</h2>
+
+<p>以上で、GuestPCにHostPCの開発環境を移すことが出来ました。
+どうしてもIDEなどが欲しい昨今において、この構成はいいんじゃないかと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[nexus５からiphone５に戻した理由]]></title>
@@ -1330,92 +1447,6 @@ Port指定やユーザー変更も簡単にできます。</p>
 <h3 id="section-3">解決案</h3>
 
 <p>JsValueと某Objectのマッピングを丁寧に書いてあげる。（まだ試してない。）</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ScalaのFutureの使い方メモ]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/27/scala-future/"/>
-    <updated>2014-09-27T19:44:21+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/27/scala-future</id>
-    <content type="html"><![CDATA[<p>Futureは非同期に行いたい処理（時間かかる系・ファイルIOや通信など、外部システムに処理を投げる系）を非同期に行うことができるAPIです。</p>
-
-<p><a href="http://docs.scala-lang.org/ja/overviews/core/futures.html">参考サイト</a></p>
-
-<!--more-->
-
-<h3 id="section">宣言の仕方</h3>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">val firstOccurence: Future[Int] = future {
-</span><span class="line">  val source = scala.io.Source.fromFile("myText.txt")
-</span><span class="line">  source.toSeq.indexOfSlice("myKeyword")
-</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>ここではファイル操作のシステムに処理を投げ、結果をFuture[Int]という入れ物に入れてもらうと宣言している。</p>
-
-<p>ちなみに、Scala2.11〜はfutureメソッドの代わりにFutureを使うことが推奨されてるらしい。</p>
-
-<h3 id="section-1">使い方</h3>
-
-<p>普通は、処理を外部に投げた後に、処理の結果（先の例だとInt型のデータ）を使いたいことがほとんどだと思われる。</p>
-
-<p>取り出し方法は二通りあって、</p>
-
-<ul>
-  <li>処理が完了した時点でcallback関数を実行する（Non-Blocking）</li>
-  <li>処理が完了するまで同一スレッドで待機させる（Blocking）</li>
-</ul>
-
-<p>Webアプリケーションなどのサーバーサイドの実装をしたい場合は、Non-Blockingだと一スレッドで完結しないのでたぶん使いづらいんだと思う。</p>
-
-<p>例えば、ある時間のかかる処理を依頼するPOSTリクエストを投げた時には、一度そのリクエストを受け取ったというメッセージだけ返して、裏で非同期に処理させて、結果は別途通知する、という仕組みになるんだろうな、と思っています。</p>
-
-<h4 id="non-blocking">Non-Blockingの場合</h4>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">f onComplete {
-</span><span class="line">  case Success(posts) =&gt; callback(posts)
-</span><span class="line">  case Failure(t) =&gt; println("エラーが発生した: " + t.getMessage)
-</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>成功ならFuture[T]のT型が、失敗ならThrowable型が返ってきます。</p>
-
-<p>成功時だけ取ってきたい場合は、</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">f onSuccess {
-</span><span class="line">  case posts =&gt; callback(posts)
-</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>などとします。</p>
-
-<h4 id="blocking">Blockingの場合</h4>
-
-<p>※これをやると実質非同期にならないのでオススメしない。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">//Future[T]のT型が返ってくる。失敗なら例外[Throwable]が投げられます。
-</span><span class="line">Await.result(f, Duration.Inf)
-</span><span class="line">
-</span><span class="line">//終わった結果を取得する。値はThrowaleかTでパターンマッチして処理する。
-</span><span class="line">Await.ready(f, Duration.Inf)</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>ちなみに、<code>Duration.Inf</code>はAwaitする期間を表す。今回の例は「無限に待つ」の意。
-他にも<code>10 nanos</code>とか使える。</p>
-
 ]]></content>
   </entry>
   
