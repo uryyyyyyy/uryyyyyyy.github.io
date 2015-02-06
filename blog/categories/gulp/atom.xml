@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gulp | ジタバタしばた]]></title>
+  <link href="http://uryyyyyyy.shake-freek.com/blog/categories/gulp/atom.xml" rel="self"/>
+  <link href="http://uryyyyyyy.shake-freek.com/"/>
+  <updated>2015-02-07T08:18:18+09:00</updated>
+  <id>http://uryyyyyyy.shake-freek.com/</id>
+  <author>
+    <name><![CDATA[しばたこ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[別マシンを使ってクライアントサイド開発]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/01/18/develop-clientside-with-server/"/>
+    <updated>2015-01-18T14:31:10+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/01/18/develop-clientside-with-server</id>
+    <content type="html"><![CDATA[<p>最近のクライアントサイド開発がリッチになったおかげで、僕のノートPCだとビルドとかに時間かかるようになってしまったので、その対応のお話。</p>
+
+<!--more-->
+
+<h2 id="section">問題提起</h2>
+
+<p>クライアントサイドの開発で、Reactを使うと必然的にwebpackなどのモジュール管理ツールが必要になったり、逐次動作を確認したいので仮サーバー（SimpleHttpServerやgulp-webserverなど）を立てたりすると思います。</p>
+
+<p>が、僕のノートPCが低スペックなおかげで、これらをやりながらEditorとブラウザを立ち上げてると発熱がヤバイです。</p>
+
+<p>ということで、ビルドや仮サーバーの処理を外部マシンにやってもらうことでノートPCの負荷を軽くしようと考えました。</p>
+
+<p>なお、以降は、</p>
+
+<ul>
+  <li>HostPC ： ブラウザやコードをいじるメインのPC。今回だと低スペックのノートPC。</li>
+  <li>GuestPC ： ビルドなどの処理用PC。GUI要らない。</li>
+</ul>
+
+<p>と呼ぶことにします。</p>
+
+<h2 id="section-1">ゴール</h2>
+
+<ul>
+  <li>HostPCはブラウザとEditorのみを開き、HostPCのコードを編集する。</li>
+  <li>GuestPCは、HostPCで編集されたコードをビルドして仮サーバーを立てる。</li>
+</ul>
+
+<p>そのために、</p>
+
+<ul>
+  <li>GuestPCにHostPCのソースコードを同期できる。</li>
+  <li>GuestPCのgulp-webserverにHostPCからアクセスできる。</li>
+</ul>
+
+<p>を構築します。</p>
+
+<h2 id="section-2">構築開始</h2>
+
+<h3 id="guestpchostpc">GuestPCにHostPCのソースコードを同期</h3>
+
+<p>今回の例だとGuestPCはただの負荷分散用で、必要なときに必要なスペックだけ調達したいので、このPCでコードを管理しておくことは想定しません。</p>
+
+<p>ということでソースコードはHostPCにあります。</p>
+
+<p>そこからGuestPCへファイルを転送するには、<code>rsync</code>を使います。使うには、GuestPC、HostPCのどちらにもrsyncをインストールするだけです。</p>
+
+<p>そして、HostPCでこんな感じのコマンドを打ちます。</p>
+
+<p><code>
+rsync -arvz -e ssh /hostPC/path/to/target guestPC@XXX.XXX.XXX.XXX:/home/guest/folder
+</code></p>
+
+<p>これで転送できます。
+オプションは調べてください。（–deleteをつけてしまうとGuestPCでbuildしたものが消えてしまうので付けないほうがいいです。）</p>
+
+<p>パスワードを聞かれるのが嫌なら、GuestPCにHostPCの公開鍵を入れておきましょう。「ssh パスワードなし」とかでググればあります。</p>
+
+<p>ちなみに、始めは全て転送しますが、その後の変更は差分だけで済むようです。
+数十MBのフォルダで試しても転送量と速度は気になりませんでした。</p>
+
+<h3 id="guestpcgulp-webserverhostpc">GuestPCのgulp-webserverにHostPCからアクセス</h3>
+
+<p>開発用の仮サーバーは自分自身のアクセスしか受け付けないことが多いです。その場合、HostPCから閲覧できなくなってしまうので、プロキシサーバを立ててリバースプロキシさせる必要があります。</p>
+
+<p>今回はnginxを使うことにします。</p>
+
+<p>GuestPC側でnginxをインストールし、<code>/etc/nginx/nginx.conf</code>あたりの設定ファイルを編集します。</p>
+
+<p><code>
+http {
+    server {
+        listen       8000;
+        server_name  localhost;
+        location / {
+          proxy_pass http://localhost:8001/;
+        }
+    }
+    server {
+        listen       8080;
+        server_name  localhost;
+        location / {
+          proxy_pass http://localhost:8081/;
+        }
+    }
+}
+</code></p>
+
+<p>設定ファイルを編集したら<code>sudo service nginx restart</code>で再起動。</p>
+
+<p>こんな感じで設定してあげると、HostPCからhttp://GuestPC:8001にアクセスするとGsudo service nginx restartuestPCでポート8000番で立ってる仮サーバーにアクセスできます。今回のサンプルでは、同様に8081番にアクセスすると8080で立ってるサーバーに転送されます。</p>
+
+<h2 id="section-3">まとめ</h2>
+
+<p>以上で、GuestPCにHostPCの開発環境を移すことが出来ました。
+どうしてもIDEなどが欲しい昨今において、この構成はいいんじゃないかと思います。</p>
+]]></content>
+  </entry>
+  
+</feed>

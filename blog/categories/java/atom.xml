@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-01-18T15:04:54+09:00</updated>
+  <updated>2015-02-07T08:18:18+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -107,6 +107,221 @@ public class Number {
 <p>とかに入れておくといいのではと思います。</p>
 
 <p>DTOにValidationを知られたくない気もしますが、これは仕方ないかと。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DIの書き方を迷い中]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di/"/>
+    <updated>2014-05-31T08:10:45+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/31/guice-di</id>
+    <content type="html"><![CDATA[<p>僕の会社ではjavaで大規模プロジェクトを開発しているため、DIはよく語られる技術です。</p>
+
+<p>しかし、コードを書いていて無駄にややこしくなっている気がしています。</p>
+
+<!--more-->
+
+<h3 id="section">コードを読んでいて、どこに飛ぶかわかりにくい</h3>
+
+<p>Controllerから順番に処理を見ていっても、Interfaceのところまでしか見れずに、EclipceなどでジャンプしてもInterfaceを見に行ってしまう。</p>
+
+<p>それがDIされてる実装クラスがどこにあるかを見ようと思ったら、DI部分のコードを読むか、○○Implなどでgrepかけるカンジになってしまう。</p>
+
+<h3 id="section-1">不必要そうなコードが並んでる。</h3>
+
+<p>これに関してはDIというよりウチの記述の話なのですが。</p>
+
+<p>例えば、あとでDIしようと思っての設計だと思うんですが、Controllerからサービスを呼びたいときに、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService(new DaoImple(new HogeDaoImpl));
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>みたいなことをウチのプロジェクトではしているんですが、まぁわかりにくい。。。</p>
+
+<p>これなら、コンストラクタの引数にnewで打ち込むのではなくて、各コンストラクタで</p>
+
+<p>```java</p>
+
+<p>public HogeService{
+	this.dao = new DaoImpl();
+}</p>
+
+<p>```</p>
+
+<p>とかってしておいて、</p>
+
+<p>```java</p>
+
+<p>HogeService service = new HogeService();
+Moke moke = service.findById(mokeId);</p>
+
+<p>```</p>
+
+<p>の方が見やすいし依存関係も見やすくと思うんですけどどうなんでしょうか？</p>
+
+<p>（というか、さっさとDI部分を作るなり、どうせDIしないなら全てStatelessにしてしまえばいいのでは？と思ってるんですが。）</p>
+
+<h3 id="section-2">ライブラリなどの挙動が、実行時でないとわからない。</h3>
+
+<p>例えば今はplayでGuiceを使ってるんですが、なぜか2.0と3.0が混在していました。
+（これはただの、先人の負の遺産です）</p>
+
+<p>で、play-moduleで対応しているのが2.0なので、全部2.0に統一してしまおうと思っているのですが、なんか実行時エラーが出ます。</p>
+
+<p>仕方ないのでデバッガで見ていくと、どうやら3.0から2.0に直したコードの一部で、DIがされていなかったようです。</p>
+
+<p>（原因はおおよそ見当はついていますが、詳細は後日書きます。）</p>
+
+<p>DIに関しては、普通はxmlやアノテーションで書かれるため、コンパイル時に怪しいかどうかの判断ができません。
+実行して初めて「クラスが見つからない」「型が合わない」などの問題が出てきます
+（しかもログを読んでも、一見関係ないところがバグってるように見えたりして、原因がわかりにくかったりする。）</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[eclipseの個人的設定]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/24/eclipse-shortcut/"/>
+    <updated>2014-05-24T23:55:51+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/24/eclipse-shortcut</id>
+    <content type="html"><![CDATA[<p>自宅のPC（Desktop、NotePC）の両方にUbuntu14.04をブチ込んだので、
+実行環境が同じだろうということで、EclipseをDropBoxに入れて共有してます。</p>
+
+<p>（かなりアクロバットなのは認めます。同時に開くとなんか競合しそうですし。）</p>
+
+<!--more-->
+
+<p>で、せっかくなので、個人的設定を記録しておきます。
+後日追記するかもしれません。</p>
+
+<h3 id="keybind">KeyBind</h3>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Key</li>
+  <li>search types you want to change</li>
+</ol>
+
+<h4 id="content-assist---ctrl--space"><code>Content Assist</code> -&gt; Ctrl + Space</h4>
+
+<p>Ubuntuだと補完コマンド<code>Content Assist</code>のデフォルトのKeyBindが変なので、
+とりあえずいつものに設定。</p>
+
+<h4 id="nextprevious-tab---ctrl--tab--shift">Next/Previous Tab -&gt; Ctrl + Tab [+ Shift]</h4>
+
+<p>Chromeのタブ移動に慣れているのでこれは外せません。</p>
+
+<h4 id="quick-fix---ctrl--shift--space">Quick Fix -&gt; Ctrl + Shift + Space</h4>
+
+<p>標準ではCtrl +1ですが、押しにくいのでこれを追加します（※まだ実運用してないので、もしかしたらトラブるかも）</p>
+
+<h3 id="content-assist">Content Assist</h3>
+
+<p>Javaでは<code>Ctrl + Space</code>でContent Assistが使えますが、常に表示されてたら嬉しいなって。</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;Java-&gt;Editor-&gt; Content Assist</li>
+  <li>select Auto Activation Trigger</li>
+  <li>put <code>.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_</code></li>
+  <li>select Auto Activation Delay</li>
+  <li>put 80 (less than 200)</li>
+</ol>
+
+<h3 id="color-theme">Color Theme</h3>
+
+<p>白地は目がチカチカするので、地味めな色になるようにします。</p>
+
+<ol>
+  <li>http://eclipse-color-theme.github.com/update/ をインストール</li>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Appearance-&gt;Color Theme</li>
+  <li>select <code>Obsidian</code> (choose you like)</li>
+</ol>
+
+<h3 id="editor">Editor設定</h3>
+
+<h4 id="space">4Spaceがタブになるようにする。</h4>
+
+<p>周りがタブ派なのでそれに倣って。</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt; Java -&gt; Code Style -&gt; Formatter</li>
+  <li>Indentation</li>
+  <li><code>Tab Only</code> and <code>Tab Size</code>-&gt;4</li>
+</ol>
+
+<h4 id="font">Font調整</h4>
+
+<p>小さいと見づらいので適当に調整</p>
+
+<ol>
+  <li>Window -&gt; Preferences -&gt;General-&gt;Appearance-&gt;Colors and Fonts </li>
+  <li>Edit</li>
+  <li><code>Font</code>-&gt; takaoPGothic <code>Size</code>-&gt;14~18</li>
+</ol>
+
+<h3 id="plugin">Plugin</h3>
+
+<p>あんまり依存したくないので控えめに。</p>
+
+<h4 id="quick-junit">Quick JUnit</h4>
+
+<p>必須かと。テストがかなりやりやすくなる。</p>
+
+<h4 id="findbugs">FindBugs</h4>
+
+<p>気が向いたら回す。</p>
+
+<h4 id="scalaide">ScalaIDE</h4>
+
+<p>個人用のEclipseには入れてみた。</p>
+
+<p>まだ全然遊んでないけど</p>
+
+<h3 id="section">その他</h3>
+
+<h4 id="section-1">検索したファイルを新しいタブで開いてほしい</h4>
+
+<ol>
+  <li>Window-&gt;Preference-&gt;General-&gt;Search</li>
+  <li>off <code>Reuse editors to show matches</code></li>
+</ol>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lombok]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/18/lombok/"/>
+    <updated>2014-05-18T09:38:39+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/18/lombok</id>
+    <content type="html"><![CDATA[<p>リソースの閉じ忘れとか、Beans系の生成を自動でやってくれるライブラリ、Lombokです。</p>
+
+<p>まぁシンタックスシュガーの盛り合わせですね。</p>
+
+<!--more-->
+
+<h3 id="features">Features</h3>
+
+<ul>
+  <li>@NonNull → nullチェックしてくれる。</li>
+  <li>@Cleanup → リソースをよろしく閉じて開放してくれる。</li>
+  <li>@Data, @Getter/@Setter, etc → Beans系のメソッドやコンストラクタを裏で作ってくれる。</li>
+  <li>@Log, @Log4j, etc → ロガーを作るシンタックスシュガー</li>
+</ul>
+
+<h3 id="section">何が便利？</h3>
+
+<ul>
+  <li>いちいちGetterとか書かなくて済む</li>
+  <li>うっかりミスがなくなる。</li>
+</ul>
+
+<p>IDEで自動生成できるといっても、それすらめんどいよね。あと、うっかり更新し忘れたりもするよね。</p>
+
+<p>ただ、Beansの値に変更があった場合に、Beans内で反映されても、それを呼び出してるクラスまでは自動更新してくれないっぽいので、renameするほうが楽なんじゃないかと思ったり。</p>
+
+<p>また、アノテーションだけでコンパイル時によろしく作ってくれるため、うっかりミス（前述の更新し忘れなど）がなくなるのが嬉しい。コンパイルが通れば、最新の状態になってることが保証されるわけですよね。</p>
 ]]></content>
   </entry>
   
