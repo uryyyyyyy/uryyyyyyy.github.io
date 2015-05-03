@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: bacon.js | ジタバタしばた]]></title>
+  <title><![CDATA[Category: Bacon.js | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/bacon-dot-js/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-02-07T08:18:18+09:00</updated>
+  <updated>2015-05-03T10:49:15+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -14,128 +14,93 @@
 
   
   <entry>
-    <title type="html"><![CDATA[bacon.js	入門]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/21/primer-of-bacon-dot-js/"/>
-    <updated>2014-09-21T22:41:24+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/21/primer-of-bacon-dot-js</id>
-    <content type="html"><![CDATA[<p>最近使おうと思っているので備忘録。</p>
+    <title type="html"><![CDATA[関数プログラミング試行錯誤]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/09/23/functional-programing/"/>
+    <updated>2014-09-23T23:12:16+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/09/23/functional-programing</id>
+    <content type="html"><![CDATA[<p>なんとかして関数型プログラミングをやりたいんですが、
+慣れてないので苦戦中です。</p>
 
-<!--more-->
+<p>とりあえず試行錯誤の記録を残しておきます。</p>
 
-<p><a href="http://raimohanska.github.io/bacon.js-slides/index.html">参照１</a></p>
+<h2 id="section">目的</h2>
 
-<p><a href="http://latentflip.com/bacon-talk-realtimeconfeu/">参照2</a></p>
+<p>関数プログラミングをしたいモチベーションは、</p>
 
-<p><a href="http://blog.flowdock.com/2013/01/22/functional-reactive-programming-with-bacon-js/">参照3</a></p>
+<ul>
+  <li>なるべく小さなまとまりに分け、テストをしやすくする。</li>
+  <li>処理の流れを宣言的に書いて見やすくする。</li>
+  <li>システムのスケールアウトに対応する。</li>
+</ul>
 
-<h2 id="baconjs-is-">bacon.js is 何？</h2>
+<p>です。</p>
 
-<p>JSでFRPをするためのライブラリ。</p>
+<p>http://qiita.com/kenokabe/items/a8477694a499ca869cde</p>
 
-<h3 id="section">メソッド紹介</h3>
+<h2 id="section-1">言語と特徴</h2>
 
-<p>個人的にはpropertyはあまり使わないだろうと思っています。</p>
+<h3 id="scala">Scala</h3>
 
-<h4 id="aseventstream">asEventStream</h4>
+<ul>
+  <li>サーバーサイド（WebAPIサーバー）の実装に使っている。</li>
+  <li>DBサーバーへのアクセスを抽象化したい。</li>
+  <li>valとdefの違い、implicit parameterの使いドコロが難しい</li>
+  <li>関数の結合とかしていきたい。</li>
+</ul>
 
-<p><code>stream = $(element).asEventStream(event)</code></p>
+<h4 id="section-2">理想のイメージ</h4>
 
-<p>elementのDOMに対して、eventのイベントのstreamを作る。</p>
+<ul>
+  <li>DAO層はRDBでもCacheでも、非同期でも対応できるようにしたい。</li>
+  <li>Logic部はテスタブル・粗結合な小さな関数を組み合わせたい。</li>
+  <li>newとか書きたくない。状態を持ちたくない。</li>
+  <li>ローカル変数もなるべく使わずメソッドチェーン的に書きたい。</li>
+</ul>
 
-<p>そのDOMに対してeventが起きると、streamに要素としてeventが流れる。</p>
+<h3 id="javascript">Javascript</h3>
 
-<p>普通の世界からstreamの世界への入り口。</p>
+<ul>
+  <li>WebAPIクライアントとして使っている。</li>
+  <li>bacon.js lodash.jsを主に使う予定。</li>
+  <li>演算はサーバーに任せるのでもっぱらDOM操作系</li>
+  <li>FRPに興味があるので試してみたい。</li>
+</ul>
 
-<h4 id="map">map</h4>
+<h4 id="section-3">目指すカタチ</h4>
 
-<p><code>stream2 = stream.map(function(elem){/* logic */})</code></p>
+<ul>
+  <li>イベント・DOMの管理は全てControllerで把握したい。</li>
+  <li>FRPは興味あるけど、Angularでバインドしたデータの変更が追い切れなくなった経験があるので、データバインディング嫌い。</li>
+  <li>そもそもModelっていう状態を持ちたくない。</li>
+  <li>WebAPIをリッチに用意することで、クライアントはそもそもシンプルにしたい。</li>
+  <li>手続き型を卒業して全体の見通しを良くしたい。</li>
+</ul>
 
-<p>streamに流れてきた要素をlogicで変換して、返り値をstream2に流す。</p>
+<h2 id="section-4">困った例</h2>
 
-<h4 id="scan">scan</h4>
+<h3 id="baconjs">bacon.jsのイベントストリームを使うと、パラメータが足りない。</h3>
 
-<p><code>stream2 = stream.scan(firstVal, function(result, elem){/* logic */})</code></p>
+<h4 id="section-5">事象</h4>
 
-<p>streamに流れてきた要素elemを、過去の結果resultと共にlogicで処理し、resultをstream2に流す。</p>
+<p>ｊQueryプラグインのオブジェクトに対してeventStreamを作っても、パラメータが一つしか取れない。</p>
 
-<p>resultの初期値はfirstValで与えられる。</p>
+<h4 id="section-6">解決法</h4>
 
-<p>reduceに近いが末端処理ではない。</p>
+<p>普通にイベントを貼り付けて、イベント発火時にイベントストリームを後から作ればいいや。</p>
 
-<h4 id="filter">filter</h4>
+<h3 id="scaladaointerface">ScalaのDAO層のinterfaceをどうするか？</h3>
 
-<p><code>stream2 = stream.filter(function(elem){/* logic */})</code></p>
+<h4 id="section-7">事象</h4>
 
-<p>streamに流れてきた要素のうち、logicでtrueを返すもののみをstream2に流す。</p>
+<p>DAO層はCacheサーバーの場合とRDBの場合とがあるが、session（RDBのtransaction・connection管理用）の使い回しとか返す型とかをどうしようか迷った。</p>
 
-<h4 id="merge">merge</h4>
+<h4 id="section-8">解決策</h4>
 
-<p><code>mergedStream = stream.merge(stream2)</code></p>
+<p>そもそも、読み込みと書き込みで用途が違うことに気がついた。</p>
 
-<p>streamとstream2を結合したmergedStreamを作る。</p>
+<p>KVS系の場合はそもそも書き込みしないので、読み込みはsessionを含めず、書き込みだけ含める仕様に変える。</p>
 
-<p>２つのストリームの要素をまとめて流す。</p>
-
-<h4 id="onvalue">onValue</h4>
-
-<p><code>stream.onValue(function(elem){/* logic */})</code></p>
-
-<p>streamに要素(elm)が流れてくるたびに関数を実行する。</p>
-
-<p>streamの世界から普通の世界に返ってくる末端処理。（forEachみたいな。）</p>
-
-<h4 id="flatmap">flatMap</h4>
-
-<p><code>newStream = stream.flatMap(function(elem){/* logic(return stream2) */})</code></p>
-
-<p>streamから流れてきたelemを、stream2を返すようなlogicに入れる。
-stream2から要素が流れてきたら、それをnewStreamに流す。</p>
-
-<p>（非同期処理系に用いるのが一般的かな）</p>
-
-<h4 id="flatmaplatest">flatMapLatest</h4>
-
-<p><code>newStream = stream.flatMapLatest(function(elem){/* logic(return stream2) */})</code></p>
-
-<p>flatMapと違い、stream2から流れてきた最新の要素のみをnewStreamに流す。</p>
-
-<p>（非同期処理系で処理に時間がかかる場合に、順序を保証するために使うのかな。）</p>
-
-<h4 id="conbine">conbine</h4>
-
-<p><code>newStream = stream.conbine(stream2, function(elem, elem2){/* logic */})</code></p>
-
-<p>streamから流れてきた要素elemと、stream2から流れてきた要素elem2をlogicで処理した結果をnewStreamに流す。</p>
-
-<p>どちらかのstreamから要素が流れてきたタイミングで実行される。要素が流れてこなかった方のsteamの要素は直前の要素を用いる。</p>
-
-<h3 id="section-1">後で調べる</h3>
-
-<h4 id="awaiting">awaiting</h4>
-
-<p><code>
-text.awaiting(suggestions).onValue(function(x) {
-  if (x) $('#results').html('Searching...');
-});
-</code></p>
-
-<p>要素が流れてくるまでの間の処理をするのかな</p>
-
-<h4 id="frompromise">fromPromise</h4>
-
-<p>promiseが解決したタイミングで要素が流れるstreamかな？</p>
-
-<h4 id="fromcallback">fromCallback</h4>
-
-<p>callbackが実行されたタイミングで要素が流れるstreamかな？</p>
-
-<h4 id="once">once</h4>
-
-<h4 id="throttle">throttle</h4>
-
-<h4 id="sample">sample</h4>
-
-<p>propertyの値が一定時間変わらなかったら要素が流れる？</p>
+<p>そもそも書き込みだけ別オブジェクトにすべき。</p>
 ]]></content>
   </entry>
   

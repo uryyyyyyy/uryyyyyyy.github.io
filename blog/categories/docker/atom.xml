@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: docker | ジタバタしばた]]></title>
+  <title><![CDATA[Category: Docker | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-02-07T08:18:18+09:00</updated>
+  <updated>2015-05-03T10:49:15+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -14,142 +14,305 @@
 
   
   <entry>
-    <title type="html"><![CDATA[docker on vagrant]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/28/docker-on-vagrant/"/>
-    <updated>2014-06-28T12:38:28+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/28/docker-on-vagrant</id>
-    <content type="html"><![CDATA[<p>Vagrant上でDockerを動かしてみたので、そのメモ。</p>
-
-<p><a href="https://gist.github.com/yasushiyy/9923d68e4811d458fbe0">参考URL</a>
-<a href="http://deeeet.com/writing/2014/05/08/vagrant-docker-provider/">参考URL</a></p>
+    <title type="html"><![CDATA[個人的Dockerの使い方]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/02/how-to-use-docker/"/>
+    <updated>2014-10-02T23:12:23+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/02/how-to-use-docker</id>
+    <content type="html"><![CDATA[<p>あくまで個人の用途に限定しますが、なかなか便利です。</p>
 
 <!--more-->
 
-<h3 id="docker-on-coreos-on-vagrant">Docker on CoreOS on Vagrant</h3>
+<h3 id="section">前置き</h3>
 
-<h4 id="environment">Environment</h4>
-
-<p>HostOS : Ubuntu14.04
-Vagrant : 1.6.3
-CoreOS : </p>
-
-<h4 id="setup">Setup</h4>
-
-<p><code>
-git clone https://github.com/coreos/coreos-vagrant.git
-cd coreos-vagrant
-vagrant up
-</code></p>
-
-<p>これでCoreOSに繋げた。既にDockerは入ってるので自由に使える。</p>
-
-<h4 id="troubles">Troubles</h4>
-
-<p><code>
-It appears your machine doesn't support NFS
-</code></p>
-
-<p>nfs-karnel-serverなるものを入れたら動いた。</p>
-
-<p><code>
-Insecure world writable dir　------
-</code></p>
-
-<p>前から言われていたやつ。virtualboxで設定してるフォルダが誰でも書き換え可能だったので出ていた。権限を775にしたら問題なし。</p>
-
-<h3 id="docker-on-vagrant">Docker on Vagrant</h3>
-
-<p>Vagrant1.6から、CoreOSを間に挟まなくても、HostOSからそのままdockerを立ちあげれるようになったらしいです。</p>
-
-<h4 id="environment-1">Environment</h4>
+<p>Dockerの長所として</p>
 
 <ul>
-  <li>HostOS : Ubuntu14.04</li>
-  <li>Vagrant : 1.6.3</li>
-  <li>Docker : 0.9.1</li>
+  <li>どこでも動く・ポータブル</li>
+  <li>ローカル環境を汚染しない</li>
+  <li>処理の効率がいい（ただしLinuxに限る）</li>
 </ul>
 
-<h4 id="dockerfile">Dockerfileを作る</h4>
+<p>などというのが挙げられると思います。
+が、VMでもほとんど同じことができます。</p>
 
-<p>```
-FROM ubuntu:12.04</p>
+<p>違いといえば、処理の効率がいい（起動が早い・リソース消費が少ない）ことですが、
+前述の通りLinux以外だと意味無いです。</p>
 
-<p>RUN apt-get update
-RUN apt-get install -y apache2</p>
+<p>「コンテナとして同じようにDeployできる。」という声に関しても、
+低スペックのマシンでスケールするなら単体のアプリケーションだけ動かしとけばよくて、そんなの他のオーケストレーションツールで問題ないと思ってます。（僕の経験が足りない。使いこなしてないだけかもしれませんが）</p>
 
-<p>ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2</p>
+<h3 id="section-1">本題</h3>
 
-<p>RUN echo ‘Hello, vagrant docker provider’ &gt; /var/www/index.html</p>
+<p>ではどこで使えば便利か、というところですが、</p>
 
-<p>EXPOSE 80
-ENTRYPOINT [“/usr/sbin/apache2”]
-CMD [“-D”, “FOREGROUND”]
-```</p>
+<p><strong>ローカルマシンを汚さない開発環境の構築</strong></p>
 
-<h4 id="vagrantfile">Vagrantfileを作る</h4>
+<p>です。</p>
 
-<p><code>
-Vagrant.configure("2") do |config|
-    config.vm.provider "docker" do |d|
-        d.build_dir = "."
-    end
-    config.vm.network :forwarded_port, guest: 80, host: 8080
-end
-</code></p>
+<p>当たり前のことなのですが、すごく早くてお手軽です。</p>
 
-<h4 id="section">起動する</h4>
+<p>例えば、MySQLとMariaDBをサクッと共存させたり、
+ちょっとしたWebサーバーを即座に用意したり、
+マシンによって異なるツールのインストールを簡略化したりです。</p>
 
-<p><code>
-sudo vagrant up --provider=docker
-</code></p>
+<p>個人的に使ってるのはこれら。</p>
+
+<h4 id="section-2">ミドルウェア系</h4>
+
+<p><a href="https://github.com/uryyyyyyy/vagrant-docker-local">https://github.com/uryyyyyyy/vagrant-docker-local</a></p>
+
+<p>Vagrant1.6からサポートされたDocker providerの機能を使っています。</p>
+
+<p>これを使うと、<code>vagrant up</code>で起動できて、使い終わったら<code>vagrant destroy</code>で消せます。（dockerがビルドの差分を持っているので、再度の立ち上げは爆速です。）</p>
+
+<p>Vagrantfileを見たらわかりますが、各種DBMSをサクッと立ち上げられます。
+Port指定やユーザー変更も簡単にできます。</p>
+
+<p>ただし、データの永続化はできないので、Dumpを喰わせるとかが別途必要です。（個人的には、開発環境ならむしろその方がありがたい。）</p>
+
+<p>また、一応MacやWindowsでもproxvVM（boot2docker）を噛ませることで同じようなUIで操作できます。
+（ただ、portの指定が二重に必要だったり、rsyncが入ってないとダメです。）</p>
+
+<h4 id="cli">CLIツール系</h4>
+
+<p><a href="https://github.com/uryyyyyyy/docker-command">https://github.com/uryyyyyyy/docker-command</a></p>
+
+<p>まだ不揃いですが、rubyやJavaのコマンドも使えますし、nodeやScalaのインタプリタも使えるはずです。</p>
+
+<p>（ただ、他のコンテナへアクセスするのは別途設定がいるので、別でredisサーバーを立てて、redis-cliを使ってアクセスする、みたいなことはできませんでした。）</p>
+
+<h3 id="section-3">既存のツールと比べて</h3>
+
+<p>（※ただしLinuxに限る）</p>
+
+<h4 id="section-4">ローカルマシンへインストール</h4>
+
+<ul>
+  <li>色々なソフトを入れたせいで動作が遅い、とかがなくなる</li>
+  <li>MariaDBとMySQLが同一PCで共存できたりする。</li>
+  <li>rubyなどの変な依存関係とかの原因不明のバグが起こりにくい</li>
+</ul>
+
+<h4 id="section-5">仮想マシンでの起動</h4>
+
+<ul>
+  <li>立ち上げるのがめっちゃ早い</li>
+  <li>マシンごとに設定し直したりとかいらない</li>
+  <li>いっぱい立ち上げてもメモリ消費が少ない</li>
+  <li>DockerfileとVagrantfileだけあれば動く（イメージの共有とか要らない）</li>
+</ul>
+
+<h3 id="section-6">まとめ</h3>
+
+<p>今、自分の開発ではMariaとかRedisとかを立ち上げつつ、gruntなどを実行して使ってます。
+他の開発メンバーにも布教してますが、Windowsマシンだとイマイチですね。。。</p>
+
+<p>Linux系のOSであればとても快適なんじゃないかと思います。
+むしろMacやWndowsでDocker使うとか意味がわからない。</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Dockerって何がいいの？]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/28/docker-and-chef/"/>
-    <updated>2014-05-28T22:48:02+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/28/docker-and-chef</id>
-    <content type="html"><![CDATA[<p>Google Compute Engineのハンズオンを受けました。</p>
+    <title type="html"><![CDATA[docker入門]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/01/docker-primer/"/>
+    <updated>2014-06-01T23:32:09+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/01/docker-primer</id>
+    <content type="html"><![CDATA[<p>先日書きましたが、改めてDockerのいいところや使い方を学んでいこうと思います。</p>
 
-<p>素人なのでEC2との違いを上手く語れませんが、
-Webコンソールも軽くて使いやすいし、
-EC2ほどややこしい設定をしなくて済むので、
-ちょっとした利用だったらむしろ使いやすいかもと思いました。</p>
+<p>GoogleでもCoreOSを取り入れることになったようで、ますますDockerが普及していくんじゃないかなということで。</p>
+
+<p>先日クーポンを頂いたので、しばらくGCE（Google Compute Engine）ラブです。</p>
 
 <!--more-->
 
-<p>さて、とりあえずメジャーなIaaSの選択肢が増えたわけですが、
-クラウドの利点として、同じ設定のマシンを複製してたくさん作れるというのがあります。</p>
+<h3 id="docker">Dockerとは</h3>
 
-<p>EC2にしろcompute engineにしろ、他プラットフォームへのインスタンスの移植はできません。</p>
+<p>仮想環境よりも軽量な、コンテナと呼ばれるものを管理する基盤。</p>
 
-<p>簡単に言えば、ベンダーにロックされてしまいます。</p>
+<p>ホストOSにDockerを用意して、その上に複数のコンテナを載せていく。</p>
 
-<h2 id="docker">そこでDockerです。</h2>
+<p>各コンテナは独立しており、同じマシン上で動いていても影響しない。付け替えも容易にできる。</p>
 
-<p>Dockerで設定などを保存しておくと、Dockerが入っているマシンであればEC2でも、Googleでも、ローカルでも同じ環境を作れます。</p>
+<h3 id="section">何が嬉しいの？</h3>
 
-<p>これによってベンダー依存がなくなり、万が一EC2がサービス辞めても、Googleが値上げしても、すぐに退避できるわけです。</p>
+<p>オンプレ時代は、サーバー機に対して更新をかけるときは既存のものの上から更新をかける形だった。</p>
 
-<p>さらに、オンプレの環境だろうがVMが使えればDockerは立てられるので、
-費用はもっと安くなるかもしれません。</p>
+<p>ちょっと修正するだけなので楽に見えるが、</p>
 
-<p><code>Build Once, Run Anywhere</code>の概念でコンテナごと移植ができると、もはやJavaのメリットがごっそり消えるんじゃないかとすら思います。</p>
+<ul>
+  <li>一度処理を間違えると元に戻しにくい</li>
+  <li>ローカルとサーバーで環境が微妙に異なる</li>
+  <li>スケールしにくい</li>
+</ul>
 
-<p>どんな言語でもDockerImageごと乗っけちゃえば動かせるわけですし。</p>
+<p>などの問題があった。</p>
 
-<h3 id="chef">おまけ、chef</h3>
+<p>そこで、仮想環境に載せることで、あとからやり直せるような構成にする技術が進んだが、</p>
 
-<p>chefはなにがいいのかまだ全然わかっていませんが、先輩いわく、</p>
+<ul>
+  <li>実行速度が遅い</li>
+  <li>容量が大きくなる</li>
+  <li>デプロイも一苦労</li>
+</ul>
 
-<blockquote>
-  <p>スナップショットとかを使おうが、万が一のために環境構築の手順は残しておくべきで、chefのスクリプトとして残せれば再現も楽でお得じゃない？</p>
-</blockquote>
+<p>などのオーバーヘッドに起因する問題が発生していた。</p>
 
-<p>ということでした。</p>
+<p>さらにはパブリッククラウド（EC2など）が登場し、snapshotで同じものを用意できるようになったが、</p>
+
+<ul>
+  <li>やはり開発環境と微妙に異なる。</li>
+  <li>細かく分けてサーバーを立てるとお金が大量にかかる</li>
+  <li>ベンダー依存してしまう</li>
+</ul>
+
+<p>といった問題があった。</p>
+
+<p>Dockerは、これらの問題を解決するために、</p>
+
+<ul>
+  <li>どこでも同じ環境として動く。<code>build once, Run anywhere</code></li>
+  <li>不安定な環境にならない。<code>Immutable Infrastracture</code></li>
+  <li>オーバーヘッドが少ない。</li>
+  <li>共有が容易<code>Docker Index</code></li>
+</ul>
+
+<p>といった利点を持っている。</p>
+
+<h3 id="section-1">機能は？</h3>
+
+<p>とりあえず現状調べたものとして、</p>
+
+<ul>
+  <li>リソース管理<code>cgroups</code></li>
+  <li>差分管理ファイルシステム<code>UnionFS</code></li>
+  <li>環境設定ファイル<code>Dockerfile</code></li>
+  <li>ルーティング</li>
+</ul>
+
+<h3 id="section-2">どう使うの？</h3>
+
+<h4 id="cgroups">リソース管理cgroups</h4>
+
+<p>仮想マシンでいうところのCPUやメモリの割り当てを行える。</p>
+
+<h4 id="unionfs">差分管理ファイルシステムUnionFS</h4>
+
+<p>作業の一つ一つがレイヤとして積み重なっていく。過去の作業を戻すことはないため、その部分を共有することができ、効率よく動作させることができる。</p>
+
+<h4 id="dockerfile">Dockerfile</h4>
+
+<p>Dockerfileがあれば、どの環境でもおなじように設定ができる。</p>
+
+<p>（Docker Indexからpullしてくるのと違いがあるの？）</p>
+
+<h4 id="section-3">ルーティング</h4>
+
+<p>調査中</p>
+
+<h3 id="on-gce">動作確認 on GCE</h3>
+
+<p><a href="http://docs.docker.io/installation/google/">公式インストール手順</a></p>
+
+<p><code>
+# sudo docker run [image type] [some operation]
+sudo docker run busybox echo 'docker on GCE \o/'
+sudo docker run ubuntu /bin/echo hello
+</code></p>
+
+<p>試しにVersionを見てみるとこんなカンジ。</p>
+
+<p><code>
+Client version: 0.11.1
+Client API version: 1.11
+Go version (client): go1.2.1
+Git commit (client): fb99f99
+Server version: 0.11.1
+Server API version: 1.11
+Git commit (server): fb99f99
+Go version (server): go1.2.1
+Last stable version: 0.11.1
+</code></p>
+
+<p>現在の最新版が入っています。</p>
+
+<h4 id="section-4">グローバル設定</h4>
+
+<p>グローバルな設定ファイルはこんなカンジ</p>
+
+<ul>
+  <li>/etc/default/docker</li>
+</ul>
+
+<p>```</p>
+
+<h1 id="docker-upstart-and-sysvinit-configuration-file">Docker Upstart and SysVinit configuration file</h1>
+
+<h1 id="customize-location-of-docker-binary-especially-for-development-testing">Customize location of Docker binary (especially for development testing).</h1>
+<p>#DOCKER=”/usr/local/bin/docker”</p>
+
+<h1 id="use-dockeropts-to-modify-the-daemon-startup-options">Use DOCKER_OPTS to modify the daemon startup options.</h1>
+<p>#DOCKER_OPTS=”–dns 8.8.8.8 –dns 8.8.4.4”</p>
+
+<h1 id="if-you-need-docker-to-use-an-http-proxy-it-can-also-be-specified-here">If you need Docker to use an HTTP proxy, it can also be specified here.</h1>
+<p>#export http_proxy=”http://127.0.0.1:3128/”</p>
+
+<h1 id="this-is-also-a-handy-place-to-tweak-where-dockers-temporary-files-go">This is also a handy place to tweak where Docker’s temporary files go.</h1>
+<p>#export TMPDIR=”/mnt/bigdrive/docker-tmp”
+```</p>
+
+<h4 id="section-5">インタラクティブ操作</h4>
+
+<p><code>
+sudo docker run -t -h ubuntu ubuntu /bin/bash
+</code></p>
+
+<ul>
+  <li>-t インタラクティブ実行</li>
+  <li>-h root権限</li>
+</ul>
+
+<p>っぽい。</p>
+
+<h4 id="log">log確認</h4>
+
+<p><code>
+docker logs -f [container id]
+</code></p>
+
+<ul>
+  <li>-f follow ずっと追い続ける。</li>
+</ul>
+
+<h4 id="section-6">現在のコンテナ確認</h4>
+
+<p><code>
+docker ps -a
+</code>
+* -a 停止中も含めたすべてのコンテナ</p>
+
+<h4 id="section-7">一時停止</h4>
+
+<p><code>
+docker stop [container id]
+</code></p>
+
+<h3 id="localdocker">Localでdocker</h3>
+
+<p>ちなみに、Local環境（Ubuntu14.04）でもやってみたところ、</p>
+
+<p><code>
+Client version: 0.9.1
+Go version (client): go1.2.1
+Git commit (client): 3600720
+Server version: 0.9.1
+Git commit (server): 3600720
+Go version (server): go1.2.1
+Last stable version: 0.11.1, please update docker
+</code></p>
+
+<p>少し古いバージョンでした。</p>
+
+<p>今後、Commitやpullを追加していきます。</p>
 ]]></content>
   </entry>
   

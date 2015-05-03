@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: grunt | ジタバタしばた]]></title>
+  <title><![CDATA[Category: Grunt | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/grunt/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-02-07T08:18:18+09:00</updated>
+  <updated>2015-05-03T10:49:15+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -14,98 +14,120 @@
 
   
   <entry>
-    <title type="html"><![CDATA[yeomanで作ったアプリでbootstrapを動かす]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/28/yeoman-bootstrap/"/>
-    <updated>2014-06-28T22:15:30+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/28/yeoman-bootstrap</id>
-    <content type="html"><![CDATA[<p>yeomanでAngularのテンプレートを作ったら、Bootstrapが上手く入らなかったのでメモ。</p>
+    <title type="html"><![CDATA[Grunt使ってみた。]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/01/grunt-primer/"/>
+    <updated>2014-06-01T19:31:15+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/01/grunt-primer</id>
+    <content type="html"><![CDATA[<p>Gruntを今の仕事でも導入しようかと思って勉強中です。</p>
+
+<p>やってみたら案外覚えることは少ないです。</p>
 
 <!--more-->
 
-<h3 id="environment">environment</h3>
+<h3 id="grunt">Gruntとは？</h3>
 
-<ul>
-  <li>yeoman (angular-generator)</li>
-  <li>bowerでbootstrap入れた。</li>
-  <li>gruntタスクはいじってない</li>
-  <li><code>grunt serve</code>時では普通に動く</li>
-  <li><code>glyphicon</code>を使うとfontを呼びに行くが、Deploy後だとミスる。</li>
-</ul>
+<p>クライアントサイドのタスクランナーツール。</p>
 
-<h3 id="incident">Incident</h3>
+<p>といってもよくわからないので、要は
+<strong>クライアントサイドの作業を楽に自動化するツール</strong>くらいの認識でいいと思います。</p>
 
-<p>yeomanで作成されたAngularアプリのgruntタスクでBuildすると、Deploy先でbootstrapのファイルの読み込みに失敗していた。</p>
+<p>（JavaのMavenに近いかなと思ってます。）</p>
 
-<p>どうも<code>dist/fonts</code>以下を呼ぼうとしてるんだけど、そんなところにファイルはできてない。。。</p>
+<h3 id="grunt-1">Gruntでできること</h3>
 
-<h3 id="section">対応</h3>
+<p>できることの一例として、</p>
 
-<p>gruntのタスクを編集。
-dist/fonts以下にbower_component/bootstrapのやつをcopyすればいいらしい。</p>
+<ol>
+  <li>AltJSやCSS系をコンパイルする。</li>
+  <li>checkStyleのようなもので構文をチェックする。</li>
+  <li>Minifyする。</li>
+  <li>テストする、あるいはローカルで動作させる（node.jsを使うなどして）。</li>
+</ol>
+
+<p>などの順番で実行させるようにすると便利です。（Debugするならminifyとかはしたくないかも。）</p>
+
+<p>Gruntは、モジュールを組み込むことでこれらの処理を色々してくれます。</p>
+
+<p>さらに、対象ファイルが変更されるとTaskが走るように監視することもできます。</p>
+
+<h3 id="section">どう嬉しいの？</h3>
+
+<p>今は大半のアプリケーションがWebで動作します。</p>
+
+<p>その際にJavaScriptやCSSなどを触らなければなりませんが、
+一定以上の規模で、ファイルの分割や速度の調整、作業効率を考えるとちょっと辛いものがあります。</p>
+
+<p>そこで、AltJSやファイルの結合・Minifyの仕組みが出てきたのですが、毎回手動で適用するのがめんどくさい。クールじゃない。もっと本質的なことに時間を使いたい。</p>
+
+<p>ということで生まれたツールなわけです。</p>
+
+<p>今の業務にすぐに使えないとしても、Webが今後も栄えていくとしたら知っておいて損はないツールだと思います。</p>
+
+<h3 id="section-1">導入手順</h3>
+
+<p>流れとしては非常に簡単で、</p>
+
+<ol>
+  <li>
+    <p>nodeJS入れる</p>
+  </li>
+  <li>
+    <p>npm(Node Packaged Modules)でgruntのcli(Command Line Interface)をインストールする。</p>
+  </li>
+  <li>
+    <p>プロジェクト毎にモジュールを組み込む。</p>
+  </li>
+  <li>
+    <p>Gruntで実行させたいtaskを登録する。</p>
+  </li>
+  <li>
+    <p>コマンドライン叩くか、あるいはファイルの変更があったらTaskが走り実行される。</p>
+  </li>
+</ol>
+
+<p>順番に見ていきます。</p>
+
+<h4 id="nodejs">node.js入れる</h4>
+
+<p>過去記事を参照してください。</p>
+
+<h4 id="grunt-cli">grunt-cliを入れる。</h4>
+
+<p>これがgruntをコマンドラインから呼び出すモジュールです。
+どこでも使えると思うので、グローバルに設定しておきます。</p>
 
 <p><code>
-copy: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'bower_components/bootstrap/dist/fonts/',
-          dest: '&lt;%= yeoman.dist %&gt;/fonts',
-          src: '*.*'
-        }, 
+npm install -g grunt-cli
 </code></p>
 
-<p>cwdとかをちゃんとわかっていなかったけど、どうやら相対パスを示すようで、
-<code>cwd + src</code>のファイルを、<code>dest + src</code>に移すみたい。</p>
+<h4 id="section-2">プロジェクト毎にモジュールを組み込む</h4>
 
-<p>ずっと悩んでいたのは、</p>
+<p>```
+cd your/project/path</p>
 
-<p><code>
-copy: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.',
-          dest: '&lt;%= yeoman.dist %&gt;/fonts',
-          src: 'bower_components/bootstrap/dist/fonts/*'
-        }, 
-</code></p>
+<h1 id="section-3">プロジェクトの設定ファイルを作成します。</h1>
+<p>npm init</p>
 
-<p>こんなカンジにすると、<code>dist/bower_component/......</code>みたいなカンジにcopyされてしまうことでした。。。</p>
+<h1 id="gruntinstall">プロジェクトで使うGruntのモジュールをInstallします。</h1>
+<p>npm install grunt –save-dev
+npm install grunt-contlib-concat –save-dev
+… etc
+```</p>
 
-<p>grunt難しい。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[angularJSをminifyしてみる]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/12/angular-minify/"/>
-    <updated>2014-06-12T08:16:14+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/12/angular-minify</id>
-    <content type="html"><![CDATA[<p>Gruntを使ってAngularJSファイルをminifyしてみました。</p>
+<p>ここで<code>--save-dev</code>を入れておくと、initで作った設定ファイル（package.json）にdependenciesが追加されます。</p>
 
-<!--more-->
+<p>あとはpackage.jsonを引き継げば、他の環境でも同じようにパッケージをインストールしてくれます。</p>
 
-<p>使ったのは以下。</p>
+<h4 id="grunttask">Gruntで実行させたいtaskを登録する</h4>
 
-<ul>
-  <li>grunt</li>
-  <li>grunt-contlib-concat</li>
-  <li>grunt-ngmin</li>
-  <li>grunt-contlib-uglify</li>
-</ul>
+<p>Gruntfile.jsにTaskを書いていきます。</p>
 
-<h3 id="section">詰まったこと</h3>
+<p>細かい記法はググれば出てくるので省略。。。</p>
 
-<p>普通にuglifyすると、AngularJSの命名規約が崩れます。
-それは困るので、ng-minというpre-minifyするものをかけてあげます。</p>
+<h4 id="task">Taskの実行</h4>
 
-<p>また、app/js/<em>*/</em>.jsなどとしたら、
-「moduleが見つかりません」と言われます。
-同一フォルダの中にあったController.jsが、Module定義をしたjsファイルより前に読まれてしまっていたのが原因みたいです。</p>
+<p>あとは<code>grunt [Task Name]</code>でタスクが走ります。</p>
 
-<p>とりあえず先にModuleを読み込ませるようにしましたが、記述量が増えてしまいました。</p>
-
-<p>今後プロジェクトを作るときは、module定義は別フォルダで先にやってしまおうと思います。</p>
 ]]></content>
   </entry>
   

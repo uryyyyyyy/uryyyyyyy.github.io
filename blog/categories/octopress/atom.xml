@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Octopress | ジタバタしばた]]></title>
+  <title><![CDATA[Category: octopress | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-02-07T08:18:18+09:00</updated>
+  <updated>2015-05-03T10:49:15+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -14,13 +14,57 @@
 
   
   <entry>
-    <title type="html"><![CDATA[octopressの再セットアップ]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/01/10/octopress-reinstall/"/>
-    <updated>2015-01-10T11:52:42+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2015/01/10/octopress-reinstall</id>
-    <content type="html"><![CDATA[<p>octopressの再セットアップについて、Qiitaに投稿しました。</p>
+    <title type="html"><![CDATA[ブログをOctopressに移行中です]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/05/11/octopress/"/>
+    <updated>2014-05-11T19:53:13+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2014/05/11/octopress</id>
+    <content type="html"><![CDATA[<h2 id="octopress">Octopressのインストール</h2>
 
-<p><a href="http://qiita.com/uryyyyyyy/items/83d75cf79a9202f36cb5">Octopressの再セットアップで嵌ったのでメモ</a></p>
+<p>WordPressのお気に入りのテーマが、うっかりバージョンアップしたらなんか仕様が変わりすぎていて使いづらくなっていました。</p>
+
+<p>それと、前々から記事を書くコストが高いと思っていたので、
+この期にmarkdownで記述できるタイプに乗り換えてみました。</p>
+
+<!--more-->
+<p>（これまでは毎回h２タグを打つという前時代的なことをしていました。。。）</p>
+
+<p>で、今回選んだのがOctoPressというツール。
+理由は、</p>
+
+<ul>
+  <li>ホスティングサーバーをgithubに変えてみたかった。</li>
+  <li>簡単なブログなら静的コンテンツでも十分</li>
+  <li>とにかく簡単にpreview・公開したい。</li>
+  <li>スマホで見やすく、かつ軽いのが理想。</li>
+</ul>
+
+<p>その点でOctoPressはというと、</p>
+
+<ul>
+  <li>github上で動かすとかなり軽い。（他でもそうかも）</li>
+  <li>previewや更新が１コマンドでできる。</li>
+  <li>テーマ変更や細かなカスタマイズがしやすい</li>
+  <li>見た目も悪くない。</li>
+</ul>
+
+<p>ということでいいかんじだなと。</p>
+
+<p>何より、<a href="http://morizyun.github.io/blog/octopress-gitpage-minimum-install-guide/">この人の導入マニュアル</a>が非常にわかりやすくて、これをそのまま実行すればほぼ問題なかったです。</p>
+
+<p>つまずいた点として、</p>
+
+<h3 id="ruby">rubyのパッケージインストールができない</h3>
+
+<p><code>bundle exec rake install</code>で、「なんか依存性が解決されてないよ」と言われたので、ググって足りてないパッケージを入れて実行したらうまくいった。</p>
+
+<h3 id="section">コミットできなかった。</h3>
+
+<p><code>rake deploy</code>でよろしくHTML作ってコミットしてくれるんだけど、自分で編集したファイルでデッドロックになってるのか、コミットでミスる。</p>
+
+<p>仕方ないのでコミットのスクリプトに –force的なオプション（もうちょっと大人しいかな）をつけたらうまくいって、特に問題も起きていない。</p>
+
+<p>これからはもっと気軽に記事を投稿していこうと思います。</p>
+
 ]]></content>
   </entry>
   
