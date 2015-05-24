@@ -9,7 +9,7 @@
   <meta name="author" content="しばたこ">
 
   
-  <meta name="description" content="今更ながらbitcoinの仕組みを調べたのでまとめる。 参考資料 Bitcoinの仕組み ブロックチェーンをもう一段深く理解する bitcoinの仕組み お金の決済においては、不正取引の無効化の仕組みが必須。 お金の所有者以外の取引の防止（トランザクション） bitcoinでは、各通貨（ &hellip;">
+  <meta name="description" content="今更ながらbitcoinの仕組みを調べたのでまとめる。 bitcoinの仕組み お金の決済においては、不正取引の無効化の仕組みが必須。 お金の所有者以外の取引の防止（トランザクション） bitcoinでは、各通貨（おそらく最小単位である1satoshi毎）を取引履歴の塊として表現する。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -112,17 +112,11 @@
 
 <!--more-->
 
-<h2 id="section">参考資料</h2>
-
-<p><a href="http://bitcoin.peryaudo.org/design.html">Bitcoinの仕組み</a></p>
-
-<p><a href="http://wazanova.jp/items/1314">ブロックチェーンをもう一段深く理解する</a></p>
-
 <h2 id="bitcoin">bitcoinの仕組み</h2>
 
 <p>お金の決済においては、不正取引の無効化の仕組みが必須。</p>
 
-<h3 id="section-1">お金の所有者以外の取引の防止（トランザクション）</h3>
+<h3 id="section">お金の所有者以外の取引の防止（トランザクション）</h3>
 
 <p><img src="http://bitcoin.peryaudo.org/fig_transactions.png" alt="alt" /></p>
 
@@ -143,7 +137,7 @@
 残る不正は、送り手が複数の取引を同時に行うことができてしまうこと。（二重取引）
 これによって、同一（同じ取引履歴）のビットコインが複数の相手に渡ることになる（偽札を掴まされたこととほぼ同義。）</p>
 
-<h3 id="section-2">二重取引の防止（ブロックチェーン）</h3>
+<h3 id="section-1">二重取引の防止（ブロックチェーン）</h3>
 
 <p>上述の仕組みだけでなく、どの取引が正しいのかを判定する必要がある。
 この判定は個人間ではいくらでも偽造できるので、全体で承認される必要がある。</p>
@@ -209,7 +203,7 @@
 
 <p>・取引が承認されるまでに時間がかかる。</p>
 
-<h3 id="section-3">ブロックを生成するのにコストがかかる</h3>
+<h3 id="section-2">ブロックを生成するのにコストがかかる</h3>
 
 <p>個人でブロックを生成するにはコストがかかると書いた。（そのため不正をするのは割に合わない）
 しかし、コストがかかるだけでは誰もやりたがらない。</p>
@@ -221,7 +215,7 @@
 <p>手数料をもらう場合、ある程度の規模のお金が動かないと手数料が割に合わなくなるため、複数の取引をまとめることになった。
 （また、これは取引をひとつずつ承認する場合と比べて時間短縮にもなる。）</p>
 
-<h3 id="section-4">取引が承認されるまでに時間がかかる</h3>
+<h3 id="section-3">取引が承認されるまでに時間がかかる</h3>
 
 <p>これはbitcoinがもつ本質的な問題で、p2pを使う以上避けられないと考えられる。</p>
 
@@ -230,6 +224,21 @@
 
 <p><a href="http://btcnews.jp/should-not-wait-for-bitcoin-confirmation/">もう10分待たなくてもいい、ビットコイン取引承認時間への解法「Impulse」</a></p>
 
+<h2 id="section-4">参考資料</h2>
+
+<p>図は「Bitcoinの仕組み」へのリンクです。</p>
+
+<ul>
+  <li>
+    <p><a href="http://bitcoin.peryaudo.org/design.html">Bitcoinの仕組み</a></p>
+  </li>
+  <li>
+    <p><a href="http://wazanova.jp/items/1314">ブロックチェーンをもう一段深く理解する</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.igvita.com/2014/05/05/minimum-viable-block-chain/">Minimum Viable Block Chain</a></p>
+  </li>
+</ul>
 </div>
 
 
