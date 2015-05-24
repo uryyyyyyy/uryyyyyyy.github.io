@@ -9,8 +9,9 @@
   <meta name="author" content="しばたこ">
 
   
-  <meta name="description" content="これ系の本は人一倍読んでるつもりですが、なかなか上達しません＾＾；
-もうちょいアウトプットの質を考えたほうがいいですね。というより、このブログは個人の考えをまとめるのが第一目標なので、もうちょい相手を意識した発信をする必要がありますね。 では内容の要約です。 &hellip;">
+  <meta name="description" content="ソフトウェアの設計に関しての意思決定の進め方が細かく載ってる本。UXとは、ユーザーエクスペリエンスの略です。
+集団でどう意識の共有をしていくかとか、なかなかわかりやすかった。 開発者は構造全てを表現したがるが、ユーザーはわかりやすさのみ求める。
+→開発者は用いた機能や技術のことを伝えたがる、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +82,109 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/10/ux-design-introduction/">UXデザイン入門</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-10T11:49:31+09:00" pubdate data-updated="true">Jul 10<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/10/ux-design-introduction/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822296105/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51lR2WShy5L.jpg" width="387" height="500" alt="UXデザイン入門" title="UXデザイン入門" /></a></p>
+
+<p>ソフトウェアの設計に関しての意思決定の進め方が細かく載ってる本。UXとは、ユーザーエクスペリエンスの略です。
+集団でどう意識の共有をしていくかとか、なかなかわかりやすかった。</p>
+
+<ul>
+  <li>
+    <p>開発者は構造全てを表現したがるが、ユーザーはわかりやすさのみ求める。
+→開発者は用いた機能や技術のことを伝えたがる、しかしユーザーは使えればなんでもいい。相手の視点に立った思考を心がけるべき。</p>
+  </li>
+  <li>
+    <p>開発者はユーザーを理解できない
+→そもそも理解し切ることはムリ。そこは謙虚に意見を取り入れる必要がある。なので現場の声を聞くのは必須。</p>
+  </li>
+  <li>
+    <p>UXデザインの対象はあくまでユーザー
+→ユーザー（使用者）は顧客（購買決定者）と異なる場合もある。UX（UI）はあくまでユーザーにとっての使いやすさを。</p>
+  </li>
+  <li>
+    <p>顧客のメリットと合致させる
+→そうは言っても売れなければ意味が無い。ユーザーの使いやすさを、顧客の得なように伝える。（ユーザーの生産性を上げる。サポート・キャッチアップ費用の削減など）</p>
+  </li>
+  <li>
+    <p>デザイン調査は、ユーザーの現状を５W１Hで抑える。根底のニーズを把握する。</p>
+  </li>
+  <li>
+    <p>構想初期段階ではあえて抽象的にしておき、可能性を狭めない。
+→何気ない言葉でも、知らないうちにバイアスがかかり思考を狭めてしまうことがある。</p>
+  </li>
+</ul>
+
+<p>以上がざっくりとした内容です。ペルソナとか以降は説明がややこしいので割愛。</p>
+
+<p>で、開発の現場でよくある例と、その利点・問題点についてちょっと考えてみます。
+大きく、</p>
+
+<ul>
+  <li>言われたとおりに作るSIer型</li>
+  <li>独断でニーズを想定するベンチャー型</li>
+</ul>
+
+<p>で書いていきます。</p>
+
+<h4 id="sier">言われたとおりに作るSIer型</h4>
+<p>利点：
+人材を選ばなくても同じクオリティに仕上がる
+工数見積など想定しやすい</p>
+
+<p>問題点：
+ユーザーの声を聞きすぎて思想のないものになる。ガラパゴス化する
+差別化出来ないためデスマーチになる（早く安くが求められる）</p>
+
+<h4 id="section">独断でニーズを想定するベンチャー型</h4>
+<p>利点：
+イノベーティブな製品が生まれやすい</p>
+
+<p>問題点：
+工数が読みにくい
+保守がしにくい（設計者のコーディング能力に依る）
+顧客ニーズとずれてコケる可能性もある。</p>
+
+<p>実際の開発にあたっては、この２つのバランスを取ることが大切かと思います。ベンチャーとかで、自称優秀な人たちが集まって革新的な製品を考える際に、顧客の声を一切聞かないで自分の考える理想の製品を考えてしまう例が多々あるようです。で、実装もままならずバグが多く保守も事実上不可能、おまけにニーズとずれてる、なんて悲劇にならないように気をつけなきゃいけない。現場のユーザーの声ももっと聞かなくてはいけない。</p>
+
+<p>基本的にソフトウェアは改良を加えて長く使うものなので、保守性が高いことはかなり重要。オブジェクト指向とか、DBの正規化とかも保守性を高めるためです。</p>
+
+<p>最後に、人は技術に金を払うのではなく、それでできるメリットやストーリーにカネを払うものです。開発者も、何でその技術を使うのか、を非エンジニアにもわかるように説明出来る必要があるかと思います。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -945,137 +1049,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/25/black-companies/">ブラック企業 日本を食いつぶす妖怪</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-25T20:37:54+09:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/25/black-companies/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4166608878/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/41qS-pgPPzL.jpg" width="311" height="500" alt="ブラック企業 日本を食いつぶす妖怪 (文春新書)" title="ブラック企業 日本を食いつぶす妖怪 (文春新書)" /></a></p>
-
-<h3 id="section">ブラック企業のパターン</h3>
-
-<ul>
-  <li>
-    <p>月収を誇張する
-→固定残業代によって、見かけでは高いが実は残業○○時間コミの給料、なんてことが多い。残業合わせると、結局時給1000円くらいになってしまう例もあるとのこと。</p>
-  </li>
-  <li>
-    <p>『正社員』の見せ餌・入社後も競争
-→試用期間を悪用する。し、入社後に再度シューカツまがいの過酷な競争を強いられる。それをクリアしないと配属させない、アルバイトに格下げする、などというところもある。
-ちなみに、待遇の一方的な変更も「解雇」と同等に厳しく制限されている、が、巧みに「自分（使用者自身）が選択した結果」と思わせることで回避している。</p>
-  </li>
-  <li>
-    <p>戦略的パワハラ
-→「新卒は役に立たないただのコスト」「先輩のお陰で食わせてもらってる」「お前は本当につかえねぇな」などなど人格否定をして潰します。過剰な圧迫や命令などの様々な嫌がらせを通じ、自主退職や辞職においこむ。</p>
-  </li>
-  <li>
-    <p>残業代を払わない
-→労働者をなるべく安く長く働かせるのがブラック企業です。不条理な内容でも、若者がおかしいと言いづらい職場では企業の『言い訳』が通ってしまいます。悪質なところは、「みなし残業だから払う必要はない！」などともっともな理由（ハッタリ）をかましてきたりします。また、名ばかり管理者にさせることで裁量労働制にしていまうこともあります。
-前述の月収の誇張と違う点は、あちらは曲がりなりにも残業代を払っているが、こちらは「みなし」などの専門用語でない単語を用いて、払わないことを隠すトリックという点です。</p>
-  </li>
-  <li>
-    <p>異常な36協定
-→これは日本の終身雇用制度の名残ですが、ブラック企業はこれを悪用します。この協定を結ぶと、槻に80時間とかを超えても違法にならないのです。</p>
-  </li>
-  <li>
-    <p>辞めさせない
-→彼らは可能な限り搾取したいのです。もちろん誰にも辞める権利はあります。（無いと奴隷労働になってしまう）
-が、離職手続きを進めてくれなかったり、損害賠償するぞといった脅しを受けたりすることもあるようです。</p>
-  </li>
-  <li>
-    <p>職場崩壊
-→これは上層部が狙ってることではないでしょうが、えてしてこういった職場ではモラルが崩れます。上司がモノに当たったりセクハラが横行したりするとのこと。</p>
-  </li>
-</ul>
-
-<p>ちなみに、なぜブラック企業で新卒に対しこのような扱いをするのかというと、あえて不条理・非効率な手法を強要することで、それに耐えられる人材（会社に忠実な人材）かどうかを見極めているからである。</p>
-
-<h3 id="section-1">退職・辞職・解雇について</h3>
-
-<ul>
-  <li>
-    <p>退職
-→使用者と労働者の合意による契約の解消。</p>
-  </li>
-  <li>
-    <p>辞職
-→労働者が一方的に契約を解消。</p>
-  </li>
-  <li>
-    <p>解雇
-→使用者が一方的に契約を解消。（ただし、使用者には様々な制限が課されているため、ブラック企業は退職の形式に誘導をしていく。）</p>
-  </li>
-</ul>
-
-<p>ブラック企業が労働者を安く辞めさせたい場合、まず退職勧告を行うことが考えられます。ただ、これを繰り返すと訴訟リスクが大きいため、実際には自己都合退職させるよう、様々なイジメを実行します。例えば、絶対にできないノルマを課して、守れなければ激しく叱責することを繰り返す。厳密にはパワハラに当たるかもしれないが、だいたいは労働者が恐怖心などでもう関わりたくもないと逃げてしまう。
-そして、自己都合退職をすると雇用保険上の制裁が個人に降り掛かってしまう。</p>
-
-<h3 id="section-2">ブラック企業で壊されないために</h3>
-
-<ol>
-  <li>
-    <p>自分が悪いと思い込まない</p>
-  </li>
-  <li>
-    <p>会社のことは疑ってかかれ</p>
-  </li>
-  <li>
-    <p>簡単に辞めない</p>
-  </li>
-  <li>
-    <p>労働法を活用せよ</p>
-  </li>
-  <li>
-    <p>専門家に相談せよ</p>
-  </li>
-</ol>
-
-<h3 id="section-3">まとめ</h3>
-
-<p>2000年代、非正規雇用の問題が取り上げられ、正社員人気が爆発的に高まり、定員を争って過酷な競争が起きました。それは今でも変わらず、特にスキルがなくても正社員であればとりあえず安泰と思っているのでしょうか。</p>
-
-<p>新卒の場合、職場でハラスメントを受けても、「自分の育てるためのもの」などと好意的に捉えてしまうことがあります。意識高い系の人はなおさらで、ブラック企業はそこにつけこみます。</p>
-
-<p>そもそも日本の就活は特殊で、ずっと遊んでいた大学生たちが就活になるととたんに自己分析などを始め、様々な会社でそれを伝え、自己否定を繰り返させられる。就活前と後で、仕事に対しての期待や倫理観が薄れてしまう傾向が強いとの調査結果がある。</p>
-
-<p>また、目標を描けないとブラック企業から抜け出せなくなる。→なんとなくで残ってしまう。価値観が染められる。
-ブラック企業が存在することによって、社会に様々なコストが発生する。体を壊して医療保険・生活保護。企業は少しでもキツイことを言うとブラック扱いされ警戒されるので強く言えない。</p>
-
-<p>さらに、世論としては逆に「今の新卒は甘い」という論調も目立つ。たしかにスキルのないまま社会に入っていくが、これは昔と似たようなもの。しかし、「ゆとり教育だから」「今時の若者はやる気が無い」などと言われることも、ブラック企業を増長させてしまっている一因でもある。</p>
-
-<p>社会全体として、ブラック企業をなくすような行動をしていかなければならない。NPOや組合ユニオンに相談してみることから。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -1134,6 +1107,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/24/mechanism-of-bitcoin/">bitcoinの仕組み</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/06/quantum-computer/">量子コンピュータ―超並列計算のからくり</a>
       </li>
     
@@ -1149,15 +1126,11 @@
         <a href="/blog/2015/05/03/encryption-technology/">暗号技術入門</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/05/03/secret-of-content/">コンテンツの秘密</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/network'>Network (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
 </section>
 
   
