@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ソフトウェア開発で徹底すべき４つのポイント - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="今までいくつかシステムの設計〜保守までやってきた中での失敗などを元に、
+システム開発のあり方をまとめてみました。 概要 愚者は経験から学び、賢者は先人から学ぶと言いますが、
+僕は残念ながら経験するまでは理解しようとしなかったので、
+せめて経験から学ぶことと、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ソフトウェア開発で徹底すべき４つのポイント</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-17T13:23:43+09:00" pubdate data-updated="true">Oct 17<span>th</span>, 2015</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今までいくつかシステムの設計〜保守までやってきた中での失敗などを元に、
+システム開発のあり方をまとめてみました。</p>
+
+<!--more-->
+
+<h3 id="section">概要</h3>
+
+<p>愚者は経験から学び、賢者は先人から学ぶと言いますが、
+僕は残念ながら経験するまでは理解しようとしなかったので、
+せめて経験から学ぶことと、今後同じ事態に陥る人が減るようにまとめておきます。</p>
+
+<p>現時点までの個人の実体験を踏まえての考察なため、全く的外れだったり当たり前すぎて呆れるかもしれませんし、
+既にアジャイルやXP、リーン開発などで語り尽くされた内容かもしれません。</p>
+
+<p>そのあたりは後日改善していきたいと思っています。</p>
+
+<h3 id="section-1">前提条件</h3>
+
+<p>なお前提として以下二点を挙げます。</p>
+
+<h4 id="section-2">ユーザーのニーズが事前に定義できないこと。</h4>
+
+<p>もし事前に仕様を明確に定義できる場合は、保守などは考えずにそのニーズに合うものを作れば終わりです。
+多少の優先度付けは必要かもしれませんが、そんな単純なケースであれば、どう開発してもなんとかなりそうです。</p>
+
+<p>明確な定義は避けますが、いわゆるウォーターフォール的な長期のイテレーションでの開発を対象外としています。
+というか最近のソフトウェア開発では、規模やリリース時期に関わらず内部的には短期のイテレーションを回すのが最善だと思っています。評価フェーズをどこまで徹底するかは置いておいて、開発のフローとして。
+理由は以下の３つです。</p>
+
+<ul>
+  <li>単体の複雑度が増していて、長期のイテレーションは大抵人の理解が追いつかないだろうこと。</li>
+  <li>システム内で責務をモジュール毎に分けて連携していくのが常識な中で、長期のイテレーションでは連携が遅れてしまうこと。</li>
+  <li>プログラミングの抽象度が上がったことで、短期の繰り返しによるコードの書き直しのコストがかなり低減されていると思うこと。</li>
+</ul>
+
+<h4 id="section-3">既存システムが存在し、目的が似ている場合</h4>
+
+<p>ある程度似た目的のシステムが既にある場合は、そこをベースとして開発していくのが近道でしょう。
+（フォークして開発するとか、プラグインを作るとか）</p>
+
+<p>これが出来ない以下のようなケースの場合、新しい目的に向けた別の手段（新システムを0から作るなど）を取ることになるでしょう。</p>
+
+<ul>
+  <li>特許やライセンスの都合上利用できない</li>
+  <li>サービスはあるが実装が公開されていない</li>
+  <li>そもそも市場やOSSに似た目的のシステムがない。</li>
+</ul>
+
+<p>その場合は、アルファ版を作った後は今回の対象範囲となります。</p>
+
+<h4 id="section-4">コードが再利用できないことが明白な場合</h4>
+
+<p>例えば以下のようなケースです。</p>
+
+<ul>
+  <li>Javaの実装は既にあるが、性能向上のためCで書き直したい。</li>
+  <li>rubyで書かれている便利なライブラリをJavaにも移植したい。</li>
+  <li>RDB前提ではなくNoSQL前提にしたいので、処理単位やUIが大きく変わる。</li>
+</ul>
+
+<p>その場合は、流用できるロジックは参考にしつつ、しかし既存のものとかなり違う中身になることでしょう。
+ここでも、アルファ版を作った後は今回の対象範囲となります。</p>
+
+<h3 id="section-5">ポイント</h3>
+
+<p>・そのシステム（プロジェクト）の目指す方向性はどこなのかを明確にする。
+・機能追加は、必ず満たしたいニーズだけにフォーカスする。
+・機能開発と既存設計の変更は同時には行わない。
+・既存コードの変更はチーム全員が理解できる単位まで細かくする。</p>
+
+<h4 id="section-6">そのシステム（プロジェクト）の目指す方向性はどこなのかを明確にする。</h4>
+
+<p>プロジェクトとして何を目指すのか？どこまでを範囲とするのか？といったことを、<strong>実装を抜きにして</strong>チーム内外と共有することで、</p>
+
+<ul>
+  <li>類似のシステムが既にないか調べることができ、車輪の再発明を防げる。</li>
+  <li>プロジェクトの領域が明確になり、ユーザーのニーズとのミスマッチや理不尽な要求が減る。</li>
+  <li>各作業に優先順位を付ける際の指標となり、開発の効率が上がる。</li>
+</ul>
+
+<p>どこまで具体的に突き詰めるかは、上記の目的が果たせるかどうかで判断する。</p>
+
+<p>なお、方向性はなるべく変わらないことが望ましいが、チーム内では定期的に再定義すると良いと思う。</p>
+
+<h4 id="section-7">機能拡張は、最も解決したい問題だけにフォーカスする。</h4>
+
+<p>設計段階では、ユーザーのニーズを調べているうちに頭の中でおおまかな設計が出来上がってきて、色々な非機能要件も組み込んでいたりする。
+そして、いざ仕様を策定する段階に入ると、無意識にその設計に引きずられてしまい、本来であれば必要のない箇所まで作りこんでしまう。
+そうなると、</p>
+
+<ul>
+  <li>他人に説明するときに、結論ありきになり段階を飛ばして説明してしまい理解されない</li>
+  <li>全部作ろうとして工数や優先順位がメチャクチャになる。</li>
+  <li>他の案をシャットアウトした独りよがりな実装プランになる。</li>
+</ul>
+
+<p>それを防ぐために、直近で問題になっていることやユーザーのニーズの特に重要なもののみにフォーカスして、その解決方法のみをアドホックに考えることが重要だと考えます。
+その仕様がちゃんと理解されたら、さっさと作ってしまい再度ユーザー・社内に共有する。
+すると網羅できていなかったパターンや新たな要望が出てくるので、それを繰り返し潰していく。</p>
+
+<p>ただ、そういった細かなリリースやニーズの調査が難しいケースもあるでしょう。
+その場合でも、複数の要望を聞いた上で、その要求を細かく再定義し足りないところは推測して補いリスト化し、問題ないか社内外にチェックしてもらい、問題なければ優先度の高いものからひとつずつ解決していきます。
+こうすることで、リリース時に全部間に合えば問題ないし、間に合わなくても全部リバートされることはなく出来ている範囲で利用してもらえて、残りは次回に回すことが出来ます。</p>
+
+<h4 id="section-8">機能拡張と既存コードの変更は同時には行わない</h4>
+
+<p>機能拡張を設計・コーディングするときに、</p>
+
+<ul>
+  <li>既存のコードのこのAPIをこう直せば新機能で使えそうだな</li>
+  <li>機能拡張を含めてデータ構造を考えると、今のデータ構造はイケてないから直したい</li>
+</ul>
+
+<p>などという考えが出てきます。
+それ自体を考えることは必要だと思いますが、機能拡張時に同時並行でそれをやると、無理に構造を変えてバグを生んだり、実装が間に合わなかったり要求とズレていた時にリバートしたら手戻りが増えてしまったりします。</p>
+
+<p>そこで、機能拡張と既存コードのリファクタリングをはっきり分け、</p>
+
+<ul>
+  <li>機能拡張は既存のコードに一切修正せずにコードを書く。</li>
+  <li>既存コードのリファクタリングは、外から見た挙動を一切変えずに内部を変える。（deprecatedや不要なため削除はアリ）</li>
+</ul>
+
+<p>とします。
+こうすることで上記の問題がなくなると共に、</p>
+
+<ul>
+  <li>機能拡張時は既存コードとの一貫性やコードの綺麗さを意識せずにガッと作れる。（むしろこの時点でデータ構造の最適化とか考えるのは早すぎる。）</li>
+  <li>機能拡張のたびに既存コードの変更は必ず発生するので、リファクタリングやテストの意識が徹底される。</li>
+  <li>テストコードの寿命が伸びるかも。</li>
+</ul>
+
+<p>といったことが見込めると考えます。</p>
+
+<h4 id="section-9">既存コードの変更はチーム全員が理解できる単位まで細かくする。</h4>
+
+<p>バグだらけでまともに動かない・ユーザーが誰も利用していない、ものは例外として、
+とりあえず動いていてユーザーに利用されているものは、どんなコードでも最大限の敬意を払うべきです。</p>
+
+<p>ちょっと見た時点だと、仕様がわかりにくいとか実装がクソだとか思って０から書き直したくなりますが、そんな無茶をすると</p>
+
+<ul>
+  <li>どこかで辻褄が合わずバグに繋がる</li>
+  <li>チームの人が差分を見ても問題ないのか判断がつかない</li>
+  <li>現状の挙動が少しでも変わると、ユーザーを混乱させかねない。（また、デグレはすごく評価が下がる。）</li>
+</ul>
+
+<p>ということで慎重に行う必要があります。
+この問題において、僕はチームの人全員が差分を理解でき、システムが提供する挙動に問題がないことが重要だと考えています。ここでいうチーム全員には非エンジニアが含まれる場合もあります。</p>
+
+<h3 id="section-10">まとめ</h3>
+
+<p>とにかく、コードの更新は誰もが理解できる粒度まで小さくすることが最重要で、データ構造やアルゴリズム、コードの最適化は二の次かなと思っています。
+機能拡張であればその機能を満たす単位、既存コード変更であれば差分がわかる範囲です。</p>
+
+<p>また、限られたリソースの中で最大限のメリットを提供するためには、プロジェクトとしての優先順位をきちんとつけなくてはいけないですよね、という当たり前の話もしました。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-17T13:23:43+09:00" pubdate data-updated="true">Oct 17<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/works/'>works</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/05/24/mechanism-of-bitcoin/" title="Previous Post: bitcoinの仕組み">&laquo; bitcoinの仕組み</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/17/4-point-of-develop-software/">ソフトウェア開発で徹底すべき４つのポイント</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/24/mechanism-of-bitcoin/">bitcoinの仕組み</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/06/quantum-computer/">量子コンピュータ―超並列計算のからくり</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/06/superstring-theory/">超弦理論入門</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/06/how-to-grab-the-world/">日本文化と空間認識</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2015/10/17/4-point-of-develop-software/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

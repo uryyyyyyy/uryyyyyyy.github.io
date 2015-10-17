@@ -9,8 +9,11 @@
   <meta name="author" content="しばたこ">
 
   
-  <meta name="description" content="過去記事です。 コミュニケーションはなくても良いのが至高。有機的に繋がっていればムダなコミュニケーションはいらない。
-現場の人が解決していけばいい。 アイデアが生まれるプロセスはぐちゃぐちゃなもの。情報を入れまくり整理した上で発散する。 後悔を考えた時、ボーナスもらい損ねたとなることはなくても、 &hellip;">
+  <meta name="description" content="AngularJS
+主にview側で動作する。
+従来のMVCモデルだとControllerに偏ってしまうため、データの入力出力をserviceなどで引き受けてしまおうというもの。
+hadesではpublicフォルダに入っているものをplayのカスタムタグで呼んできて、
+それをブラウザ側（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +84,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/01/angular-memo/">Angularメモ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-01T11:44:16+09:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/01/angular-memo/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>AngularJS
+主にview側で動作する。
+従来のMVCモデルだとControllerに偏ってしまうため、データの入力出力をserviceなどで引き受けてしまおうというもの。
+hadesではpublicフォルダに入っているものをplayのカスタムタグで呼んできて、
+それをブラウザ側（クライアント）で処理させている。
+その際にデータの変更などがあれば即時で反映される。</p>
+
+<p>$scopeの扱いがキモ！
+ざっくりした理解</p>
+
+<p>watcher listenerってなんだ？</p>
+
+<p>$apply(exp)
+→Angular外の関数を呼び出す。</p>
+
+<p>$broadcast(name, args)
+→オブジェクトを子スコープへ継承する。</p>
+
+<p>$destroy()
+→</p>
+
+<p>$digest()
+→子scopeのウォッチャーを監視する。</p>
+
+<p>$eval(expression, locals)
+→そのscope内で式実行する。</p>
+
+<p>$resource
+→httpアクセスの設定をよろしくやってくれる。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -915,109 +984,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/05/specific-security-law/">特定機密保護法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-05T20:39:32+09:00" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/01/05/specific-security-law/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>過去記事です。</p>
-
-<p>録りためてた朝まで生テレビを見ました。11/29のものです。
-久しぶりに詳しくニュースに触れましたね。</p>
-
-<p>それと、みなさまお久しぶりです。
-また見に来てくれてありがとうございます。
-年末に別ドメインに移行を始めようと思うので、そのころまた更新していければと思います。</p>
-
-<p>さて本題。
-### まずは事実確認から（一部意訳）
-『特定機密情報保護法案』は、各国と連携を取るために情報共有するにあたって、国際的な安全に関わるような特定機密にたいしては外に漏らさないように厳しく罰しようというもの。これによって他国も安心して機密情報を共有してくれるようになり、国益が守られると謳っている。直近の例では<a href="http://www.nhk.or.jp/worldwave/marugoto/2013/09/0903.html" target="_blank">スノーデン事件</a>がありました。あんなのを危惧しているものと思われます。</p>
-
-<p>が、内容はほとんど公開されておらず、直前に行われたパブコメも要項のみ。与党内で一ヶ月あまりに渡って議論（普段よりも長いらしい）していたおかげで衆議院で審議する時間が２週間ほどしかなかったそうで、そこであっさり通ってしまった。（<a href="http://www.yomiuri.co.jp/politics/news/20131206-OYT1T01521.htm" target="_blank">ちなみに参議院でも12/6に可決している。来年の内に施行される予定</a>）</p>
-
-<p>ようやく出てきた内容からは、罰する対象が曖昧であること、対象が広すぎること、それをチェックする機関が決まっていないことなどから、取材がしにくくなるのでは？とメディア界隈から特に不満の声が上がっている。</p>
-
-<h3 id="section">動画の中での自民党の見解</h3>
-<p>自民党としては問題無いと思っている。一ヶ月あまり与党で議論したからもう十分。これ以上これに時間を割くつもりはない。国家安全上の重要機密にあたる情報を漏らすのでなければ罰せられないから問題ない。今回（朝生）で上がった論点についてもこれから詰めていく。ちゃんと運用すればいい法案だし、ちゃんと運用できる方法をこれから詰めていく。
-（日本版NSCを早く作りたいから急いでるんだろう、と指摘されていた。少なからずそれはあると個人的に思う。）</p>
-
-<h3 id="section-1">野党、ジャーナリストらの見解</h3>
-<p>法案が提出されて、慌ただしくパブコメも流れて、野党や審議会が評価するまもなく法案が可決してしまった。これは異例中の異例。簡単に言うと民主主義とか合議制とかを蔑ろにしている感。パブコメも要項しか書かれてていなくてコメントしようがない。情報開示を求めても基本的に黒塗り。これでは疑われても仕方がない。というか善悪を判断・議論しようがない。</p>
-
-<p>公開非公開の基準をどう定めていくかとか、基準のチェックはどうするか、第三者的機関を作るとか、そこらへんの議論を『これからやる、ただし法律はもう作ってしまう』これは順序が違う。</p>
-
-<p>法案の提出が遅れたのは与党で揉めに揉めたからだと自民党の方も言っています。現にこの朝生でも多くの論点が上がっている。そんな法案を国会でとりあえず通して、『細かい所はこれから考えようよ』って言ってるから怖い。</p>
-
-<p>で、今回の話は２つがごっちゃになっている。特定機密保護法と、その実際の法律案や決め方は別の問題。世の中のジャーナリストやメディアの話のキレが悪いのもそこで、要は上手く回れば妥当な内容。ただしムリに通して、チェックの機構はこれからつくろうなんて言うから反対。この反対は法案の是非の反対とはまた違う。</p>
-
-<h3 id="section-2">最後に個人的見解</h3>
-<p>堂々巡りな議論でした。大まかには上記のものだけで問題無いと思います。結論が出ないのが悪いというわけではなくて、テレビ（朝生）に関してはむしろ狙ってやっている感すらあります。
-それに関連して思ったのが田原さんの話の持ってき方は上手いなと。</p>
-
-<p>久しぶりにこういった議題に触れて、専門家がどわっと話す内容について半ば頭が追いつかなかったのですが、田原さんは無知な振りをして話をぶった切ってわかりやすいところに持って行ってくれる。
-学生のころは「早く先にすすめよ」と思っていたけど、今回はちょうどよかったと思っています。</p>
-
-<p>法案に関しては、ケータイの料金プランみたいなもんじゃないかと思います。
-本体価格なんと０円！（※ただし〜〜〜）みたいなカンジで。
-（<a href="http://iwire.jp/news/2013/11/13/002/images/002.jpg" target="_blank">参考画像</a>。あんまり丁度いいのがなかった）</p>
-
-<hr />
-
-<p><span style="color: #ff0000;"><span style="font-size: x-large;">この法案があれば国際的に協力してさらに安全な社会になります！</span></span></p>
-
-<ul>
-  <li>※もしかしたら個人の知る権利は制限されるかもしれません。テロ対策ですから。</li>
-  <li>※一部国会議員や官僚には適用されないかもしれません。</li>
-  <li>※チェック機関はこれから検討します。もしかしたら第三者というのもなくなるかもしれません。</li>
-  <li>※どの情報が該当するかは内緒です。事前の予告なく適用することもありえます。</li>
-  <li>※運用は時の政権によります。自民党は関知しません。</li>
-  <li>※そもそもメリットを満たせるか不明です。</li>
-  <li>※情報開示しろって言われても、機密だと言って出さないかもしれません。</li>
-</ul>
-
-<hr />
-
-<p>みたいな。</p>
-
-<p><a href="http://dot.asahi.com/aera/2013112000048.html" target="_blank">九条ねぎ</a>とか、<a href="http://bylines.news.yahoo.co.jp/shinoharashuji/20130822-00027466/" target="_blank">秋田書店の抽選</a>とかの類と同じ。</p>
-
-<p>今回の法律は、与党側はそこらへんの危惧を楽観視している印象で、「みんなでよろしくやりましょう」という日本的な曖昧なカンジなんだと思います。別にそれ自体が悪いわけではないです。</p>
-
-<p>日本で議論が活発でないのは、曖昧な取り決めに対して、「こんな危険があるかも」「いや〜ないでしょ」という話しかできないからだと改めて思いました。企業の会議もこれに近いんじゃないでしょうか。</p>
-
-<p>集団でバックグラウンド価値観も違う人たちに対しての取り決めは、きちんと明文化しないといけないのではないか、そして今の日本は昔以上に多様な価値観を持っているのではないか、と思いました。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -1076,6 +1042,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/17/4-point-of-develop-software/">ソフトウェア開発で徹底すべき４つのポイント</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/24/mechanism-of-bitcoin/">bitcoinの仕組み</a>
       </li>
     
@@ -1091,15 +1061,11 @@
         <a href="/blog/2015/05/06/how-to-grab-the-world/">日本文化と空間認識</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/05/03/encryption-technology/">暗号技術入門</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (69)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
 </section>
 
   
