@@ -9,7 +9,7 @@
   <meta name="author" content="しばたこ">
 
   
-  <meta name="description" content="初音ミクの何がすごいのかをしっかりまとめます。 ">
+  <meta name="description" content="最近良く話題に上がる、香港でのデモについての簡単なまとめ。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/06/occupy-central/">香港のデモーOccupy Central</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-06T20:46:23+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/10/06/occupy-central/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近良く話題に上がる、香港でのデモについての簡単なまとめ。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/06/occupy-central/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -474,126 +517,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/23/functional-programing/">関数プログラミング試行錯誤</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-23T23:12:16+09:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2014</time>
-        
-         | <a href="/blog/2014/09/23/functional-programing/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>なんとかして関数型プログラミングをやりたいんですが、
-慣れてないので苦戦中です。</p>
-
-<p>とりあえず試行錯誤の記録を残しておきます。</p>
-
-<h2 id="section">目的</h2>
-
-<p>関数プログラミングをしたいモチベーションは、</p>
-
-<ul>
-  <li>なるべく小さなまとまりに分け、テストをしやすくする。</li>
-  <li>処理の流れを宣言的に書いて見やすくする。</li>
-  <li>システムのスケールアウトに対応する。</li>
-</ul>
-
-<p>です。</p>
-
-<p>http://qiita.com/kenokabe/items/a8477694a499ca869cde</p>
-
-<h2 id="section-1">言語と特徴</h2>
-
-<h3 id="scala">Scala</h3>
-
-<ul>
-  <li>サーバーサイド（WebAPIサーバー）の実装に使っている。</li>
-  <li>DBサーバーへのアクセスを抽象化したい。</li>
-  <li>valとdefの違い、implicit parameterの使いドコロが難しい</li>
-  <li>関数の結合とかしていきたい。</li>
-</ul>
-
-<h4 id="section-2">理想のイメージ</h4>
-
-<ul>
-  <li>DAO層はRDBでもCacheでも、非同期でも対応できるようにしたい。</li>
-  <li>Logic部はテスタブル・粗結合な小さな関数を組み合わせたい。</li>
-  <li>newとか書きたくない。状態を持ちたくない。</li>
-  <li>ローカル変数もなるべく使わずメソッドチェーン的に書きたい。</li>
-</ul>
-
-<h3 id="javascript">Javascript</h3>
-
-<ul>
-  <li>WebAPIクライアントとして使っている。</li>
-  <li>bacon.js lodash.jsを主に使う予定。</li>
-  <li>演算はサーバーに任せるのでもっぱらDOM操作系</li>
-  <li>FRPに興味があるので試してみたい。</li>
-</ul>
-
-<h4 id="section-3">目指すカタチ</h4>
-
-<ul>
-  <li>イベント・DOMの管理は全てControllerで把握したい。</li>
-  <li>FRPは興味あるけど、Angularでバインドしたデータの変更が追い切れなくなった経験があるので、データバインディング嫌い。</li>
-  <li>そもそもModelっていう状態を持ちたくない。</li>
-  <li>WebAPIをリッチに用意することで、クライアントはそもそもシンプルにしたい。</li>
-  <li>手続き型を卒業して全体の見通しを良くしたい。</li>
-</ul>
-
-<h2 id="section-4">困った例</h2>
-
-<h3 id="baconjs">bacon.jsのイベントストリームを使うと、パラメータが足りない。</h3>
-
-<h4 id="section-5">事象</h4>
-
-<p>ｊQueryプラグインのオブジェクトに対してeventStreamを作っても、パラメータが一つしか取れない。</p>
-
-<h4 id="section-6">解決法</h4>
-
-<p>普通にイベントを貼り付けて、イベント発火時にイベントストリームを後から作ればいいや。</p>
-
-<h3 id="scaladaointerface">ScalaのDAO層のinterfaceをどうするか？</h3>
-
-<h4 id="section-7">事象</h4>
-
-<p>DAO層はCacheサーバーの場合とRDBの場合とがあるが、session（RDBのtransaction・connection管理用）の使い回しとか返す型とかをどうしようか迷った。</p>
-
-<h4 id="section-8">解決策</h4>
-
-<p>そもそも、読み込みと書き込みで用途が違うことに気がついた。</p>
-
-<p>KVS系の場合はそもそも書き込みしないので、読み込みはsessionを含めず、書き込みだけ含める仕様に変える。</p>
-
-<p>そもそも書き込みだけ別オブジェクトにすべき。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -652,6 +575,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/18/97-things-programmer-should-know/">プログラマが知るべき９７のこと</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/17/4-point-of-develop-software/">ソフトウェア開発で徹底すべき４つのポイント</a>
       </li>
     
@@ -665,10 +592,6 @@
     
       <li class="post">
         <a href="/blog/2015/05/06/superstring-theory/">超弦理論入門</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/06/how-to-grab-the-world/">日本文化と空間認識</a>
       </li>
     
   </ul>
