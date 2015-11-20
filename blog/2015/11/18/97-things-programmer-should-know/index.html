@@ -117,7 +117,7 @@
 
 <p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873114799/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/511RPej0BNL.jpg" width="353" height="500" alt="プログラマが知るべき97のこと" title="プログラマが知るべき97のこと" /></a></p>
 
-<h2 id="section">何を作ればいいのか</h2>
+<h3 id="section">何を作ればいいのか</h3>
 <p>ユーザーの欲求・行動を知ることが大前提。
 プログラムは開発者でなくユーザーに価値を提供するために作るものだから。</p>
 
@@ -130,7 +130,7 @@
 <p>また、YAGNI・DRYの原則は守るべき。最適化もまだ早い。
 最初はアドホックな実装で構わない。どうせ要件は後で変わるのだから。</p>
 
-<h2 id="section-1">技術的負債・リファクタリング</h2>
+<h3 id="section-1">技術的負債・リファクタリング</h3>
 
 <p>技術的負債を持つことは悪くない。
 問題はそれをいつまでも返済しないこと。</p>
@@ -160,25 +160,25 @@
   </li>
 </ul>
 
-<h2 id="section-2">オブジェクト指向 ドメイン指向</h2>
+<h3 id="section-2">オブジェクト指向 ドメイン指向</h3>
 
 <p>単純なデータのやりとり（get/setなど）を記述するのではなく、そのドメイン・オブジェクトに特化した処理を記述する。
 そうすることで、自然言語に近くなり、初見でも仕様を理解しやすくなる。</p>
 
 <p>また、扱うデータは必要最小限が理解しやすい（テストもしやすい）ので、それ用の型を用意してあげるとより理解が楽。例えば数字を扱う場合でも、それがある値の範囲内にあるべきならそれ用の型を用意する。（時間なら23までとか。欧米なら11か12までかもだけど。）</p>
 
-<h2 id="section-3">レビュー</h2>
+<h3 id="section-3">レビュー</h3>
 
 <p>コードレビューはコードの質を上げるためだけではなく、互いの技術の理解度チェック、仕様の確認にも役立つ。
 （前者は実装コード、後者はテストコードで確認できる？）</p>
 
-<h2 id="section-4">コメント</h2>
+<h3 id="section-4">コメント</h3>
 <p>コードに書けないことのみをコメントに残す。
 例えば、その実装を用いた理由や他の候補案など。あるいは外部に公開するインターフェースも、内部でどう動くかまではコードに起こせない（インターフェース利用者が黄にすべきではない）ので必要になるだろう。</p>
 
 <p>しかし、それ以外のものをコメントしたい場合は、コードで表現できないかをまず考える。表現出来ない場合は、言語か自分の能力に限界がある可能性が高い。</p>
 
-<h2 id="section-5">するべきことは常に明確に</h2>
+<h3 id="section-5">するべきことは常に明確に</h3>
 
 <p>「〜〜の実装」などという曖昧な内容で作業（チケットの消化）をすべきではない。これには以下のようなものが内包されている。</p>
 
@@ -194,14 +194,14 @@
 <p>実装方針・仕様が曖昧な状態でリポジトリを変更してはいけない。まず検証する際は別の小さなサンプルで試す。
 つまり、なるべく小さく試せることが重要になる。（そのために定期的にリファクタリングし粗結合を保つ。）</p>
 
-<h2 id="section-6">見積もりとコミット</h2>
+<h3 id="section-6">見積もりとコミット</h3>
 
 <p>見積もりはプログラマ（実装する人）が決めるもの。希望納期はお客様が決めるもの。
 コミットは、プログラマ・PM・お客様の合意で決まるもの。
 見積もりや希望納期はPMが決めることはできない。
 これはもちろんスケジュールとターゲット（実装内容）を含んだもの。</p>
 
-<h2 id="section-7">プロであるために</h2>
+<h3 id="section-7">プロであるために</h3>
 
 <p>医者と比較してみる。</p>
 
@@ -261,6 +261,8 @@
       
         <a class="basic-alignment left" href="/blog/2015/10/17/4-point-of-develop-software/" title="Previous Post: ソフトウェア開発で徹底すべき４つのポイント">&laquo; ソフトウェア開発で徹底すべき４つのポイント</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2015/11/18/djokovic-serve-to-win/" title="Next Post: ジョコビッチの生まれ変わる食事">ジョコビッチの生まれ変わる食事 &raquo;</a>
       
     </p>
   </footer>
@@ -322,6 +324,14 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/20/agile-samurai/">アジャイルサムライ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/18/djokovic-serve-to-win/">ジョコビッチの生まれ変わる食事</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/18/97-things-programmer-should-know/">プログラマが知るべき９７のこと</a>
       </li>
     
@@ -333,19 +343,11 @@
         <a href="/blog/2015/05/24/mechanism-of-bitcoin/">bitcoinの仕組み</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/05/06/quantum-computer/">量子コンピュータ―超並列計算のからくり</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/06/superstring-theory/">超弦理論入門</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (39)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/agile'>Agile (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (40)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (12)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/agile'>Agile (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/web'>Web (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
 </section>
 
   
