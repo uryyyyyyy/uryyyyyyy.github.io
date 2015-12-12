@@ -4,7 +4,7 @@
   <title><![CDATA[ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-11-26T20:58:19+09:00</updated>
+  <updated>2015-12-12T23:48:38+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -12,6 +12,323 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntuの初期設定]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/12/12/ubuntu-setup/"/>
+    <updated>2015-12-12T23:28:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/12/12/ubuntu-setup</id>
+    <content type="html"><![CDATA[<p>Ubuntuの再インストールをしたのでメモしておきます。</p>
+
+<!--more-->
+
+<h3 id="apt">apt</h3>
+
+<ul>
+  <li>vim</li>
+  <li>git</li>
+  <li>
+    <p>gedit-plugins</p>
+  </li>
+  <li>fcitx fcitx-mozc fcitx-libs-qt5 fcitx-frontend-qt5</li>
+</ul>
+
+<p>日本語IMEのmozcをfcitxの設定</p>
+
+<ul>
+  <li>diodon</li>
+</ul>
+
+<p>クリップボード</p>
+
+<ul>
+  <li>chromium-browser</li>
+</ul>
+
+<p>flash player、googleの設定なしなので開発時のメインブラウザです。</p>
+
+<ul>
+  <li>gpointing-device-settings</li>
+  <li>sysfsutils</li>
+</ul>
+
+<p>キーボードの設定など</p>
+
+<ul>
+  <li>gnome-tweak-tool</li>
+  <li>unity-tweak-tool</li>
+</ul>
+
+<p>画面の設定など。</p>
+
+<ul>
+  <li>oracle-java8-installer</li>
+  <li>nvm (git cloneしてから)</li>
+</ul>
+
+<p>JavaとNodeJSのインストール</p>
+
+<ul>
+  <li>traceroute</li>
+</ul>
+
+<p>ネットワーク用</p>
+
+<ul>
+  <li>gimp</li>
+  <li>shutter</li>
+</ul>
+
+<p>画像編集</p>
+
+<ul>
+  <li>vlc</li>
+</ul>
+
+<p>動画プレイヤー</p>
+
+<ul>
+  <li>kazam</li>
+  <li>audacity</li>
+</ul>
+
+<p>録画、録音</p>
+
+<h3 id="terminal">terminal</h3>
+
+<p>terminalでのgit対応やカラフルにする設定です。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"># Check that terminfo exists before changing TERM var to xterm-256color
+</span><span class="line"># Prevents prompt flashing in Mac OS X 10.6 Terminal.app
+</span><span class="line">if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+</span><span class="line">    export TERM='xterm-256color'
+</span><span class="line">fi
+</span><span class="line"> 
+</span><span class="line"># Turn off standout; turn off underline
+</span><span class="line">tput sgr 0 0
+</span><span class="line"> 
+</span><span class="line"># Base styles and color palette
+</span><span class="line"># If you want to check color code, run `./testcolor.sh'
+</span><span class="line">BOLD=$(tput bold)
+</span><span class="line">RESET=$(tput sgr0)
+</span><span class="line">BLACK=$(tput setaf 0)
+</span><span class="line">RED=$(tput setaf 1)
+</span><span class="line">GREEN=$(tput setaf 2)
+</span><span class="line">YELLOW=$(tput setaf 3)
+</span><span class="line">BLUE=$(tput setaf 4)
+</span><span class="line">MAGENTA=$(tput setaf 5)
+</span><span class="line">CYAN=$(tput setaf 6)
+</span><span class="line">WHITE=$(tput setaf 255)
+</span><span class="line">ORANGE=$(tput setaf 172)
+</span><span class="line"> 
+</span><span class="line">style_user="\[${RESET}${ORANGE}\]"
+</span><span class="line">style_host="\[${RESET}${YELLOW}\]"
+</span><span class="line">style_path="\[${RESET}${GREEN}\]"
+</span><span class="line">style_chars="\[${RESET}${WHITE}\]"
+</span><span class="line">style_branch="${CYAN}"
+</span><span class="line"> 
+</span><span class="line">if [[ "$SSH_TTY" ]]; then
+</span><span class="line">    # connected via ssh
+</span><span class="line">    style_host="\[${BOLD}${RED}\]"
+</span><span class="line">elif [[ "$USER" == "root" ]]; then
+</span><span class="line">    # logged in as root
+</span><span class="line">    style_user="\[${BOLD}${RED}\]"
+</span><span class="line">fi
+</span><span class="line"> 
+</span><span class="line">is_git_repo() {
+</span><span class="line">    $(git rev-parse --is-inside-work-tree &amp;&gt; /dev/null)
+</span><span class="line">}
+</span><span class="line"> 
+</span><span class="line">is_git_dir() {
+</span><span class="line">    $(git rev-parse --is-inside-git-dir 2&gt; /dev/null)
+</span><span class="line">}
+</span><span class="line"> 
+</span><span class="line">get_git_branch() {
+</span><span class="line">    local branch_name
+</span><span class="line"> 
+</span><span class="line">    # Get the short symbolic ref
+</span><span class="line">    branch_name=$(git symbolic-ref --quiet --short HEAD 2&gt; /dev/null) ||
+</span><span class="line">    # If HEAD isn't a symbolic ref, get the short SHA
+</span><span class="line">    branch_name=$(git rev-parse --short HEAD 2&gt; /dev/null) ||
+</span><span class="line">    # Otherwise, just give up
+</span><span class="line">    branch_name="(unknown)"
+</span><span class="line"> 
+</span><span class="line">    printf $branch_name
+</span><span class="line">}
+</span><span class="line"> 
+</span><span class="line"># Git status information
+</span><span class="line">prompt_git() {
+</span><span class="line">    local git_info git_state uc us ut st
+</span><span class="line"> 
+</span><span class="line">    if ! is_git_repo || is_git_dir; then
+</span><span class="line">        return 1
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    git_info=$(get_git_branch)
+</span><span class="line"> 
+</span><span class="line">    # Check for uncommitted changes in the index
+</span><span class="line">    if ! $(git diff --quiet --ignore-submodules --cached); then
+</span><span class="line">        uc="+"
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    # Check for unstaged changes
+</span><span class="line">    if ! $(git diff-files --quiet --ignore-submodules --); then
+</span><span class="line">        us="!"
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    # Check for untracked files
+</span><span class="line">    if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+</span><span class="line">        ut="?"
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    # Check for stashed files
+</span><span class="line">    if $(git rev-parse --verify refs/stash &amp;&gt;/dev/null); then
+</span><span class="line">        st="$"
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    git_state=$uc$us$ut$st
+</span><span class="line"> 
+</span><span class="line">    # Combine the branch name and state information
+</span><span class="line">    if [[ $git_state ]]; then
+</span><span class="line">        git_info="$git_info[$git_state]"
+</span><span class="line">    fi
+</span><span class="line"> 
+</span><span class="line">    printf "${WHITE} on ${style_branch}${git_info}"
+</span><span class="line">}
+</span><span class="line"> 
+</span><span class="line"> 
+</span><span class="line"># Set the terminal title to the current working directory
+</span><span class="line">PS1="\[\033]0;\w\007\]"
+</span><span class="line"># Build the prompt
+</span><span class="line">PS1+="\n" # Newline
+</span><span class="line">PS1+="${style_user}\u" # Username
+</span><span class="line">PS1+="${style_chars}@" # @
+</span><span class="line">PS1+="${style_host}\h" # Host
+</span><span class="line">PS1+="${style_chars}: " # :
+</span><span class="line">PS1+="${style_path}\w" # Working directory
+</span><span class="line">PS1+="\$(prompt_git)" # Git details
+</span><span class="line">PS1+="\n" # Newline
+</span><span class="line">PS1+="${style_chars}\$ \[${RESET}\]" # $ (and reset color)
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">alias ls="ls --color=auto -AF"</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アジャイルサムライ]]></title>
@@ -2220,33 +2537,6 @@ dを求める。</p>
     <p><a href="http://toyokeizai.net/articles/-/54010">一般的に非リアはコミュニケーション以外に脳を使っているという話</a></p>
   </li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[電話回線のプランメモ]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/10/23/phone-plan/"/>
-    <updated>2014-10-23T06:34:02+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/10/23/phone-plan</id>
-    <content type="html"><![CDATA[<!--more-->
-
-<h3 id="section">データ回線のみ</h3>
-
-<h3 id="section-1">電話回線のみ</h3>
-
-<p>http://www.hanacell.com/japan/
-http://www.hanacell.com/jp/tariff/handset.php</p>
-
-<h3 id="section-2">電話＋データ回線</h3>
-
-<p>https://www.iijmio.jp/hdd/service/voice.jsp</p>
-
-<p>→ １６００円 ２GB</p>
-
-<p>http://umobile.jp/service/sim/vc/</p>
-
-<p>→ １５８０ １GB</p>
 
 ]]></content>
   </entry>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ubuntu | ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/blog/categories/ubuntu/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2015-11-26T20:58:19+09:00</updated>
+  <updated>2015-12-12T23:48:38+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -12,6 +12,209 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntuの初期設定]]></title>
+    <link href="http://uryyyyyyy.shake-freek.com/blog/2015/12/12/ubuntu-setup/"/>
+    <updated>2015-12-12T23:28:17+09:00</updated>
+    <id>http://uryyyyyyy.shake-freek.com/blog/2015/12/12/ubuntu-setup</id>
+    <content type="html"><![CDATA[<p>Ubuntuの再インストールをしたのでメモしておきます。</p>
+
+<!--more-->
+
+<h3 id="apt">apt</h3>
+
+<ul>
+  <li>vim</li>
+  <li>git</li>
+  <li>
+    <p>gedit-plugins</p>
+  </li>
+  <li>fcitx fcitx-mozc fcitx-libs-qt5 fcitx-frontend-qt5</li>
+</ul>
+
+<p>日本語IMEのmozcをfcitxの設定</p>
+
+<ul>
+  <li>diodon</li>
+</ul>
+
+<p>クリップボード</p>
+
+<ul>
+  <li>chromium-browser</li>
+</ul>
+
+<p>flash player、googleの設定なしなので開発時のメインブラウザです。</p>
+
+<ul>
+  <li>gpointing-device-settings</li>
+  <li>sysfsutils</li>
+</ul>
+
+<p>キーボードの設定など</p>
+
+<ul>
+  <li>gnome-tweak-tool</li>
+  <li>unity-tweak-tool</li>
+</ul>
+
+<p>画面の設定など。</p>
+
+<ul>
+  <li>oracle-java8-installer</li>
+  <li>nvm (git cloneしてから)</li>
+</ul>
+
+<p>JavaとNodeJSのインストール</p>
+
+<ul>
+  <li>traceroute</li>
+</ul>
+
+<p>ネットワーク用</p>
+
+<ul>
+  <li>gimp</li>
+  <li>shutter</li>
+</ul>
+
+<p>画像編集</p>
+
+<ul>
+  <li>vlc</li>
+</ul>
+
+<p>動画プレイヤー</p>
+
+<ul>
+  <li>kazam</li>
+  <li>audacity</li>
+</ul>
+
+<p>録画、録音</p>
+
+<h3 id="terminal">terminal</h3>
+
+<p>terminalでのgit対応やカラフルにする設定です。</p>
+
+<p>```
+# Check that terminfo exists before changing TERM var to xterm-256color
+# Prevents prompt flashing in Mac OS X 10.6 Terminal.app
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM=’xterm-256color’
+fi</p>
+
+<h1 id="turn-off-standout-turn-off-underline">Turn off standout; turn off underline</h1>
+<p>tput sgr 0 0</p>
+
+<h1 id="base-styles-and-color-palette">Base styles and color palette</h1>
+<p># If you want to check color code, run `./testcolor.sh’
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 255)
+ORANGE=$(tput setaf 172)</p>
+
+<p>style_user=”[${RESET}${ORANGE}]”
+style_host=”[${RESET}${YELLOW}]”
+style_path=”[${RESET}${GREEN}]”
+style_chars=”[${RESET}${WHITE}]”
+style_branch=”${CYAN}”</p>
+
+<p>if [[ “$SSH_TTY” ]]; then
+    # connected via ssh
+    style_host=”[${BOLD}${RED}]”
+elif [[ “$USER” == “root” ]]; then
+    # logged in as root
+    style_user=”[${BOLD}${RED}]”
+fi</p>
+
+<p>is_git_repo() {
+    $(git rev-parse –is-inside-work-tree &amp;&gt; /dev/null)
+}</p>
+
+<p>is_git_dir() {
+    $(git rev-parse –is-inside-git-dir 2&gt; /dev/null)
+}</p>
+
+<p>get_git_branch() {
+    local branch_name</p>
+
+<pre><code># Get the short symbolic ref
+branch_name=$(git symbolic-ref --quiet --short HEAD 2&gt; /dev/null) ||
+# If HEAD isn't a symbolic ref, get the short SHA
+branch_name=$(git rev-parse --short HEAD 2&gt; /dev/null) ||
+# Otherwise, just give up
+branch_name="(unknown)"
+ 
+printf $branch_name }
+</code></pre>
+
+<h1 id="git-status-information">Git status information</h1>
+<p>prompt_git() {
+    local git_info git_state uc us ut st</p>
+
+<pre><code>if ! is_git_repo || is_git_dir; then
+    return 1
+fi
+ 
+git_info=$(get_git_branch)
+ 
+# Check for uncommitted changes in the index
+if ! $(git diff --quiet --ignore-submodules --cached); then
+    uc="+"
+fi
+ 
+# Check for unstaged changes
+if ! $(git diff-files --quiet --ignore-submodules --); then
+    us="!"
+fi
+ 
+# Check for untracked files
+if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+    ut="?"
+fi
+ 
+# Check for stashed files
+if $(git rev-parse --verify refs/stash &amp;&gt;/dev/null); then
+    st="$"
+fi
+ 
+git_state=$uc$us$ut$st
+ 
+# Combine the branch name and state information
+if [[ $git_state ]]; then
+    git_info="$git_info[$git_state]"
+fi
+ 
+printf "${WHITE} on ${style_branch}${git_info}" }
+</code></pre>
+
+<h1 id="set-the-terminal-title-to-the-current-working-directory">Set the terminal title to the current working directory</h1>
+<p>PS1=”[\033]0;\w\007]”
+# Build the prompt
+PS1+=”\n” # Newline
+PS1+=”${style_user}\u” # Username
+PS1+=”${style_chars}@” # @
+PS1+=”${style_host}\h” # Host
+PS1+=”${style_chars}: “ # :
+PS1+=”${style_path}\w” # Working directory
+PS1+=”$(prompt_git)” # Git details
+PS1+=”\n” # Newline
+PS1+=”${style_chars}$ [${RESET}]” # $ (and reset color)</p>
+
+<p>alias ls=”ls –color=auto -AF”
+```</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[別マシンを使ってクライアントサイド開発]]></title>
@@ -407,34 +610,6 @@ echo 2 &gt; /sys/module/hid_apple/parameters/fnmode
 </code></p>
 
 <p>を入れるとfnキーの設定が改善される。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ubuntuのスクロールセッティング]]></title>
-    <link href="http://uryyyyyyy.shake-freek.com/blog/2014/06/15/scrollbar-settings/"/>
-    <updated>2014-06-15T18:25:11+09:00</updated>
-    <id>http://uryyyyyyy.shake-freek.com/blog/2014/06/15/scrollbar-settings</id>
-    <content type="html"><![CDATA[<p>Ubuntu14.04の新しいスクロールバーがイマイチなので直します。</p>
-
-<!--more-->
-
-<p><a href="http://www.k5.dion.ne.jp/~r-f/sicklylife/memo/ubuntu1404/settings.html">参考URL：</a></p>
-
-<p><code>
-gsettings set com.canonical.desktop.interface scrollbar-mode normal
-</code></p>
-
-<p>これで旧来のものになります。</p>
-
-<p>ちなみに、</p>
-
-<p><code>
-gsettings reset com.canonical.desktop.interface scrollbar-mode
-</code></p>
-
-<p>これで元に戻るそうです。</p>
-
 ]]></content>
   </entry>
   
