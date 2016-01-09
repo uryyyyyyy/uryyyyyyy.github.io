@@ -4,7 +4,7 @@
   <title><![CDATA[ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2016-01-09T12:06:02+09:00</updated>
+  <updated>2016-01-09T12:59:47+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[bloc chainはビジネスに役立つか？]]></title>
+    <title type="html"><![CDATA[block chainはビジネスに役立つか？]]></title>
     <link href="http://uryyyyyyy.shake-freek.com/blog/2016/01/09/block-chain-business/"/>
     <updated>2016-01-09T12:01:33+09:00</updated>
     <id>http://uryyyyyyy.shake-freek.com/blog/2016/01/09/block-chain-business</id>
@@ -46,7 +46,7 @@
 <p>ことが特徴であり、そのために</p>
 
 <ul>
-  <li>各ノードがビットチェーンの生成をする必要がある。</li>
+  <li>各ノードがblock chainの生成を担う必要がある。</li>
   <li>悪意あるノードの処理能力より善意のノードの処理能力のほうが常に高いと確率的に期待できる必要がある。</li>
   <li>block chainの生成コストはクラスタ全体の処理能力が高いほどコストがかかる。</li>
   <li>各ノードにblock chainのジェネレータ・ビューワプログラムを組み込む必要がある。</li>
