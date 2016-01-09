@@ -9,8 +9,7 @@
   <meta name="author" content="しばたこ">
 
   
-  <meta name="description" content="ワークスアプリケーションズ代表の牧野さんの著書。 総論として、書いてあることは至極まっとうで、斬新な視点と納得いくロジックがあって読んでてワクワクします。 が、実際に中身が伴っているかどうかはまた別です。
-amazonのレビューでも、大方好評なんですが、「良いことを言ってるだけで現実が伴ってない &hellip;">
+  <meta name="description" content="たまには技術的な本を。 初心者なりに読んだ備忘録でしか無いので、既にプログラマの方にも、全くわからない方にも、面白くないようなすごい中途半端な内容になると思います＾＾；悪しからず。。。 そもそもコードは、マジメに作るならなら「とりあえず書いたらそれっきり」というものは少なそうです。というのも、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,112 @@ amazonのレビューでも、大方好評なんですが、「良いことを�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/08/readable-code/">リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-08T20:48:16+09:00" pubdate data-updated="true">Jun 8<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/08/readable-code/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873115655/jitabatashiba-22/" target="_blank"><img src="http://ecx.images-amazon.com/images/I/51MgH8Jmr3L.jpg" width="354" height="500" alt="リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)" title="リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)" /></a></p>
+
+<p>たまには技術的な本を。</p>
+
+<p>初心者なりに読んだ備忘録でしか無いので、既にプログラマの方にも、全くわからない方にも、面白くないようなすごい中途半端な内容になると思います＾＾；悪しからず。。。</p>
+
+<p>そもそもコードは、マジメに作るならなら「とりあえず書いたらそれっきり」というものは少なそうです。というのも、テストで何かミスがあったら適宜修正する必要があるし、新しく何かを作るときにも過去のモノを流用できるならそのほうがコストがかからないから。
+また、先の「２０００年問題」も、当時の開発者たちは自分の作ったプログラムがそんなに長いこと使われると想定していなかったために起きたものだと聞いています。</p>
+
+<p>良いコードを書くことは、他人（半年後の忘れてる自分も含む）が読みやすいようにするということで、読みやすければそれだけ自分の作品が長持ちし、将来のコスト削減にもつながります。</p>
+
+<h3 id="section">個々のテクニックを箇条書きで。</h3>
+
+<h4 id="section-1">命名には意味を込める。（メソッドや変数名）</h4>
+
+<ul>
+  <li>汎用的な単語よりも、動作が具体的な単語を選ぶ（例：getやmakeは抽象的すぎる）</li>
+  <li>逆に汎用的な単語を使うときは、「一時的なもの」「それ以上の説明が不要なもの」のとき（例：tmpやi）</li>
+  <li>イテレータを複数使うときは、それぞれ何に使われているかわかるようにする。</li>
+  <li>単位をはっきりさせる（例：時間（ミリ秒）→t_ms）</li>
+</ul>
+
+<h4 id="section-2">コメントはコードから読み取りにくいものを</h4>
+
+<ul>
+  <li>まずはコードを直せないか考える（優れたコード　＞　見にくいコード　＋　優れたコメント）</li>
+  <li>メソッドのそもそも行いたい処理やを書く</li>
+  <li>試行の結果を書く（なぜこうなったのか明らかにするためと、他人が同じ試行をするムダを省くため）</li>
+  <li>他人が気になるだろうな、と思うところはとりあえず書いてみる。</li>
+  <li>後で直すべきところ、もっと簡潔に書けそうなところにはメモを残しておく。（修正ポイントが明確になるため）</li>
+</ul>
+
+<h4 id="section-3">条件分岐</h4>
+
+<ul>
+  <li>否定より肯定でまとめる。（統一した方がみやすい）</li>
+  <li>単純な条件を先に（思考をすっきりさせるため）</li>
+  <li>目立つ条件を先に（目立つ方に意識が行きがちなため）</li>
+  <li>do while〜や三項演算子は避ける（そもそも直感的な考え方でないため。他の一般的な手法で代用できるため）</li>
+  <li>何層にもネストはしない。（人がスタックできるのはせいぜい３つか４つのコトまで。それ以上は追えない→ヌケモレが起こりやすい、修正したくない）</li>
+</ul>
+
+<h4 id="section-4">その他</h4>
+
+<ul>
+  <li>１つのメソッドは２０行までが目安（それ以上長くなる時は分割できないか考えるべき）</li>
+  <li>細かい関数をたくさん作ると再利用ができる（ただし細かくし過ぎるとややこしくなる）</li>
+  <li>標準ライブラリの中身を知っておくべき（わざわざ自分で用意するエンジニアが多いが、正直時間のムダ）</li>
+  <li>一般的なエンジニアが一日に書くコード数の平均は１０行（ほとんどが再利用やテスト。そのため綺麗なコードは重要）</li>
+  <li>頭がいいコードには気をつける（自分が理解できるのはずっとそのことを考えていたから。初見の人にもわかるコードが良いコード。）</li>
+  <li>逆から考えなおすことがいい場合も（○○と××を含む、よりも△△以外、とする方がわかりやすかったり）</li>
+  <li>変数はなるべく不変にする。（理解しやすい）</li>
+  <li>スコープをなるべく狭く（保守性のためにも、人のスタックの限界のためにも。）</li>
+  <li>なるべく結合を弱く（テストが楽。予期せぬ動作が起こりにくい）</li>
+</ul>
+
+<h3 id="section-5">まとめ</h3>
+
+<p>良いコードを書くということは文章を書くのに似てます。相手の理解度を慮って、簡潔に伝えたいことを伝えることだから。
+僕はプログラミング大好きなギークでは無いので、ただコーディングすること自体に興味はありません。</p>
+
+<ul>
+  <li>そもそもなぜ作るのか？</li>
+  <li>どうやったら効率良くなるのか？</li>
+  <li>相手に理解してもらうにはどうしたらいいのか？
+を考えることの方が好きです。</li>
+</ul>
+
+<p>この本の内容を意識して、相手に伝わる文章を書く練習としてコードを書いて行きたいと思います。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -896,87 +1001,6 @@ amazonのレビューでも、大方好評なんですが、「良いことを�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/curation3/">キュレーション３：アート産業（創作者）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T07:31:49+09:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/01/curation3/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>（「芸術」だとなんか固いので「アート」とします。
-　意味はほとんど同じで、ちょっとポップなイメージで書いてます。）</p>
-
-<p>アートは、創造性・独自性の塊の世界と言われます。
-ビジネスや産業にありがちな事情や制約をとっぱらった本当の意味での表現ができるからです。
-しばしば、それを追求するあまりアートは政治やルールとぶつかります。表現の限界を作られたくないから。
-「政治的な文脈と芸術的な信念、正義感が合体していかないと、本当の芸術はできない」と村上隆が言うように、現行の仕組みとぶつかってないうちは、どこかで理性のブレーキ、もしくは外圧がかかってるのかもしれません。</p>
-
-<p>ただ、どこからが独自性でしょうか？
-あのトランスフォーマーは、日本のMAD動画を参考にしてると言われています。
-宮崎駿も原作があるものを昇華させてるに過ぎません。</p>
-
-<p>ちょっと例えがエンタメ方向へ偏りました。。。
-CHINPOMというアート集団がいるんですが、彼らのしていることも、行為自体にオリジナルさがあるとは言えないかもしれません。使う媒体は動画や絵など。岡本太郎のオマージュなんかもあります。
-結局世の中のアートは、既存の手法を組み合わせての新手法(見かけ上)の構築や、その手法を組み合わせた新しい(と解釈される)価値観の表現に過ぎないのではないか？と思います。
-今あるものを組み合わせる、という意味でキュレーションです。</p>
-
-<p>真に新しく独自な表現であれば、それは誰からも理解されないはずです。受け手にそれを理解するために必要な情報や下地がないからです。</p>
-
-<p>また、アートを仕事たらしめてるのは美術館や評論家の存在で、彼らはキュレーターと呼ばれます。
-美術館は様々あるアート作品をテーマに沿って収集して、それで入館料を取ることで美術を産業化させるためのもの。価値の不明な芸術作品を厳選して価格付けしたものとも言えますし、集めてきて展示する行為自体に創造性があります。
-また評論家は、本来個々人が自由に感じ取るべきアート作品に対し、一定の指針と絶対的な価値を与えるものです。これによって、一般の人でもアートを身近にすることが可能になりますし、芸術に上下関係をつけることによって（数字に変えることによって）産業化できます。</p>
-
-<p>これらは一見すると、視聴者の自由な感性を狭めているとも言えます。見るべきものを選ばれ、その見方すら与えられているわけなので。</p>
-
-<p>絶対的な尺度のない『アート』という存在において、全ての判断は主観に基づきます。そしてそれは外的要因（キュレーター）に大きく影響されます。
-アートがここまで続いてこれて、市民権があるのもキュレーションのおかげかもしれません。</p>
-
-<p>オマケ
-そもそも日本自体アートな場所であると言えます。
-四季や山々や災害と切り離せないこの国は、単純に生活する上では不便です。これを椹木野衣さんは悪い場所と表現しています。もっと気候の安定してて、開拓のしやすい平地で、地震のない方が生きるには良いに決まってます。</p>
-
-<p>つまり、日本人は生まれながらにして機能性だけでなく、刹那的な美を追求してきたと言えます。日本に住む時点で非合理的な選択なのです。そこから自然崇拝や自らを自然の一部と考える哲学が広まってきました。
-西洋の「我思う故に我あり」というような、自分が出発点の思想とは根本から異なります。</p>
-
-<p>また八百万の神の教えなどから、万物に命があるという考え（アニミズム）という感性があるからこそのアニメ大国とも言えます。（何かと擬人化したり萌えキャラ化したりするのも、その文化からかもしれません。）</p>
-
-<p>古来より、自分から何かを生み出すのではなく、もとあるものの再発見・素材を活かす、という意味でキュレーションに適した国だとも言えます。</p>
-
-<p>＜参考文献＞
-・日本2.0　株式会社ゲンロン
-　芸 術 家 の 使 命 と 覚 悟（村上隆）
-　草木の生起する国 （梅原猛＋東浩紀）
-　３．１１後の悪い場所（黒瀬陽平＋椹木野衣＋東浩紀）</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/20/">&larr; Older</a>
@@ -1035,6 +1059,10 @@ CHINPOMというアート集団がいるんですが、彼らのしているこ�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/09/block-chain-business/">bloc chainはビジネスに役立つか？</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/12/ubuntu-setup/">ubuntuの初期設定</a>
       </li>
     
@@ -1050,15 +1078,11 @@ CHINPOMというアート集団がいるんですが、彼らのしているこ�
         <a href="/blog/2015/11/18/97-things-programmer-should-know/">プログラマが知るべき９７のこと</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/10/17/4-point-of-develop-software/">ソフトウェア開発で徹底すべき４つのポイント</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Top Categories</h1>
-    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (40)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (14)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/agile'>Agile (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/network'>Network (1)</a></li><li><a href='/blog/categories/template'>Template (1)</a></li><li><a href='/blog/categories/writer'>writer (1)</a></li><li><a href='/blog/categories/grunt'>Grunt (1)</a></li></ul>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (40)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (14)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/agile'>Agile (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/blog'>Blog (1)</a></li><li><a href='/blog/categories/amazon'>Amazon (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li></ul>
 </section>
 
   
@@ -1067,7 +1091,7 @@ CHINPOMというアート集団がいるんですが、彼らのしているこ�
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - しばたこ -
+  Copyright &copy; 2016 - しばたこ -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
