@@ -4,7 +4,7 @@
   <title><![CDATA[ジタバタしばた]]></title>
   <link href="http://uryyyyyyy.shake-freek.com/atom.xml" rel="self"/>
   <link href="http://uryyyyyyy.shake-freek.com/"/>
-  <updated>2016-03-16T01:08:45+09:00</updated>
+  <updated>2016-03-16T01:11:30+09:00</updated>
   <id>http://uryyyyyyy.shake-freek.com/</id>
   <author>
     <name><![CDATA[しばたこ]]></name>
@@ -173,7 +173,7 @@ iBeaconなどを使う必要があることから、iOSアプリを作りまし�
 Swift/Scalaと今風の実装になってるかと思います。
 （サーバー側は手を抜いたのでロクな処理書いてないけど）</p>
 
-<p>https://github.com/TechResidence/byob2016</p>
+<p><a href="https://github.com/TechResidence/byob2016">https://github.com/TechResidence/byob2016</a></p>
 
 <h3 id="section-8">成果発表</h3>
 
@@ -187,6 +187,8 @@ Swift/Scalaと今風の実装になってるかと思います。
 
 <p>以上の経緯で、無事優勝することができました。
 本当にチームに恵まれて楽しむことができました。</p>
+
+<p><a href="http://www.nikkei.com/article/DGXMZO98393880U6A310C1000000/">記事になってました</a></p>
 
 <h2 id="section-10">（言わなかったけど）技術的な課題</h2>
 
