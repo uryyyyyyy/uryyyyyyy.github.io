@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fintech Challenge 2016で優勝した！ - ジタバタしばた</title>
+  <meta name="author" content="しばたこ">
+
+  
+  <meta name="description" content="タイトルの通りです！
+めっちゃ嬉しかったので、忘れないうちに記録を残しておきます。 概要 先日、UFJさん主催で「Fintech Challenge 2016 Bring Your Own Bank !」が行われました。 詳細は上記ページを見ていただくとして簡単に説明すると、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ジタバタしばた" type="application/atom+xml">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50697617-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <style>html{background: url("/images/background.jpg") center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}</style>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:uryyyyyyy.shake-freek.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Fintech Challenge 2016で優勝した！</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-03-16T01:07:11+09:00" pubdate data-updated="true">Mar 16<span>th</span>, 2016</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>タイトルの通りです！
+めっちゃ嬉しかったので、忘れないうちに記録を残しておきます。</p>
+
+<!-- more -->
+
+<h2 id="section">概要</h2>
+
+<p>先日、UFJさん主催で「<a href="http://eventdots.jp/event/577535">Fintech Challenge 2016 Bring Your Own Bank !</a>」が行われました。</p>
+
+<p>詳細は上記ページを見ていただくとして簡単に説明すると、
+UFJさんの方で銀行APIを提供してくださるので、それの面白い使い方をみんなで考えようというものです。</p>
+
+<p>ちなみに、提供されたAPIはざっくりこんな感じです。</p>
+
+<ul>
+  <li>認証API</li>
+  <li>振込API</li>
+  <li>口座情報API</li>
+  <li>支店情報API</li>
+  <li>振込パターンAPI</li>
+</ul>
+
+<p>（他にも、協賛企業からたくさんの3rd party APIの説明を頂きました。詳細は上記ページへ。）</p>
+
+<h2 id="section-1">作ったもの</h2>
+
+<p>中小企業向けに、小口現金の管理をデジタル化するアプリを作りました。
+「Petty Pay」と言います。</p>
+
+<p><img src="https://raw.githubusercontent.com/TechResidence/byob2016/master/petty-pay/petty-pay/Assets.xcassets/AppIcon.appiconset/icon_120x120-1.png" alt="alt" /></p>
+
+<h3 id="section-2">チームメンバー</h3>
+
+<p>今回は5人＋αでの参加でした。
+それぞれの得意分野や担当はこんな感じ。</p>
+
+<ul>
+  <li>リーダー：　Mock作成/プレゼン発表/調整</li>
+  <li>コンサル：　プレゼン原案/設計/UI/iOS（iBeacon）/Demo動画編集</li>
+  <li>長老：　問題提起/プレゼン原案</li>
+  <li>デザイナ：　デザイン/UI（当日は急遽欠席）</li>
+  <li>助っ人：　iOS統括/UI（Dさんの代役でAさんが連れてきてくれた）</li>
+  <li>自分：　サーバーサイド/設計/iOS（API連携）</li>
+</ul>
+
+<h3 id="section-3">参加決定時の市場調査</h3>
+
+<p>まず今回のハッカソンの概要を聞いた僕の感想としては、</p>
+
+<p>「銀行API、これだけじゃ面白いこと出来ない気がする。。
+だってクレジットカードや個人間送金システムとかもう既にたくさんあるし。。」</p>
+
+<p>という印象でした。</p>
+
+<p>Suicaやクレジットカード・キャッシュカードすら持ち歩かなくても良い世界になるといいな、くらいの想像はありましたが、そんなの誰でも考えつくし、既に<a href="http://line.me/ja/pay">Line Pay</a>や<a href="http://www.itmedia.co.jp/news/articles/1503/18/news057.html">Messenger Payment</a>も出ていたし、ハッカソン期間中に<a href="http://www.itmedia.co.jp/news/articles/1603/03/news068.html">Pay with google(Hands Free)</a>なんかもリリースされていました。</p>
+
+<p>参加を決めた当初は、「どうやってこれらより便利なものを作ろうか？」ということを悩んでいました。</p>
+
+<h3 id="section-4">問題発見と解決方法の草案</h3>
+
+<p>そんな中、長老から<strong>「中小企業は未だに小口現金を扱っていて、管理がものすごく面倒である」</strong>という問題点を挙げて頂きました。
+これが出た時点で6割くらい勝ってたと思います。本当にありがとうございます！</p>
+
+<p>そこから、具体的にどんな点が煩雑なのか、どうすれば解決できそうかを考え、設計を詰めていきました。</p>
+
+<p>大まかに列挙すると、</p>
+
+<ul>
+  <li>中小企業（に限らないが）は、利用料が高い・管理が面倒などのため社員全員がコーポレートカードを持っているわけではない。</li>
+  <li>しかし法人での小口の支払いは多くある（宅配便の代引きなど）ため、現金を会社に置いておく必要がある。</li>
+  <li>他にも、交通費や外出時の突然の出費などで、個人が立て替えて、後で領収書を提出するケースは多い。</li>
+  <li>これらは現状の管理方法では、申請が面倒・申告漏れ・不正利用・事後承認が下りず自腹、などの問題が出てくる。</li>
+</ul>
+
+<p>（実際、ハッカソンに参加されていた方に聞いたところ、「溜めていた分をまとめて申請したら、会社のPLに影響するほどの額で怒られた、、」といった生々しい事例を聞いたりしました。）</p>
+
+<p>この問題に対しての僕らは、全てをデジタルで管理することで解決しようという方針で進み始めました。</p>
+
+<p>デジタル化することで、</p>
+
+<ul>
+  <li>与信管理も細かく設定できる</li>
+  <li>承認や建て替えの手続きもリアルタイムに行える</li>
+  <li>わざわざ領収書を提出する必要もなくなる。</li>
+  <li>銀行APIを使えば、クレジットすら必要なくなり、みんなで一つの法人口座を管理できる。</li>
+</ul>
+
+<p>など、みんながハッピーになりそうな気がしていました。</p>
+
+<p>しかし、この時点ではまだまだ詰めが甘かった！</p>
+
+<h3 id="section-5">解決方法のブラッシュアップ</h3>
+
+<p>当初、管理者が嬉しい点にばかりフォーカスしていて、「全ての決済をQRコード経由でやれば簡単にデジタル化できるよね」となどと話していましたが、</p>
+
+<p>デザイナさんから、
+「そんなUIではユーザーは使ってくれない。使ってくれなければやっぱり煩雑な管理は解決できない！」
+との指摘を頂きました。この時点で8割くらい勝ったでしょうか笑。本当にありがとうございます！（２回目）</p>
+
+<p>そこで次は、「いかに決済をシンプルに行えるか」を考えることにしました。</p>
+
+<p>僕らが考えた理想のフローとしては、</p>
+
+<ol>
+  <li>受け取り側が品目と金額を入力する（バーコードなどを読み取るでも可）。</li>
+  <li>受け取り側が支払い側に内容を通知する。</li>
+  <li>支払い側が内容を確認して承諾する。</li>
+</ol>
+
+<p>以上です。現金を使わなければ、<code>Line Pay</code>や<code>Hands Free</code>よろしく、3秒もあれば取引完了すると考えました。
+Line Payと違うのは、友達同士でなくても決済ができること。Hands freeと違うのは法人の管理者向けのソリューションであることです。</p>
+
+<h3 id="section-6">実現方法と設計</h3>
+
+<p>次に、どうやったらこれが実現できるかを考えます。
+コンサルさんがiBeaconの提案とその仕組みの説明をしてくれました。
+実現方法は以下のとおりです。</p>
+
+<ol>
+  <li>事前にアプリ側で固有のUUIDを設定しておきます。</li>
+  <li>受け取り側が明細を入力したら、サーバーに内容が保存され、その取引にIDが付与されます。</li>
+  <li>受け取り側がそのIDをiBeaconのmajor/minor信号を使ってAdvertise（発信）します。</li>
+  <li>支払い側は、先ほどのUUIDをsubscribeしていて、受け取り側の電波を受信します。</li>
+  <li>支払い側は受け取った取引IDをサーバーに問い合わせて、詳細を知ります。</li>
+  <li>取引内容に問題がなければ承認のアクションを取ります。</li>
+  <li>サーバーに承認リクエストが飛び、裏側で銀行APIを用いて振込が完了します。</li>
+  <li>サーバーは受け取り側へ、振込が完了したことを通知します。</li>
+</ol>
+
+<p>こうすることで、必要最小限の手間で取引が完了します。</p>
+
+<p>（本筋と逸れますが、承認のアクションは、ネタ感を出すためにボタンタップでなく端末を振って「チャリーン」と音をならす、ということにしました笑）</p>
+
+<h3 id="section-7">実装</h3>
+
+<p>ここから実装に移ります。
+今回は2日しかないので、デモで見せる部分（支払い）に注力しました。
+iBeaconなどを使う必要があることから、iOSアプリを作りました。</p>
+
+<ul>
+  <li>iBeaconの発信/受信</li>
+  <li>push通知と支払い詳細ページへのジャンプ</li>
+  <li>銀行APIのOAuth認証（APIを叩くのに必要）</li>
+  <li>端末を振った際の音出しと振込APIの実行</li>
+  <li>サーバーサイドでの取引完了通知と、iOS側でのそれの受信</li>
+  <li>取引後に残高が減っていることを確認する口座API</li>
+</ul>
+
+<p>ここでは、リーダーが急遽呼んだ助っ人さんがiOSに非常に詳しい方で、色々教えて頂きながら楽しく開発することが出来ました。
+彼が居なかったら実装間に合ってなかったと思います。本当にありがとうございます！（３回目）</p>
+
+<p>ちなみに、今回の成果物は以下のGithubリポジトリに置いてあります。
+Swift/Scalaと今風の実装になってるかと思います。
+（サーバー側は手を抜いたのでロクな処理書いてないけど）</p>
+
+<p>https://github.com/TechResidence/byob2016</p>
+
+<h3 id="section-8">成果発表</h3>
+
+<p>発表に向けて、リーダーさんは画面デザインを作ってくれ、コンサルさんはDemo用の動画編集をしてくれ、長老はプレゼン原稿を考えてくれました。
+おかげで僕と助っ人さんは開発に専念することが出来ました。本当にありがとうございます！（４回目）</p>
+
+<p>デモ動画（Petty Pay導入前/後の違いを表したもの）も良い出来でしたし、リーダーのプレゼンもバッチリでした！
+デモが見たい方は個別にお問い合わせ下さい。</p>
+
+<h3 id="section-9">まとめ</h3>
+
+<p>以上の経緯で、無事優勝することができました。
+本当にチームに恵まれて楽しむことができました。</p>
+
+<h2 id="section-10">（言わなかったけど）技術的な課題</h2>
+
+<p>ちなみに、今回の設計はかなり穴があります。</p>
+
+<p>まずは、iBeaconで固有のUUIDに対してadvertiseすると、アプリを入れている近くに入る人全員が通知を受け取ってしまうこと。
+人の分を支払ってくれるお人好しはいないでしょうが、どんな取引をしてるのかがバレてしまうし、何より通知がウザい。
+一応、iBeaconの発信/受信範囲を調整することで対応できるとは思ってますが、Bumpみたいな微妙さが残ります。</p>
+
+<p>また、iBeaconのmajor/minorで取引IDを表現すると書きましたが、これらはそれぞれ16ビット分しか表現できません。両方合わせても４Byte分で、とても取引IDを扱うには小さいです。
+これについては、新しい近距離通信用のプロトコルを作成しないと難しいのではと思っています。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">しばたこ</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-03-16T01:07:11+09:00" pubdate data-updated="true">Mar 16<span>th</span>, 2016</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/fintech/'>FinTech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  <a href="http://b.hatena.ne.jp/entry/http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/" data-via="uryyyyyyy" data-counturl="http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/09/block-chain-business/" title="Previous Post: block chainはビジネスに役立つか？">&laquo; block chainはビジネスに役立つか？</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>ゆっくりしていってね</p>
+  <p><a href=https://plus.google.com/u/0/+koukishibata/about?rel=author>Google+</a></p>
+</section>
+<section id="titles">
+  <a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた"><img id="logo" src="http://uryyyyyyy.shake-freek.com/images/hako_shiba_bigger.jpg" /></a>
+  <h1 id="site_title"><a href="http://uryyyyyyy.shake-freek.com" title="ジタバタしばた">ジタバタしばた</a></h1>
+  <h3 id="site_subtitle">subtitle</h3>
+</section>
+
+<section id="menu">
+  <ul>
+    <li><i class="fa fa-home fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com"> Home </a></li>
+    <li><i class="fa fa-calendar fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/blog/archives/"> Archives </a></li>
+    <li><i class="fa fa-user fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/about/"> About </a></li>
+    <li><i class="fa fa-rss fa-lg"></i><a href="http://uryyyyyyy.shake-freek.com/atom.xml"> Feed </a></li>
+  </ul>
+</section>
+
+<section id="social">
+  
+
+  
+
+  
+    <a href="" title="g+#koukishibata"><i class="fa fa-google-plus fa-2x"></i></a>
+  
+
+  
+    <a href="https://github.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-github fa-2x"></i></a>
+  
+
+  
+
+  
+    <a href="https://twitter.com/uryyyyyyy" title="uryyyyyyy"><i class="fa fa-twitter fa-2x"></i></a>
+  
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/03/16/mufg-fintech-2016/">Fintech Challenge 2016で優勝した！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/09/block-chain-business/">block chainはビジネスに役立つか？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/12/ubuntu-setup/">ubuntuの初期設定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/20/agile-samurai/">アジャイルサムライ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/18/djokovic-serve-to-win/">ジョコビッチの生まれ変わる食事</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Top Categories</h1>
+    <ul id="top-category-list"><li><a href='/blog/categories/book-review'>book_review (108)</a></li><li><a href='/blog/categories/past'>past (91)</a></li><li><a href='/blog/categories/works'>works (70)</a></li><li><a href='/blog/categories/life'>Life (40)</a></li><li><a href='/blog/categories/politics'>Politics (36)</a></li><li><a href='/blog/categories/media'>Media (33)</a></li><li><a href='/blog/categories/philosophy'>Philosophy (25)</a></li><li><a href='/blog/categories/ubuntu'>Ubuntu (14)</a></li><li><a href='/blog/categories/works'>Works (10)</a></li><li><a href='/blog/categories/technology'>Technology (8)</a></li><li><a href='/blog/categories/music'>Music (8)</a></li><li><a href='/blog/categories/design'>Design (8)</a></li><li><a href='/blog/categories/java'>Java (7)</a></li><li><a href='/blog/categories/psychology'>Psychology (6)</a></li><li><a href='/blog/categories/economics'>Economics (5)</a></li><li><a href='/blog/categories/religion'>Religion (5)</a></li><li><a href='/blog/categories/art'>Art (5)</a></li><li><a href='/blog/categories/psycology'>Psycology (4)</a></li><li><a href='/blog/categories/scala'>Scala (4)</a></li><li><a href='/blog/categories/sf'>SF (4)</a></li><li><a href='/blog/categories/agile'>Agile (4)</a></li><li><a href='/blog/categories/copyright'>Copyright (4)</a></li><li><a href='/blog/categories/node-js'>node.js (4)</a></li><li><a href='/blog/categories/economy'>Economy (3)</a></li><li><a href='/blog/categories/angularjs'>angularJS (3)</a></li><li><a href='/blog/categories/discussion'>Discussion (3)</a></li><li><a href='/blog/categories/functional'>Functional (3)</a></li><li><a href='/blog/categories/bookreview'>BookReview (3)</a></li><li><a href='/blog/categories/news'>News (3)</a></li><li><a href='/blog/categories/japan'>Japan (3)</a></li><li><a href='/blog/categories/other'>Other (3)</a></li><li><a href='/blog/categories/physics'>Physics (2)</a></li><li><a href='/blog/categories/guice'>Guice (2)</a></li><li><a href='/blog/categories/qiita'>Qiita (2)</a></li><li><a href='/blog/categories/angularjs'>AngularJS (2)</a></li><li><a href='/blog/categories/frp'>FRP (2)</a></li><li><a href='/blog/categories/quantum'>Quantum (2)</a></li><li><a href='/blog/categories/se'>SE (2)</a></li><li><a href='/blog/categories/business'>Business (2)</a></li><li><a href='/blog/categories/quality'>Quality (2)</a></li><li><a href='/blog/categories/grunt'>grunt (2)</a></li><li><a href='/blog/categories/docker'>Docker (2)</a></li><li><a href='/blog/categories/copyright'>CopyRight (2)</a></li><li><a href='/blog/categories/work'>Work (2)</a></li><li><a href='/blog/categories/docker'>docker (2)</a></li><li><a href='/blog/categories/jetty'>Jetty (2)</a></li><li><a href='/blog/categories/blog'>Blog (1)</a></li><li><a href='/blog/categories/amazon'>Amazon (1)</a></li><li><a href='/blog/categories/underscore-js'>underscore.js (1)</a></li><li><a href='/blog/categories/sample'>sample (1)</a></li></ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - しばたこ -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'uryyyyyyy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/';
+        var disqus_url = 'http://uryyyyyyy.shake-freek.com/blog/2016/03/16/mufg-fintech-2016/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
